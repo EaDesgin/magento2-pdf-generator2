@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Magestore.com license that is
+ * available through the world-wide-web at this URL:
+ * http://www.magestore.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Magestore
+ * @package     Magestore_Bannerslider
+ * @copyright   Copyright (c) 2012 Magestore (http://www.magestore.com/)
+ * @license     http://www.magestore.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    	<add id="Eadesigndev_Pdfgenerator::templates" title="Pdfgenerator" module="Eadesigndev_Pdfgenerator" sortOrder="10" resource="Eadesigndev_Pdfgenerator::templates" parent="Magento_Backend::content"/>
+        <add id="Eadesigndev_Pdfgenerator::template_list" title="Manage PDF templates" module="Eadesigndev_Pdfgenerator" sortOrder="10" parent="Eadesigndev_Pdfgenerator::templates" action="pdfgeneratoradmin/test" resource="Eadesigndev_Pdfgenerator::template_list"/>
+    </menu>
+</config>
