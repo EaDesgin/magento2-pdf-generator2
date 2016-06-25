@@ -2,7 +2,7 @@
   "name": "eadesignro/module-pdfgenerator",
   "description": "The best pdf generator for magento..",
   "type": "magento2-module",
-  "version": "1.0.4",
+  "version": "1.0.2",
   "license": [
     "OSL-3.0"
   ],
@@ -14,15 +14,15 @@
       "role": "Developer"
     }
   ],
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Eadesigndev/Pdfgenerator"
+      ]
+    ]
+  },
   "require": {
     "php": "~5.5.0|~5.6.0|~7.0.0"
-  },
-  "autoload": {
-    "files": [
-      "registration.php"
-    ],
-    "psr-4": {
-      "Eadesigndev\\Pdfgenerator\\": ""
-    }
   }
 }
