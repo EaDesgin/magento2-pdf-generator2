@@ -54,7 +54,7 @@ class Index extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Test
     {
         /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        $this->initPage($resultPage)->getConfig()->getTitle()->prepend(__('Pdf templates'));
+        $this->initPage($resultPage)->getConfig()->getTitle()->prepend(__('Pdf templates1'));
         return $resultPage;
     }
 }
