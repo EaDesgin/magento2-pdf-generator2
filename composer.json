@@ -1,6 +1,6 @@
 {
   "name": "eadesignro/module-pdfgenerator",
-  "description": "The best pdf generator for magento..",
+  "description": "The best pdf generator for magento.. (do not install this, is not a real module, yet)",
   "type": "magento2-module",
   "version": "1.0.5",
   "license": [
