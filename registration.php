@@ -13,7 +13,7 @@
  * to license@eadesign.ro so we can send you a copy immediately.
  *
  * @category    custom_ext_code
- * @copyright   Copyright (c) 2008-2015 EaDesign by Eco Active S.R.L.
+ * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 

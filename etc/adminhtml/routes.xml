@@ -14,13 +14,13 @@
  * to license@eadesign.ro so we can send you a copy immediately.
  *
  * @category    custom_ext_code
- * @copyright   Copyright (c) 2008-2015 EaDesign by Eco Active S.R.L.
+ * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="admin">
-        <route id="pdfgeneratoradmin" frontName="pdfgeneratoradmin">
+        <route id="pdfgenerator" frontName="pdfgenerator">
             <module name="Eadesigndev_Pdfgenerator" before="Magento_Backend"/>
         </route>
     </router>

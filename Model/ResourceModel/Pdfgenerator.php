@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * EaDesgin
  *
@@ -17,10 +16,19 @@
  * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
--->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
-    <menu>
-    	<add id="Eadesigndev_Pdfgenerator::templates" title="Pdfgenerator" module="Eadesigndev_Pdfgenerator" sortOrder="10" resource="Eadesigndev_Pdfgenerator::templates" parent="Magento_Backend::content"/>
-        <add id="Eadesigndev_Pdfgenerator::template_list" title="Manage PDF templates" module="Eadesigndev_Pdfgenerator" sortOrder="10" parent="Eadesigndev_Pdfgenerator::templates" action="pdfgenerator/templates" resource="Eadesigndev_Pdfgenerator::template_list"/>
-    </menu>
-</config>
+
+namespace Eadesigndev\Pdfgenerator\Model\ResourceModel;
+
+class Pdfgenerator extends \Magento\Framework\Model\ResourceModel\Db\AbstractDb
+{
+
+    /**
+     * Init resource model
+     * @return void
+     */
+    protected function _construct()
+    {
+        $this->_init('pdfgenerator','template_id');
+    }
+
+}
