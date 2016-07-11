@@ -23,18 +23,23 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml;
 
 abstract class Templates extends \Magento\Backend\App\Action
 {
+
+    CONST ADMIN_RESOURCE = 'Eadesigndev_Pdfgenerator::save';
     /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry = null;
+    protected $_coreRegistry;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      */
-    public function __construct(\Magento\Backend\App\Action\Context $context, \Magento\Framework\Registry $coreRegistry)
+    public function __construct(
+        \Magento\Backend\App\Action\Context $context,
+        \Magento\Framework\Registry $coreRegistry
+    )
     {
         $this->_coreRegistry = $coreRegistry;
         parent::__construct($context);
@@ -54,13 +59,13 @@ abstract class Templates extends \Magento\Backend\App\Action
         return $resultPage;
     }
 
-    /**
-     * Check the permission to run it
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return $this->_authorization->isAllowed('Eadesigndev_Pdfgenerator::templates');
-    }
+//    /**
+//     * Check the permission to run it
+//     *
+//     * @return boolean
+//     */
+//    protected function _isAllowed()
+//    {
+//        return $this->_authorization->isAllowed('Eadesigndev_Pdfgenerator::templates');
+//    }
 }

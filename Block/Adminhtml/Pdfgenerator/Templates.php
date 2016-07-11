@@ -45,4 +45,13 @@ class Templates extends \Magento\Backend\Block\Widget\Grid\Container
         );
     }
 
+    /**
+     * @param $resourceId
+     * @return bool
+     */
+    protected function _isAllowedAction($resourceId)
+    {
+        return $this->_authorization->isAllowed($resourceId);
+    }
+
 }

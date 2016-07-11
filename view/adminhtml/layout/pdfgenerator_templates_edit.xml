@@ -1,4 +1,5 @@
-<?php
+<?xml version="1.0"?>
+<!--
 /**
  * EaDesgin
  *
@@ -16,19 +17,12 @@
  * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
-namespace Eadesigndev\Pdfgenerator\Model;
-
-class Pdfgenerator extends \Magento\Framework\Model\AbstractModel
-{
-
-    /**
-     * Init resource model for the templates
-     * @return void
-     */
-    protected function _construct()
-    {
-        $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
-    }
-    
-}
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="pdfgenerator_template_form"/>
+        </referenceContainer>
+    </body>
+</page>

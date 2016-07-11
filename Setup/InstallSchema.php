@@ -28,7 +28,7 @@ use Magento\Framework\DB\Ddl\Table;
 class InstallSchema implements InstallSchemaInterface
 {
     /**
-     * Installs DB schema for a module
+     * Installs DB schema for the module
      *
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
@@ -49,8 +49,11 @@ class InstallSchema implements InstallSchemaInterface
                 ['identity' => true, 'nullable' => false, 'primary' => true],
                 'Template Id'
             )
+            ->addColumn('is_active', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '1'], 'Template active?')
             ->addColumn('template_name', Table::TYPE_TEXT, 100, ['nullable' => false], 'Template name')
-            ->addColumn('template_descrition', Table::TYPE_TEXT, 500, ['nullable' => false], 'Template description')
+            ->addColumn('template_description', Table::TYPE_TEXT, 500, ['nullable' => false], 'Template description')
+            ->addColumn('template_default', Table::TYPE_BOOLEAN, null, ['nullable' => false, 'default' => '0'], 'Template default')
+            ->addColumn('template_type', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '1'], 'Template type')
             ->addColumn('template_body', Table::TYPE_TEXT, '2M', [], 'Template body')
             ->addColumn('template_header', Table::TYPE_TEXT, '2M', [], 'Template header')
             ->addColumn('template_footer', Table::TYPE_TEXT, '2M', [], 'Template footer')
@@ -65,11 +68,8 @@ class InstallSchema implements InstallSchemaInterface
             ->addColumn('template_custom_l', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template left margin')
             ->addColumn('template_custom_r', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template right margin')
             ->addColumn('template_paper_ori', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '0'], 'Paper orientation')
-            ->addColumn('template_type', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '1'], 'Template type')
-            ->addColumn('template_default', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '1'], 'Template default')
-            ->addColumn('is_active', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '1'], 'Template active?')
-            ->addColumn('creation_time', Table::TYPE_DATETIME, null, ['nullable' => false], 'Creation Time')
-            ->addColumn('update_time', Table::TYPE_DATETIME, null, ['nullable' => false], 'Update Time')
+            ->addColumn('creation_time', Table::TYPE_TIMESTAMP, null, ['nullable' => false], 'Creation Time')
+            ->addColumn('update_time', Table::TYPE_TIMESTAMP, null, ['nullable' => false], 'Update Time')
             ->addIndex($installer->getIdxName('template_id', ['template_id']), ['template_id'])
             ->setComment('Eadesign PDF Generator Installer');
 

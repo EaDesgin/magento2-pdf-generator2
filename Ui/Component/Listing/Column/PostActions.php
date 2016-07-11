@@ -27,8 +27,8 @@ use Magento\Framework\UrlInterface;
 class PostActions extends Column
 {
     /** Url path */
-    const TEMPLATE_EDIT = 'template/edit';
-    const TEMPLATE_DELETE = 'template/delete';
+    const TEMPLATE_EDIT = 'pdfgenerator/templates/edit';
+    const TEMPLATE_DELETE = 'pdfgenerator/templates/delete';
 
     /** @var UrlInterface */
     protected $urlBuilder;

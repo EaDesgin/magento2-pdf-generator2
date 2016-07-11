@@ -17,18 +17,35 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-namespace Eadesigndev\Pdfgenerator\Model;
+namespace Eadesigndev\Pdfgenerator\Block\Adminhtml\Pdfgenerator\Edit;
 
-class Pdfgenerator extends \Magento\Framework\Model\AbstractModel
+use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
+
+/**
+ * Class BackButton
+ */
+class BackButton extends GenericButton implements ButtonProviderInterface
 {
+    /**
+     * @return array
+     */
+    public function getButtonData()
+    {
+        return [
+            'label' => __('Back'),
+            'on_click' => sprintf("location.href = '%s';", $this->getBackUrl()),
+            'class' => 'back',
+            'sort_order' => 10
+        ];
+    }
 
     /**
-     * Init resource model for the templates
-     * @return void
+     * Get URL for back (reset) button
+     *
+     * @return string
      */
-    protected function _construct()
+    public function getBackUrl()
     {
-        $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
+        return $this->getUrl('*/*/');
     }
-    
 }

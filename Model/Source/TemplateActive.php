@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EaDesgin
  *
@@ -17,18 +18,25 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-namespace Eadesigndev\Pdfgenerator\Model;
+namespace Eadesigndev\Pdfgenerator\Model\Source;
 
-class Pdfgenerator extends \Magento\Framework\Model\AbstractModel
+class TemplateActive extends \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource
 {
+    /**
+     * Statuses
+     */
+    const STATUS_ENABLED = 1;
+    const STATUS_DISABLED = 0;
 
     /**
-     * Init resource model for the templates
-     * @return void
+     * Prepare post's statuses.
+     *
+     * @return array
      */
-    protected function _construct()
+    public function getAvailable()
     {
-        $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
+        return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
     }
-    
+
+
 }

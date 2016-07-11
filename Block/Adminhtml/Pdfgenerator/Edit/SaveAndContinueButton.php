@@ -17,18 +17,30 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-namespace Eadesigndev\Pdfgenerator\Model;
+namespace Eadesigndev\Pdfgenerator\Block\Adminhtml\Pdfgenerator\Edit;
 
-class Pdfgenerator extends \Magento\Framework\Model\AbstractModel
+use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
+
+/**
+ * Class SaveAndContinueButton
+ */
+class SaveAndContinueButton extends GenericButton implements ButtonProviderInterface
 {
 
     /**
-     * Init resource model for the templates
-     * @return void
+     * @return array
      */
-    protected function _construct()
+    public function getButtonData()
     {
-        $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
+        return [
+            'label' => __('Save and Continue Edit'),
+            'class' => 'save',
+            'data_attribute' => [
+                'mage-init' => [
+                    'button' => ['event' => 'saveAndContinueEdit'],
+                ],
+            ],
+            'sort_order' => 80,
+        ];
     }
-    
 }

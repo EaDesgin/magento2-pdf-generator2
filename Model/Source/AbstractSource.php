@@ -20,24 +20,8 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Source;
 
-class IsActive implements \Magento\Framework\Data\OptionSourceInterface
+abstract class AbstractSource implements \Magento\Framework\Data\OptionSourceInterface
 {
-    /**
-     * Statuses
-     */
-    const STATUS_ENABLED = 1;
-    const STATUS_DISABLED = 0;
-
-    /**
-     * Prepare post's statuses.
-     *
-     * @return array
-     */
-    public function getAvailableStatuses()
-    {
-        return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
-    }
-
     /**
      * Get options
      *
@@ -46,7 +30,7 @@ class IsActive implements \Magento\Framework\Data\OptionSourceInterface
     public function toOptionArray()
     {
         $options[] = ['label' => '', 'value' => ''];
-        $availableOptions = $this->getAvailableStatuses();
+        $availableOptions = $this->getAvailable();
         foreach ($availableOptions as $key => $value) {
             $options[] = [
                 'label' => $value,
