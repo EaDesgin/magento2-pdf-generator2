@@ -88,7 +88,7 @@
                 <item name="config" xsi:type="array">
                     <item name="component" xsi:type="string">Magento_Ui/js/grid/search/search</item>
                     <item name="displayArea" xsi:type="string">dataGridFilters</item>
-                    <item name="provider" xsi:type="string">pdfgenerator_templates_listing.pdfgenerator_templates_listing_data_source</item>
+                    <item name="provider" xsi:type="string">pdfgenerator_templates_listing.eadesign_pdf_templates_data_source</item>
                     <item name="chipsProvider" xsi:type="string">pdfgenerator_templates_listing.pdfgenerator_templates_listing.listing_top.listing_filters_chips</item>
                     <item name="storageConfig" xsi:type="array">
                         <item name="provider" xsi:type="string">pdfgenerator_templates_listing.pdfgenerator_templates_listing.listing_top.bookmarks</item>
