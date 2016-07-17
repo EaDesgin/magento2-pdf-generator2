@@ -21,7 +21,6 @@ namespace Eadesigndev\Pdfgenerator\Model\ResourceModel;
 
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\Model\AbstractModel;
-use Magento\Store\Model\Store;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Stdlib\DateTime;
@@ -85,6 +84,23 @@ class Pdfgenerator extends AbstractDb
     {
         $this->_init('eadesign_pdf_templates', 'template_id');
     }
+
+    /**
+     * Perform operations after object load
+     *
+     * @param AbstractModel $object
+     * @return $this
+     */
+    protected function _afterLoad(AbstractModel $object)
+    {
+        if ($object->getId()) {
+            $stores = $this->lookupStoreIds($object->getId());
+            $object->setData('store_id', $stores);
+        }
+
+        return parent::_afterLoad($object);
+    }
+
 
     /**
      * Assign $template to store views

@@ -6,6 +6,16 @@
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <!--<preference for="Magento\Framework\Data\Form\Element\Editor" type="Eadesigndev\Pdfgenerator\Model\Wysiwyg\Editor" />-->
-
+    <type name="Magento\Variable\Model\Variable\Config">
+        <plugin name="change_variable_controller"
+                type="Eadesigndev\Pdfgenerator\Model\Plugin\Config"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\Invoice\View">
+        <plugin name="change_print_button_url"
+                type="Eadesigndev\Pdfgenerator\Model\Plugin\Printinvoice"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
 </config>

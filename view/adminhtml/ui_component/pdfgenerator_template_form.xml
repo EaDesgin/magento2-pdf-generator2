@@ -188,6 +188,14 @@
                 <item name="config" xsi:type="array">
                     <item name="label" xsi:type="string"/>
                     <item name="formElement" xsi:type="string">wysiwyg</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="files_browser_window_url" xsi:type="boolean">true</item>
+                        <item name="height" xsi:type="string">100px</item>
+                        <item name="toggle_button" xsi:type="boolean">true</item>
+                        <item name="add_variables" xsi:type="boolean">true</item>
+                        <item name="add_widgets" xsi:type="boolean">false</item>
+                        <item name="add_images" xsi:type="boolean">false</item>
+                    </item>
                     <item name="source" xsi:type="string">template</item>
                     <item name="wysiwyg" xsi:type="boolean">true</item>
                     <item name="dataScope" xsi:type="string">template_body</item>
