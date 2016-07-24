@@ -37,7 +37,7 @@ class Processor extends Template
     protected $designConfig;
 
     /**
-     * @var $area;
+     * @var $area ;
      */
     protected $area = 'frontend';
 
@@ -62,7 +62,6 @@ class Processor extends Template
         // Support theme fallback for email templates
         $isDesignApplied = $this->applyDesignConfig();
 
-//        print_r($this->getTemplate()->getData());
 
         $processor = $this->getTemplateFilter()
             ->setUseSessionInUrl(false)
@@ -70,7 +69,6 @@ class Processor extends Template
             ->setIsChildTemplate($this->isChildTemplate())
             ->setTemplateProcessor([$this, 'getTemplateContent']);
 
-        $this->area = 'frontend';
 
         $processor->setVariables($this->getVariables());
 
@@ -83,19 +81,10 @@ class Processor extends Template
         if ($isDesignApplied) {
             $this->cancelDesignConfig();
         }
+
         return $text;
     }
 
-    /**
-     * @return array
-     */
-    protected function getTemplateOptions()
-    {
-        return [
-            'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
-            'store' => $this->identityContainer->getStore()->getStoreId()
-        ];
-    }
 
     /**
      * Get design configuration data
@@ -104,9 +93,16 @@ class Processor extends Template
      */
     public function getDesignConfig()
     {
+
+        //todo look at the template design based on the select;
+
+
+        $templates = $this->getTemplate()->getData('store_id');
+        $store = $templates[0];
+
         if ($this->designConfig === null) {
             $this->designConfig = new DataObject(
-                ['area' => 'frontend', 'store' => 1]
+                ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => $store]
             );
         }
         return $this->designConfig;

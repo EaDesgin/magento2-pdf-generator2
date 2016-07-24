@@ -19,53 +19,78 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Invoice;
 
+use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Abstractpdf;
-use Magento\Sales\Model\Order\Email\Container\InvoiceIdentity;
-use Magento\Payment\Helper\Data as PaymentHelper;
-use Magento\Sales\Model\Order\Address\Renderer;
-use Eadesigndev\Pdfgenerator\Model\Template\Processor;
-
+use Eadesigndev\Pdfgenerator\Helper\Pdf;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Stdlib\DateTime\DateTime;
 
 class Printpdf extends Abstractpdf
 {
 
     /**
-     * @var IdentityInterface
+     * Authorization level of a basic admin session
+     *
+     * @see _isAllowed()
      */
-    protected $identityContainer;
+    const ADMIN_RESOURCE = 'Magento_Sales::sales_invoice';
 
     /**
-     * @var PaymentHelper
+     * @var
      */
-    protected $paymentHelper;
+    protected $_dateTime;
 
     /**
-     * @var TemplateFactory
+     * @var PdfgeneratorFactory
      */
-    private $processor;
+    protected $_pdfGenerator;
 
     /**
-     * @var Renderer
+     * @var Pdf
      */
-    protected $addressRenderer;
+    private $_helper;
 
+    /**
+     * @var \Magento\Framework\App\Response\Http\FileFactory
+     */
+    protected $_fileFactory;
+
+    /**
+     * @var \Magento\Backend\Model\View\Result\ForwardFactory
+     */
+    protected $resultForwardFactory;
+
+    /**
+     * Printpdf constructor.
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Email\Model\Template\Config $emailConfig
+     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     * @param Pdf $helper
+     * @param PdfgeneratorFactory $_pdfGenerator
+     * @param DateTime $_dateTime
+     * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
+     * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Email\Model\Template\Config $emailConfig,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
-        PaymentHelper $paymentHelper,
-        InvoiceIdentity $identityContainer,
-        Renderer $addressRenderer,
-        Processor $_templateFactory
+        Pdf $helper,
+        PdfgeneratorFactory $_pdfGenerator,
+        DateTime $_dateTime,
+        \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
+        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
 
     )
     {
-        $this->identityContainer = $identityContainer;
-        $this->processor = $_templateFactory;
-        $this->paymentHelper = $paymentHelper;
-        $this->addressRenderer = $addressRenderer;
+        $this->_fileFactory = $fileFactory;
+        $this->_helper = $helper;
         parent::__construct($context, $coreRegistry, $emailConfig, $resultJsonFactory);
+        $this->resultForwardFactory = $resultForwardFactory;
+        $this->_pdfGenerator = $_pdfGenerator;
+        $this->_dateTime = $_dateTime;
     }
 
 
@@ -74,74 +99,42 @@ class Printpdf extends Abstractpdf
 
         //TODO remove and add load by constructor;
 
-        $templateModel = $this->_objectManager->create('Eadesigndev\Pdfgenerator\Model\Pdfgenerator');
-        $templateModel->load(2);
+        $templateId = $this->getRequest()->getParam('template_id');
+        if (!$templateId) {
+            return $this->resultForwardFactory->create()->forward('noroute');
+        }
+
+        $templateModel = $this->_pdfGenerator->create()->load($templateId);
+        if (!$templateModel) {
+            return $this->resultForwardFactory->create()->forward('noroute');
+        }
 
         $invoiceId = $this->getRequest()->getParam('invoice_id');
         if (!$invoiceId) {
             return $this->resultForwardFactory->create()->forward('noroute');
         }
+
         $invoice = $this->_objectManager->create('Magento\Sales\Api\InvoiceRepositoryInterface')->get($invoiceId);
         if (!$invoice) {
             return $this->resultForwardFactory->create()->forward('noroute');
         }
 
-        $order = $invoice->getOrder();
+        $helper = $this->_helper;
 
-        $transport = [
-            'order' => $order,
-            'invoice' => $invoice,
-            'comment' => $invoice->getCustomerNoteNotify() ? $invoice->getCustomerNote() : '',
-            'billing' => $order->getBillingAddress(),
-            'payment_html' => $this->getPaymentHtml($order),
-            'store' => $order->getStore(),
-            'formattedShippingAddress' => $this->getFormattedShippingAddress($order),
-            'formattedBillingAddress' => $this->getFormattedBillingAddress($order)
-        ];
+        $helper->setInvoice($invoice);
+        $helper->setTemplate($templateModel);
 
-        $processor = $this->processor;
+        $pdfFileData = $helper->template2Pdf();
 
-        $processor->setVariables($transport);
-        $processor->setTemplate($templateModel);
+        $date = $this->_dateTime->date('Y-m-d_H-i-s');
 
-
-        $text = $processor->processTemplate();
-        echo $text;
-//        exit();
-    }
-
-    /**
-     * Return payment info block as html
-     *
-     * @param \Magento\Sales\Model\Order $order
-     * @return string
-     */
-    protected function getPaymentHtml(\Magento\Sales\Model\Order $order)
-    {
-        return $this->paymentHelper->getInfoBlockHtml(
-            $order->getPayment(),
-            $this->identityContainer->getStore()->getStoreId()
+        return $this->_fileFactory->create(
+            'invoice' . $date . '.pdf',
+            $pdfFileData,
+            DirectoryList::VAR_DIR,
+            'application/pdf'
         );
-    }
 
-    /**
-     * @param Order $order
-     * @return string|null
-     */
-    protected function getFormattedShippingAddress($order)
-    {
-        return $order->getIsVirtual()
-            ? null
-            : $this->addressRenderer->format($order->getShippingAddress(), 'html');
-    }
-
-    /**
-     * @param Order $order
-     * @return string|null
-     */
-    protected function getFormattedBillingAddress($order)
-    {
-        return $this->addressRenderer->format($order->getBillingAddress(), 'html');
     }
 
 

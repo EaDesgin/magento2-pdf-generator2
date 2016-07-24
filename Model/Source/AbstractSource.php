@@ -22,6 +22,12 @@ namespace Eadesigndev\Pdfgenerator\Model\Source;
 
 abstract class AbstractSource implements \Magento\Framework\Data\OptionSourceInterface
 {
+
+    /**
+     * Statuses
+     */
+    const IS_DEFAULT = 1;
+
     /**
      * Get options
      *
