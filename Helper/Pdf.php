@@ -70,8 +70,6 @@ class Pdf extends AbstractHelper
     /**
      * Pdf constructor.
      * @param Context $context
-     * @param Eapdf $_mPDF
-     * @param Processor $_processor
      * @param Renderer $addressRenderer
      * @param PaymentHelper $paymentHelper
      * @param InvoiceIdentity $identityContainer
@@ -79,7 +77,6 @@ class Pdf extends AbstractHelper
      */
     public function __construct(
         Context $context,
-        Processor $_processor,
         Renderer $addressRenderer,
         PaymentHelper $paymentHelper,
         InvoiceIdentity $identityContainer,
