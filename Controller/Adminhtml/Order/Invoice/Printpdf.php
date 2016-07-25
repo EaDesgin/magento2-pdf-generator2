@@ -97,8 +97,6 @@ class Printpdf extends Abstractpdf
     public function execute()
     {
 
-        //TODO remove and add load by constructor;
-
         $templateId = $this->getRequest()->getParam('template_id');
         if (!$templateId) {
             return $this->resultForwardFactory->create()->forward('noroute');
@@ -128,9 +126,11 @@ class Printpdf extends Abstractpdf
 
         $date = $this->_dateTime->date('Y-m-d_H-i-s');
 
+        $fileName = $pdfFileData['filename'] . $date . '.pdf';
+
         return $this->_fileFactory->create(
-            'invoice' . $date . '.pdf',
-            $pdfFileData,
+            $fileName,
+            $pdfFileData['filestream'],
             DirectoryList::VAR_DIR,
             'application/pdf'
         );

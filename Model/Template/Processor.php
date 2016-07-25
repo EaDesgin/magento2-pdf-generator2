@@ -41,7 +41,6 @@ class Processor extends Template
      */
     protected $area = 'frontend';
 
-
     /**
      * @return mixed
      * get the pdf template body
@@ -49,6 +48,30 @@ class Processor extends Template
     public function getTemplateBody()
     {
         return $this->getTemplate()->getTemplateBody();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplateHeader()
+    {
+        return $this->getTemplate()->getTemplateHeader();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplateFooter()
+    {
+        return $this->getTemplate()->getTemplateFooter();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplateFileName()
+    {
+        return $this->getTemplate()->getTemplateFileName();
     }
 
     /**
@@ -73,18 +96,47 @@ class Processor extends Template
         $processor->setVariables($this->getVariables());
 
         $this->setUseAbsoluteLinks(true);
-        $text = $processor
-            ->setStoreId(1)
-            ->setDesignParams(array(0))
-            ->filter(__($this->getTemplateBody()));
+
+
+        $html = $this->html($processor);
 
         if ($isDesignApplied) {
             $this->cancelDesignConfig();
         }
 
-        return $text;
+        return $html;
     }
 
+    /**
+     * @param $processor
+     * @param $area
+     * @return mixed
+     */
+    private function processArea($processor, $area)
+    {
+        $textProcessor = $processor
+            ->setStoreId(1)
+            ->setDesignParams(array(0))
+            ->filter(__($area));
+
+        return $textProcessor;
+    }
+
+    /**
+     * @param $processor
+     * @return array
+     */
+    private function html($processor)
+    {
+        $html = [
+            'body' => $this->processArea($processor, $this->getTemplateBody()),
+            'header' => $this->processArea($processor, $this->getTemplateHeader()),
+            'footer' => $this->processArea($processor, $this->getTemplateFooter()),
+            'filename' => $this->processArea($processor, $this->getTemplateFileName()),
+        ];
+
+        return $html;
+    }
 
     /**
      * Get design configuration data
@@ -93,9 +145,6 @@ class Processor extends Template
      */
     public function getDesignConfig()
     {
-
-        //todo look at the template design based on the select;
-
 
         $templates = $this->getTemplate()->getData('store_id');
         $store = $templates[0];
@@ -107,5 +156,6 @@ class Processor extends Template
         }
         return $this->designConfig;
     }
+
 
 }

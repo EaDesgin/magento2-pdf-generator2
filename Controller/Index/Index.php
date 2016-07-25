@@ -41,29 +41,29 @@ abstract class Index extends \Magento\Framework\App\Action\Action
 
     public function execute()
     {
-        $resultPageFactory = $this->resultPageFactory->create();
-
-        exit('test');
-        // Add page title
-        $resultPageFactory->getConfig()->getTitle()->set(__('Example module'));
-
-        // Add breadcrumb
-        /** @var \Magento\Theme\Block\Html\Breadcrumbs */
-        $breadcrumbs = $resultPageFactory->getLayout()->getBlock('breadcrumbs');
-        $breadcrumbs->addCrumb('home',
-            [
-                'label' => __('Home'),
-                'title' => __('Home'),
-                'link' => $this->_url->getUrl('')
-            ]
-        );
-        $breadcrumbs->addCrumb('tutorial_example',
-            [
-                'label' => __('Example'),
-                'title' => __('Example')
-            ]
-        );
-
-        return $resultPageFactory;
+        //todo add a print invoice for the user account prin link
+//        $resultPageFactory = $this->resultPageFactory->create();
+//
+//        // Add page title
+//        $resultPageFactory->getConfig()->getTitle()->set(__('Example module'));
+//
+//        // Add breadcrumb
+//        /** @var \Magento\Theme\Block\Html\Breadcrumbs */
+//        $breadcrumbs = $resultPageFactory->getLayout()->getBlock('breadcrumbs');
+//        $breadcrumbs->addCrumb('home',
+//            [
+//                'label' => __('Home'),
+//                'title' => __('Home'),
+//                'link' => $this->_url->getUrl('')
+//            ]
+//        );
+//        $breadcrumbs->addCrumb('tutorial_example',
+//            [
+//                'label' => __('Example'),
+//                'title' => __('Example')
+//            ]
+//        );
+//
+//        return $resultPageFactory;
     }
 }

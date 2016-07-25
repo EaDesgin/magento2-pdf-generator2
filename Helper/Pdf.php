@@ -28,13 +28,34 @@ use Magento\Framework\App\Helper\AbstractHelper;
 
 class Pdf extends AbstractHelper
 {
-    CONST PAPER_ORI = [
+    /**
+     * Paper orientation
+     */
+    const PAPER_ORI = [
         1 => 'P',
         2 => 'L'
     ];
 
+    /**
+     * Paper size
+     */
+    const PAPER_SIZE = [
+        1 => 'A4-',
+        2 => 'A3-',
+        3 => 'A5-',
+        4 => 'A6-',
+        5 => 'LETTER-',
+        6 => 'LEGAL-'
+    ];
+
+    /**
+     * @var invoice;
+     */
     protected $_invoice;
 
+    /**
+     * @var template
+     */
     protected $_template;
 
     /**
@@ -91,19 +112,29 @@ class Pdf extends AbstractHelper
         parent::__construct($context);
     }
 
+    /**
+     * @param \Magento\Sales\Model\Order\Invoice $invoice
+     * @return $this
+     */
     public function setInvoice(\Magento\Sales\Model\Order\Invoice $invoice)
     {
         $this->_invoice = $invoice;
         return $this;
     }
 
+    /**
+     * @param \Eadesigndev\Pdfgenerator\Model\Pdfgenerator $template
+     * @return $this
+     */
     public function setTemplate(\Eadesigndev\Pdfgenerator\Model\Pdfgenerator $template)
     {
         $this->_template = $template;
         return $this;
     }
 
-
+    /**
+     * @return array
+     */
     public function template2Pdf()
     {
 
@@ -111,21 +142,33 @@ class Pdf extends AbstractHelper
         $templateModel = $this->_template;
         $order = $invoice->getOrder();
 
-        $html = $this->_transport($order, $invoice, $templateModel);
+        $parts = $this->_transport($order, $invoice, $templateModel);
 
-        return $this->_eapdfSettings($html, $templateModel);
+        $applySettings = $this->_eapdfSettings($parts, $templateModel);
+
+        $fileParts = [
+            'filestream' => $applySettings,
+            'filename' => $parts['filename']
+        ];
+
+        return $fileParts;
     }
 
     /**
-     * @param $html
+     * @param $parts
+     * @param $templateModel
      * @return string
      */
-    private function _eapdfSettings($html, $templateModel)
+    private function _eapdfSettings($parts, $templateModel)
     {
+
         if (!$templateModel->getTemplateCustomForm()) {
             $pdf = new \mPDF(
                 $mode = '',
-                $format = 'A4',
+                $format = $this->paperFormat(
+                    $templateModel->getTemplatePaperForm(),
+                    $templateModel->getTemplatePaperOri()
+                ),
                 $default_font_size = 0,
                 $default_font = '',
                 $mgl = $templateModel->getTemplateCustomL(),
@@ -133,8 +176,7 @@ class Pdf extends AbstractHelper
                 $mgt = $templateModel->getTemplateCustomT(),
                 $mgb = $templateModel->getTemplateCustomB(),
                 $mgh = 9,
-                $mgf = 9,
-                $orientation = 'L'
+                $mgf = 9
             );
         }
 
@@ -149,11 +191,36 @@ class Pdf extends AbstractHelper
             );
         }
 
+        $pdf->SetHTMLHeader($parts['header']);
+        $pdf->SetHTMLFooter($parts['footer']);
 
-        $pdf->WriteHTML($html);
+        $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
+
+        $pdf->WriteHTML($parts['body']);
         $pdfToOutput = $pdf->Output('', 'S');
 
         return $pdfToOutput;
+    }
+
+    /**
+     * Get the format and orientation, ex: A4-L
+     * @param $form
+     * @param $ori
+     * @return string
+     */
+    private function paperFormat($form, $ori)
+    {
+
+        $size = self::PAPER_SIZE;
+        $oris = self::PAPER_ORI;
+
+        if ($ori == \Eadesigndev\Pdfgenerator\Model\Source\TemplatePaperOrientation::TEMAPLATE_PAPER_PORTRAIT) {
+            return str_replace('-','', $size[$form]);
+        }
+
+        $format = $size[$form] . $oris[$ori];
+
+        return $format;
     }
 
     /**
@@ -181,8 +248,9 @@ class Pdf extends AbstractHelper
         $processor->setTemplate($templateModel);
 
 
-        $text = $processor->processTemplate();
-        return $text;
+        $parts = $processor->processTemplate();
+
+        return $parts;
     }
 
     /**
