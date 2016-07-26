@@ -20,7 +20,7 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-    	<add id="Eadesigndev_Pdfgenerator::templates" title="Pdfgenerator" module="Eadesigndev_Pdfgenerator" sortOrder="10" resource="Eadesigndev_Pdfgenerator::templates" parent="Magento_Backend::content"/>
-        <add id="Eadesigndev_Pdfgenerator::template_list" title="Manage PDF templates" module="Eadesigndev_Pdfgenerator" sortOrder="10" parent="Eadesigndev_Pdfgenerator::templates" action="pdfgenerator/templates" resource="Eadesigndev_Pdfgenerator::template_list"/>
+    	<add id="Eadesigndev_Pdfgenerator::templates" title="EaDesign Pdfgenerator" module="Eadesigndev_Pdfgenerator" sortOrder="10" resource="Eadesigndev_Pdfgenerator::templates" parent="Magento_Backend::content"/>
+        <add id="Eadesigndev_Pdfgenerator::template_list" title="Manage PDF Templates" module="Eadesigndev_Pdfgenerator" sortOrder="10" parent="Eadesigndev_Pdfgenerator::templates" action="pdfgenerator/templates" resource="Eadesigndev_Pdfgenerator::templates"/>
     </menu>
 </config>

@@ -19,7 +19,6 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Invoice;
 
-use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Abstractpdf;
 use Eadesigndev\Pdfgenerator\Helper\Pdf;
 use Magento\Framework\App\Filesystem\DirectoryList;
@@ -41,14 +40,9 @@ class Printpdf extends Abstractpdf
     protected $_dateTime;
 
     /**
-     * @var PdfgeneratorFactory
-     */
-    protected $_pdfGenerator;
-
-    /**
      * @var Pdf
      */
-    private $_helper;
+    private $helper;
 
     /**
      * @var \Magento\Framework\App\Response\Http\FileFactory
@@ -67,7 +61,6 @@ class Printpdf extends Abstractpdf
      * @param \Magento\Email\Model\Template\Config $emailConfig
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      * @param Pdf $helper
-     * @param PdfgeneratorFactory $_pdfGenerator
      * @param DateTime $_dateTime
      * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
      * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
@@ -78,7 +71,6 @@ class Printpdf extends Abstractpdf
         \Magento\Email\Model\Template\Config $emailConfig,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         Pdf $helper,
-        PdfgeneratorFactory $_pdfGenerator,
         DateTime $_dateTime,
         \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
         \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
@@ -86,14 +78,16 @@ class Printpdf extends Abstractpdf
     )
     {
         $this->_fileFactory = $fileFactory;
-        $this->_helper = $helper;
+        $this->helper = $helper;
         parent::__construct($context, $coreRegistry, $emailConfig, $resultJsonFactory);
         $this->resultForwardFactory = $resultForwardFactory;
-        $this->_pdfGenerator = $_pdfGenerator;
         $this->_dateTime = $_dateTime;
     }
 
 
+    /**
+     * @return \Magento\Framework\App\ResponseInterface
+     */
     public function execute()
     {
 
@@ -102,7 +96,7 @@ class Printpdf extends Abstractpdf
             return $this->resultForwardFactory->create()->forward('noroute');
         }
 
-        $templateModel = $this->_pdfGenerator->create()->load($templateId);
+        $templateModel = $this->_objectManager->create('Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface')->getById($templateId);
         if (!$templateModel) {
             return $this->resultForwardFactory->create()->forward('noroute');
         }
@@ -117,7 +111,7 @@ class Printpdf extends Abstractpdf
             return $this->resultForwardFactory->create()->forward('noroute');
         }
 
-        $helper = $this->_helper;
+        $helper = $this->helper;
 
         $helper->setInvoice($invoice);
         $helper->setTemplate($templateModel);
@@ -136,6 +130,5 @@ class Printpdf extends Abstractpdf
         );
 
     }
-
 
 }

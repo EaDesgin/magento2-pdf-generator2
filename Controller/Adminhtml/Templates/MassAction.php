@@ -54,4 +54,14 @@ abstract class MassAction  extends \Magento\Backend\App\Action
         parent::__construct($context);
     }
 
+    /**
+     * Check the permission to run it
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_SAVE);
+    }
+
 }

@@ -29,6 +29,11 @@ use Magento\Framework\Registry;
 class GenericButton
 {
     /**
+     * @var \Magento\Framework\AuthorizationInterface
+     */
+    protected $_authorization;
+
+    /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
@@ -49,6 +54,7 @@ class GenericButton
     {
         $this->_coreRegistry = $registry;
         $this->context = $context;
+        $this->_authorization = $context->getAuthorization();
     }
 
     /**
@@ -75,5 +81,16 @@ class GenericButton
     public function getUrl($route = '', $params = [])
     {
         return $this->context->getUrlBuilder()->getUrl($route, $params);
+    }
+
+    /**
+     * Check whether is allowed action
+     *
+     * @param string $resourceId
+     * @return bool
+     */
+    protected function _isAllowedAction($resourceId)
+    {
+        return $this->_authorization->isAllowed($resourceId);
     }
 }

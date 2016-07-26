@@ -42,7 +42,7 @@ class MassDelete  extends MassAction
             $item->delete();
         }
 
-        $this->messageManager->addSuccess(__('A total of %1 record(s) have been deleted.', $collectionSize));
+        $this->messageManager->addSuccessMessage(__('A total of %1 record(s) have been deleted.', $collectionSize));
 
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);

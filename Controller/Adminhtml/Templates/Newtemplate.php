@@ -43,11 +43,13 @@ class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templat
     }
 
     /**
-     * {@inheritdoc}
+     * Check the permission to run it
+     *
+     * @return boolean
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed('Eadesigndev_Pdfgenerator::save');
+        return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);
     }
 
     /**

@@ -19,7 +19,7 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order;
 
-use Magento\Framework\App\Action\Action;
+use \Magento\Backend\App\Action;
 
 
 abstract class Abstractpdf extends Action

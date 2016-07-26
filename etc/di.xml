@@ -20,16 +20,8 @@
 -->
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Eadesigndev\Pdfgenerator\Api\Data\Templatesinterface" type="Eadesigndev\Pdfgenerator\Model\Pdfgenerator" />
-
-    <!--<preference for="Magento\Cms\Model\Wysiwyg\Config" type="Eadesigndev\Pdfgenerator\Model\Wysiwyg\Config" />-->
-    <!--<preference for="Magento\Variable\Model\Variable\Config" type="Eadesigndev\Pdfgenerator\Model\Wysiwyg\Variable\Config" />-->
-
-    <!--<type name="Magento\Framework\Data\Form\Element">-->
-        <!--<arguments>-->
-            <!--<argument name="object1" xsi:type="object">Eadesigndev\Pdfgenerator\Model\Wysiwyg\Config</argument>-->
-        <!--</arguments>-->
-    <!--</type>-->
+    <preference for="Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface" type="Eadesigndev\Pdfgenerator\Model\Pdfgenerator" />
+    <preference for="Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface" type="Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository" />
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
@@ -61,7 +53,4 @@
             <argument name="resourceModel" xsi:type="string">Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator</argument>
         </arguments>
     </virtualType>
-
-
-
 </config>

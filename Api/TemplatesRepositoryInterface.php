@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * EaDesgin
  *
@@ -17,16 +16,36 @@
  * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
--->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
-    <acl>
-        <resources>
-            <resource id="Magento_Backend::admin">
-                <resource id="Eadesigndev_Pdfgenerator::templates" title="Pdfgenrator" sortOrder="10">
 
-                </resource>
-            </resource>
-        </resources>
-    </acl>
-</config>
+namespace Eadesigndev\Pdfgenerator\Api;
+
+use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface;
+
+interface TemplatesRepositoryInterface
+{
+
+    /**
+     * @param TemplatesInterface $templates
+     * @return mixed
+     */
+    public function save(TemplatesInterface $templates);
+
+    /**
+     * @param $value the template id
+     * @return mixed
+     */
+    public function getById($value);
+
+    /**
+     * @param TemplatesInterface $templates
+     * @return mixed
+     */
+    public function delete(TemplatesInterface $templates);
+
+    /**
+     * @param $value the template id
+     * @return mixed
+     */
+    public function deleteById($value);
+
+}

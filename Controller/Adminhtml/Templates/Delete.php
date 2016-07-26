@@ -22,18 +22,34 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Backend\App\Action;
 use Magento\TestFramework\ErrorLog\Logger;
 
+use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
+
+
 class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 {
 
-    CONST ADMIN_RESOURCE = 'Eadesigndev_Pdfgenerator::delete';
+    /**
+     * @var \Magento\Framework\View\Result\PageFactory
+     */
+    protected $resultPageFactory;
 
     /**
-     * {@inheritdoc}
+     * @var TemplateRepository
      */
-    protected function _isAllowed()
+    protected $templateRepository;
+
+    public function __construct(
+        Action\Context $context,
+        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        \Magento\Framework\Registry $registry,
+        TemplateRepository $templateRepository
+    )
     {
-        return $this->_authorization->isAllowed(self::ADMIN_RESOURCE);
+        $this->resultPageFactory = $resultPageFactory;
+        $this->templateRepository = $templateRepository;
+        parent::__construct($context, $registry);
     }
+
 
     /**
      * Delete action
@@ -47,17 +63,25 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($id) {
             try {
-                $model = $this->_objectManager->create('Eadesigndev\Pdfgenerator\Model\Pdfgenerator');
-                $model->load($id);
-                $model->delete();
-                $this->messageManager->addSuccess(__('The template has been deleted.'));
+                $this->templateRepository->deleteById($id);
+                $this->messageManager->addSuccessMessage(__('The template has been deleted.'));
                 return $resultRedirect->setPath('*/*/');
             } catch (\Exception $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
                 return $resultRedirect->setPath('*/*/edit', ['template_id' => $id]);
             }
         }
-        $this->messageManager->addError(__('We can\'t find a post to delete.'));
+        $this->messageManager->addErrorMessage(__('We can\'t find a post to delete.'));
         return $resultRedirect->setPath('*/*/');
+    }
+
+    /**
+     * Check the permission to run it
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_SAVE);
     }
 }

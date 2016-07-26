@@ -23,6 +23,8 @@ use Magento\Backend\App\Action;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Eadesigndev\Pdfgenerator\Model\Source\TemplateActive;
+use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
+use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 
 class Save extends \Magento\Backend\App\Action
 {
@@ -44,18 +46,35 @@ class Save extends \Magento\Backend\App\Action
     protected $dataPersistor;
 
     /**
+     * @var TemplateRepository
+     */
+    protected $templateRepository;
+
+    /**
+     * @var PdfgeneratorFactory
+     */
+    protected $pdfgeneratorFactory;
+
+    /**
+     * Save constructor.
      * @param Action\Context $context
      * @param PostDataProcessor $dataProcessor
      * @param DataPersistorInterface $dataPersistor
+     * @param TemplateRepository $templateRepository
+     * @param PdfgeneratorFactory $pdfgeneratorFactory
      */
     public function __construct(
         Action\Context $context,
         PostDataProcessor $dataProcessor,
-        DataPersistorInterface $dataPersistor
+        DataPersistorInterface $dataPersistor,
+        TemplateRepository $templateRepository,
+        PdfgeneratorFactory $pdfgeneratorFactory
     )
     {
         $this->dataProcessor = $dataProcessor;
         $this->dataPersistor = $dataPersistor;
+        $this->templateRepository = $templateRepository;
+        $this->pdfgeneratorFactory = $pdfgeneratorFactory;
         parent::__construct($context);
     }
 
@@ -80,42 +99,48 @@ class Save extends \Magento\Backend\App\Action
             }
 
             /** @var \Eadesigndev\Pdfgenerator\Model\Pdfgenerator $model */
-            $model = $this->_objectManager->create('Eadesigndev\Pdfgenerator\Model\Pdfgenerator');
 
             $id = $this->getRequest()->getParam('template_id');
             if ($id) {
-                $model->load($id);
+                $model = $this->templateRepository->getById($id);
+            } else {
+                unset($data['template_id']);
+                $model = $this->pdfgeneratorFactory->create();
             }
 
             $model->setData($data);
-
-            $this->_eventManager->dispatch(
-                'pdfgenerator_template_prepare_save',
-                ['template' => $model, 'request' => $this->getRequest()]
-            );
 
             if (!$this->dataProcessor->validate($data)) {
                 return $resultRedirect->setPath('*/*/edit', ['template_id' => $model->getTemplateId(), '_current' => true]);
             }
 
             try {
-
-                $model->save();
-                $this->messageManager->addSuccess(__('You saved the template.'));
+                $this->templateRepository->save($model);
+                $this->messageManager->addSuccessMessage(__('You saved the template.'));
                 $this->dataPersistor->clear('pdfgenerator_template');
                 if ($this->getRequest()->getParam('back')) {
                     return $resultRedirect->setPath('*/*/edit', ['template_id' => $model->getTemplateId(), '_current' => true]);
                 }
                 return $resultRedirect->setPath('*/*/');
             } catch (LocalizedException $e) {
-                $this->messageManager->addError($e->getMessage());
+                $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
-                $this->messageManager->addException($e, __('Something went wrong while saving the template.'));
+                $this->messageManager->addExceptionMessage($e->getMessage(), __('Something went wrong while saving the template.'));
             }
 
             $this->dataPersistor->set('pdfgenerator_template', $data);
             return $resultRedirect->setPath('*/*/edit', ['template_id' => $this->getRequest()->getParam('template_id')]);
         }
         return $resultRedirect->setPath('*/*/');
+    }
+
+    /**
+     * Check the permission to run it
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW);
     }
 }

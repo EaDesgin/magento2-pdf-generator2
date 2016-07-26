@@ -13,6 +13,7 @@ class Template extends Action
 {
 
     CONST INVOICE_TMEPLTE_ID = 'sales_email_invoice_template';
+    CONST ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
 
     private $_coreRegistry;
     /**
@@ -107,5 +108,15 @@ class Template extends Action
             $this->_coreRegistry->register('current_email_template', $model);
         }
         return $model;
+    }
+
+    /**
+     * Check the permission to run it
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW);
     }
 }

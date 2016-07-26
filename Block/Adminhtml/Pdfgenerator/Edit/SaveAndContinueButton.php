@@ -32,15 +32,17 @@ class SaveAndContinueButton extends GenericButton implements ButtonProviderInter
      */
     public function getButtonData()
     {
-        return [
-            'label' => __('Save and Continue Edit'),
-            'class' => 'save',
-            'data_attribute' => [
-                'mage-init' => [
-                    'button' => ['event' => 'saveAndContinueEdit'],
+        if ($this->_isAllowedAction(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_SAVE)) {
+            return [
+                'label' => __('Save and Continue Edit'),
+                'class' => 'save',
+                'data_attribute' => [
+                    'mage-init' => [
+                        'button' => ['event' => 'saveAndContinueEdit'],
+                    ],
                 ],
-            ],
-            'sort_order' => 80,
-        ];
+                'sort_order' => 80,
+            ];
+        }
     }
 }

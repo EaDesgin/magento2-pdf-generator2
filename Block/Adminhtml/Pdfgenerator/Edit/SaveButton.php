@@ -31,15 +31,17 @@ class SaveButton extends GenericButton implements ButtonProviderInterface
      */
     public function getButtonData()
     {
-        return [
-            'label' => __('Save Template'),
-            'class' => 'save primary',
-            'data_attribute' => [
-                'mage-init' => ['button' => ['event' => 'save']],
-                'form-role' => 'save',
-            ],
-            'sort_order' => 90,
-        ];
+        if ($this->_isAllowedAction(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_SAVE)) {
+            return [
+                'label' => __('Save Template'),
+                'class' => 'save primary',
+                'data_attribute' => [
+                    'mage-init' => ['button' => ['event' => 'save']],
+                    'form-role' => 'save',
+                ],
+                'sort_order' => 90,
+            ];
+        }
     }
     
 }

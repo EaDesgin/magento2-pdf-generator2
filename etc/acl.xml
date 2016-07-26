@@ -1,4 +1,5 @@
-<?php
+<?xml version="1.0"?>
+<!--
 /**
  * EaDesgin
  *
@@ -16,22 +17,16 @@
  * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
-
-namespace Eadesigndev\Pdfgenerator\Model;
-
-use Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface;
-use Magento\Framework\Model\AbstractModel;
-
-class Pdfgenerator extends AbstractModel implements TemplatesInterface
-{
-
-    /**
-     * Init resource model for the templates
-     * @return void
-     */
-    protected function _construct()
-    {
-        $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
-    }
-    
-}
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Eadesigndev_Pdfgenerator::templates" title="Pdf Generator">
+                    <resource id="Eadesigndev_Pdfgenerator::save" title="Save and delete templates"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

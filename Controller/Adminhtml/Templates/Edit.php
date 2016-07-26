@@ -20,6 +20,8 @@
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 use Magento\Backend\App\Action;
+use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
+
 
 class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 {
@@ -36,16 +38,25 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     protected $resultPageFactory;
 
     /**
+     * @var TemplateRepository
+     */
+    protected $templateRepository;
+
+    /**
+     * Edit constructor.
      * @param Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param \Magento\Framework\Registry $registry
+     * @param TemplateRepository $templateRepository
      */
     public function __construct(
         Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Registry $registry
+        \Magento\Framework\Registry $registry,
+        TemplateRepository $templateRepository
     ) {
         $this->resultPageFactory = $resultPageFactory;
+        $this->templateRepository = $templateRepository;
         parent::__construct($context,$registry);
     }
 
@@ -64,8 +75,7 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
      */
     protected function _initAction()
     {
-        // load layout, set active menu and breadcrumbs
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
+
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Eadesigndev_Pdfgenerator::template_list')
             ->addBreadcrumb(__('PDF Template'), __('PDF Template'))
@@ -84,12 +94,12 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     {
 
         $id = $this->getRequest()->getParam('template_id');
-        $model = $this->_objectManager->create('Eadesigndev\Pdfgenerator\Model\Pdfgenerator');
 
         if ($id) {
-            $model->load($id);
+            $model = $this->templateRepository->getById($id);
+
             if (!$model->getId()) {
-                $this->messageManager->addError(__('This post no longer exists.'));
+                $this->messageManager->addErrorMessage(__('This post no longer exists.'));
                 /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
 
@@ -104,7 +114,6 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 
         $this->_coreRegistry->register('pdfgenerator_template', $model);
 
-        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_initAction();
         $resultPage->addBreadcrumb(
             $id ? __('Edit Template') : __('New Template'),

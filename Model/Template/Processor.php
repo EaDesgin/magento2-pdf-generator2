@@ -30,16 +30,16 @@ class Processor extends Template
 {
 
     /**
+     * @var store id;
+     */
+    private $storeId;
+    /**
      * Configuration of design package for template
      *
      * @var DataObject
      */
     protected $designConfig;
 
-    /**
-     * @var $area ;
-     */
-    protected $area = 'frontend';
 
     /**
      * @return mixed
@@ -94,10 +94,7 @@ class Processor extends Template
 
 
         $processor->setVariables($this->getVariables());
-
         $this->setUseAbsoluteLinks(true);
-
-
         $html = $this->html($processor);
 
         if ($isDesignApplied) {
@@ -115,8 +112,8 @@ class Processor extends Template
     private function processArea($processor, $area)
     {
         $textProcessor = $processor
-            ->setStoreId(1)
-            ->setDesignParams(array(0))
+            ->setStoreId($this->storeId)
+            ->setDesignParams([0])
             ->filter(__($area));
 
         return $textProcessor;
@@ -145,13 +142,12 @@ class Processor extends Template
      */
     public function getDesignConfig()
     {
-
         $templates = $this->getTemplate()->getData('store_id');
-        $store = $templates[0];
+        $this->storeId = $templates[0];
 
         if ($this->designConfig === null) {
             $this->designConfig = new DataObject(
-                ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => $store]
+                ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => 1]
             );
         }
         return $this->designConfig;
