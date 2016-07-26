@@ -147,7 +147,7 @@ class Processor extends Template
 
         if ($this->designConfig === null) {
             $this->designConfig = new DataObject(
-                ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => 1]
+                ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => $this->storeId]
             );
         }
         return $this->designConfig;
