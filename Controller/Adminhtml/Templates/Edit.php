@@ -21,6 +21,7 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 use Magento\Backend\App\Action;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
+use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 
 
 class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
@@ -43,6 +44,11 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     protected $templateRepository;
 
     /**
+     * @var PdfgeneratorFactory
+     */
+    protected $pdfgeneratorFactory;
+
+    /**
      * Edit constructor.
      * @param Action\Context $context
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
@@ -53,10 +59,12 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
         \Magento\Framework\Registry $registry,
-        TemplateRepository $templateRepository
+        TemplateRepository $templateRepository,
+        PdfgeneratorFactory $pdfgeneratorFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->templateRepository = $templateRepository;
+        $this->pdfgeneratorFactory = $pdfgeneratorFactory;
         parent::__construct($context,$registry);
     }
 
@@ -105,6 +113,8 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 
                 return $resultRedirect->setPath('*/*/');
             }
+        } else {
+            $model = $this->pdfgeneratorFactory->create();
         }
 
         $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
