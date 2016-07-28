@@ -191,6 +191,8 @@ class Pdf extends AbstractHelper
             );
         }
 
+        //todo check for header template processing problem width breaking the templates.
+        
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
 
