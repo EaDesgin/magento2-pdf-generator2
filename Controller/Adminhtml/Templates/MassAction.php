@@ -12,7 +12,7 @@
  * obtain it through the world-wide-web, please send an email
  * to license@eadesign.ro so we can send you a copy immediately.
  *
- * @category    custom_ext_code
+ * @category    eadesigndev_pdfgenerator
  * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
