@@ -14,14 +14,6 @@
       "role": "Developer"
     }
   ],
-  "extra": {
-    "map": [
-      [
-        "*",
-        "Eadesigndev/Pdfgenerator"
-      ]
-    ]
-  },
   "autoload": {
     "files": [ "registration.php" ],
     "psr-4": {
