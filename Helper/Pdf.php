@@ -192,13 +192,13 @@ class Pdf extends AbstractHelper
         }
 
         //todo check for header template processing problem width breaking the templates.
-        
+
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
 
         $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
 
-        $pdf->WriteHTML($parts['body']);
+        $pdf->WriteHTML('<body>'.$parts['body'].'</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
         return $pdfToOutput;

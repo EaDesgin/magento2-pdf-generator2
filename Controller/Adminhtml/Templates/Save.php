@@ -36,7 +36,7 @@ class Save extends \Magento\Backend\App\Action
     const ADMIN_RESOURCE = 'Eadesign_Pdfgenerator::save';
 
     /**
-     * @var PostDataProcessor
+     * @var PdfDataProcessor
      */
     protected $dataProcessor;
 
@@ -58,14 +58,14 @@ class Save extends \Magento\Backend\App\Action
     /**
      * Save constructor.
      * @param Action\Context $context
-     * @param PostDataProcessor $dataProcessor
+     * @param PdfDataProcessor $dataProcessor
      * @param DataPersistorInterface $dataPersistor
      * @param TemplateRepository $templateRepository
      * @param PdfgeneratorFactory $pdfgeneratorFactory
      */
     public function __construct(
         Action\Context $context,
-        PostDataProcessor $dataProcessor,
+        PdfDataProcessor $dataProcessor,
         DataPersistorInterface $dataPersistor,
         TemplateRepository $templateRepository,
         PdfgeneratorFactory $pdfgeneratorFactory
@@ -90,7 +90,7 @@ class Save extends \Magento\Backend\App\Action
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($data) {
-            $data = $this->dataProcessor->filter($data);
+            $data = $this->dataProcessor->validateRequireEntry($data);
             if (isset($data['is_active']) && $data['is_active'] === 'true') {
                 $data['is_active'] = TemplateActive::STATUS_ENABLED;
             }
