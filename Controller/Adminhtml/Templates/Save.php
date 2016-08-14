@@ -109,6 +109,7 @@ class Save extends \Magento\Backend\App\Action
             }
 
             $model->setData($data);
+            $model->setData('update_time',time());
 
             if (!$this->dataProcessor->validate($data)) {
                 return $resultRedirect->setPath('*/*/edit', ['template_id' => $model->getTemplateId(), '_current' => true]);

@@ -23,8 +23,15 @@
     <acl>
         <resources>
             <resource id="Magento_Backend::admin">
-                <resource id="Eadesigndev_Pdfgenerator::templates" title="Pdf Generator">
+                <resource id="Eadesigndev_Pdfgenerator::templates" title="PDF Generator">
                     <resource id="Eadesigndev_Pdfgenerator::save" title="Save and delete templates"/>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Eadesigndev_Pdfgenerator::config_system" title="PDF Generator Settings" sortOrder="1"/>
+                        </resource>
+                    </resource>
                 </resource>
             </resource>
         </resources>

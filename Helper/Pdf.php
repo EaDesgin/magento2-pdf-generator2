@@ -74,11 +74,6 @@ class Pdf extends AbstractHelper
     protected $paymentHelper;
 
     /**
-     * @var TemplateFactory
-     */
-    private $_templateFactory;
-
-    /**
      * @var Renderer
      */
     protected $addressRenderer;
@@ -133,6 +128,8 @@ class Pdf extends AbstractHelper
     }
 
     /**
+     * Filename of the pdf and the stream to sent to the download
+     *
      * @return array
      */
     public function template2Pdf()
@@ -142,13 +139,15 @@ class Pdf extends AbstractHelper
         $templateModel = $this->_template;
         $order = $invoice->getOrder();
 
+        /**transport use to get the variables $order object, $invoice object and the template model object*/
         $parts = $this->_transport($order, $invoice, $templateModel);
 
+        /** instantiate the mPDF class and add the processed html to get the pdf*/
         $applySettings = $this->_eapdfSettings($parts, $templateModel);
 
         $fileParts = [
             'filestream' => $applySettings,
-            'filename' => $parts['filename']
+            'filename' => filter_var($parts['filename'], FILTER_SANITIZE_URL)
         ];
 
         return $fileParts;
@@ -187,7 +186,16 @@ class Pdf extends AbstractHelper
                 [
                     $templateModel->getTemplateCustomW(),
                     $templateModel->getTemplateCustomH()
-                ]
+                ],
+                $default_font_size = 0,
+                $default_font = '',
+                $mgl = $templateModel->getTemplateCustomL(),
+                $mgr = $templateModel->getTemplateCustomR(),
+                $mgt = $templateModel->getTemplateCustomT(),
+                $mgb = $templateModel->getTemplateCustomB(),
+                $mgh = 9,
+                $mgf = 9
+
             );
         }
 
@@ -198,7 +206,7 @@ class Pdf extends AbstractHelper
 
         $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
 
-        $pdf->WriteHTML('<body>'.$parts['body'].'</body>');
+        $pdf->WriteHTML('<body>' . $parts['body'] . '</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
         return $pdfToOutput;
@@ -217,7 +225,7 @@ class Pdf extends AbstractHelper
         $oris = self::PAPER_ORI;
 
         if ($ori == \Eadesigndev\Pdfgenerator\Model\Source\TemplatePaperOrientation::TEMAPLATE_PAPER_PORTRAIT) {
-            return str_replace('-','', $size[$form]);
+            return str_replace('-', '', $size[$form]);
         }
 
         $format = $size[$form] . $oris[$ori];
@@ -226,6 +234,9 @@ class Pdf extends AbstractHelper
     }
 
     /**
+     *
+     * This will proces the template and the variables from the entity's
+     *
      * @param $order
      * @param $invoice
      * @param $templateModel
