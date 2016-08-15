@@ -19,6 +19,9 @@
 
 namespace Eadesigndev\Pdfgenerator\Helper;
 
+use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
+
+
 /**
  * Handles the config and other settings
  *
@@ -37,6 +40,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $_config;
 
     /**
+     * @var \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
+     */
+    protected $_templateCollection;
+
+    /**
      * Constructor
      *
      * @param \Magento\Framework\App\Helper\Context $context
@@ -44,10 +52,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
-        \Magento\Framework\Module\ModuleListInterface $moduleList
+        \Magento\Framework\Module\ModuleListInterface $moduleList,
+        templateCollectionFactory $_templateCollection
     )
     {
-
+        $this->_templateCollection = $_templateCollection;
         $this->_config = $context->getScopeConfig();
         parent::__construct($context);
 
@@ -74,6 +83,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function isEnable()
     {
+        if(!class_exists('mPDF')){
+            return false;
+        }
+
         return $this->getConfig(self::ENABLE);
     }
 
@@ -89,7 +102,25 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             return $this->getConfig(self::EMAIL);
         }
         return false;
+    }
 
+    /**
+     * Get the active template
+     *
+     * @param $invoice
+     * @return \Magento\Framework\DataObject
+     */
+    public function getTemplateStatus(\Magento\Sales\Model\Order\Invoice $invoice)
+    {
+
+        $invoiceStore = $invoice->getOrder()->getStoreId();
+
+        $collection = $this->_templateCollection->create();
+        $collection->addStoreFilter($invoiceStore);
+        $collection->addFieldToFilter('is_active', \Eadesigndev\Pdfgenerator\Model\Source\TemplateActive::STATUS_ENABLED);
+        $collection->addFieldToFilter('template_default', \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource::IS_DEFAULT);
+
+        return $collection->getLastItem();
     }
 
 }

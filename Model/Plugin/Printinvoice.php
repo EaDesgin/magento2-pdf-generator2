@@ -19,17 +19,10 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Plugin;
 
-use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
 use Eadesigndev\Pdfgenerator\Helper\Data;
 
 class Printinvoice
 {
-
-    /**
-     * @var \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
-     */
-    private $_templateCollection;
-
     /**
      * @var \Magento\Backend\Model\UrlInterface
      */
@@ -49,20 +42,17 @@ class Printinvoice
      * Printinvoice constructor.
      * @param \Magento\Framework\Registry $_coreRegistry
      * @param \Magento\Backend\Model\UrlInterface $_urlInterface
-     * @param templateCollectionFactory $_templateCollection
      * @param Data $_dataHelper
      */
     public function __construct(
         \Magento\Framework\Registry $_coreRegistry,
         \Magento\Backend\Model\UrlInterface $_urlInterface,
-        templateCollectionFactory $_templateCollection,
         Data $_dataHelper
 
     )
     {
         $this->_coreRegistry = $_coreRegistry;
         $this->_urlInterface = $_urlInterface;
-        $this->_templateCollection = $_templateCollection;
         $this->_dataHelper = $_dataHelper;
     }
 
@@ -76,21 +66,6 @@ class Printinvoice
         return $this->_coreRegistry->registry('current_invoice');
     }
 
-    /**
-     * @return \Magento\Framework\DataObject
-     */
-    private function _getTemplateStatus()
-    {
-
-        $invoiceStore = $this->getInvoice()->getOrder()->getStoreId();
-
-        $collection = $this->_templateCollection->create();
-        $collection->addStoreFilter($invoiceStore);
-        $collection->addFieldToFilter('is_active', \Eadesigndev\Pdfgenerator\Model\Source\TemplateActive::STATUS_ENABLED);
-        $collection->addFieldToFilter('template_default', \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource::IS_DEFAULT);
-
-        return $collection->getLastItem();
-    }
 
     /**
      * Check and see if and what we can print;
@@ -102,11 +77,11 @@ class Printinvoice
     public function afterGetPrintUrl($subject, $result)
     {
 
-        if (!class_exists('mPDF') || !$this->_dataHelper->isEnable()) {
+        if (!$this->_dataHelper->isEnable()) {
             return $result;
         }
 
-        $lastItem = $this->_getTemplateStatus();
+        $lastItem = $this->_dataHelper->getTemplateStatus($this->getInvoice());
 
         if (empty($lastItem->getId())) {
             return $result;

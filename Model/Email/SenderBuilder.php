@@ -23,9 +23,7 @@ use Magento\Sales\Model\Order\Email\Container\IdentityInterface;
 use Magento\Sales\Model\Order\Email\Container\Template;
 use Eadesigndev\Pdfgenerator\Helper\Pdf;
 use Eadesigndev\Pdfgenerator\Helper\Data;
-use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
 use Magento\Framework\Stdlib\DateTime\DateTime;
-
 
 class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
 {
@@ -41,11 +39,6 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     private $_dataHelper;
 
     /**
-     * @var \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
-     */
-    protected $_templateCollection;
-
-    /**
      * @var
      */
     protected $_dateTime;
@@ -56,7 +49,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
      * @param IdentityInterface $identityContainer
      * @param TransportBuilder $transportBuilder
      * @param Pdf $_helper
-     * @param templateCollectionFactory $_templateCollection
+     * @param Data $_dataHelper
      * @param DateTime $_dateTime
      */
     public function __construct(
@@ -65,14 +58,11 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
         TransportBuilder $transportBuilder,
         Pdf $_helper,
         Data $_dataHelper,
-        templateCollectionFactory $_templateCollection,
         DateTime $_dateTime
     )
     {
         $this->_helper = $_helper;
         $this->_dataHelper = $_dataHelper;
-        //todo move collection to helper and get the same on the plugins
-        $this->_templateCollection = $_templateCollection;
         $this->_dateTime = $_dateTime;
         parent::__construct($templateContainer, $identityContainer, $transportBuilder);
     }
@@ -100,26 +90,6 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     }
 
     /**
-     * Get the active template
-     *
-     * @param $invoice
-     * @return \Magento\Framework\DataObject
-     */
-    private function _getTemplateStatus($invoice)
-    {
-
-        //todo move this to a helper!
-        $invoiceStore = $invoice->getOrder()->getStoreId();
-
-        $collection = $this->_templateCollection->create();
-        $collection->addStoreFilter($invoiceStore);
-        $collection->addFieldToFilter('is_active', \Eadesigndev\Pdfgenerator\Model\Source\TemplateActive::STATUS_ENABLED);
-        $collection->addFieldToFilter('template_default', \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource::IS_DEFAULT);
-
-        return $collection->getLastItem();
-    }
-
-    /**
      *
      * Check if we need to send the invoice email
      *
@@ -128,8 +98,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
      */
     private function _checkInvoice($vars)
     {
-        //todo move all this to a helper
-        if (!class_exists('mPDF') || !$this->_dataHelper->isEmail()) {
+        if (!$this->_dataHelper->isEmail()) {
             return $this;
         }
 
@@ -139,9 +108,9 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
                 $helper = $this->_helper;
 
                 $helper->setInvoice($invoice);
-                $template = $this->_getTemplateStatus($invoice);
+                $template = $this->_dataHelper->getTemplateStatus($invoice);
 
-                if (!$template->getId()) {
+                if (empty($template->getId())) {
                     return $this;
                 }
 
