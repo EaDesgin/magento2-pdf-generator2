@@ -1,20 +1,24 @@
 <?php
 /**
  * Sample_News extension
+/**
+ * EaDesgin
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the MIT License
- * that is bundled with this package in the file LICENSE
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/mit-license.php
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@eadesign.ro so we can send you a copy immediately.
  *
- * @category  Sample
- * @package   Sample_News
- * @copyright 2016 Marius Strajeru
- * @license   http://opensource.org/licenses/mit-license.php MIT License
- * @author    Marius Strajeru
+ * @category    eadesigndev_pdfgenerator
+ * @copyright   Copyright (c) 2008-2016 EaDesign by Eco Active S.R.L.
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
 namespace Eadesigndev\Pdfgenerator\Ui\Component\Listing\Column\Store;
 
 use Magento\Store\Ui\Component\Listing\Column\Store\Options as StoreOptions;
