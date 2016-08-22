@@ -81,7 +81,7 @@ class Pdf extends AbstractHelper
     /**
      * @var TemplateFactory
      */
-    private $processor;
+    protected $processor;
 
     /**
      * Pdf constructor.
@@ -242,7 +242,7 @@ class Pdf extends AbstractHelper
      * @param $templateModel
      * @return string
      */
-    private function _transport($order, $invoice, $templateModel)
+    protected function _transport($order, $invoice, $templateModel)
     {
         $transport = [
             'order' => $order,

@@ -62,7 +62,7 @@ class Template extends Action
     public function execute()
     {
 
-        $template = $this->_initTemplate('id');
+        $template = $this->_initTemplate();
 
         try {
             $parts = $this->emailConfig->parseTemplateIdParts(self::INVOICE_TMEPLTE_ID);
@@ -103,17 +103,13 @@ class Template extends Action
     /**
      * Load email template from request
      *
-     * @param string $idFieldName
      * @return \Magento\Email\Model\BackendTemplate $model
      */
-    protected function _initTemplate($idFieldName = 'template_id')
+    protected function _initTemplate()
     {
-        $id = 2;
 
         $model = $this->_objectManager->create('Magento\Email\Model\BackendTemplate');
-        if ($id) {
-            $model->load($id);
-        }
+
         if (!$this->_coreRegistry->registry('email_template')) {
             $this->_coreRegistry->register('email_template', $model);
         }

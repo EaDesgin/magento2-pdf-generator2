@@ -26,17 +26,17 @@ class Printinvoice
     /**
      * @var \Magento\Backend\Model\UrlInterface
      */
-    private $_urlInterface;
+    protected $_urlInterface;
 
     /**
      * @var \Magento\Framework\Registry
      */
-    private $_coreRegistry;
+    protected $_coreRegistry;
 
     /**
      * @var Data
      */
-    private $_dataHelper;
+    protected $_dataHelper;
 
     /**
      * Printinvoice constructor.
@@ -96,7 +96,7 @@ class Printinvoice
      * @param $lastItem
      * @return string
      */
-    private function _print($lastItem)
+    protected function _print($lastItem)
     {
         return $this->_urlInterface->getUrl(
             'pdfgenerator/*/printpdf',

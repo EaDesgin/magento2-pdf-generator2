@@ -47,10 +47,15 @@ class Config
     {
 
         if ($this->registry->registry('pdfgenerator_template')) {
-            return $this->_url->getUrl('*/variable/template');
+            return $this->getUrl();
         }
 
         return $result;
 
+    }
+
+    public function getUrl()
+    {
+        return $this->_url->getUrl('*/variable/template');
     }
 }
