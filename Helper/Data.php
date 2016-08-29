@@ -21,7 +21,6 @@ namespace Eadesigndev\Pdfgenerator\Helper;
 
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
 
-
 /**
  * Handles the config and other settings
  *

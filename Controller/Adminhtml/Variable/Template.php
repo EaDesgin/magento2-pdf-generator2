@@ -21,7 +21,6 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Variable;
 
 use Magento\Framework\App\Action\Action;
 
-
 class Template extends Action
 {
 
@@ -33,6 +32,9 @@ class Template extends Action
      * @var \Magento\Email\Model\Template\Config
      */
 
+    /**
+     * @var \Magento\Email\Model\Template\Config
+     */
     private $emailConfig;
 
     /**
@@ -40,6 +42,13 @@ class Template extends Action
      */
     protected $resultJsonFactory;
 
+    /**
+     * Template constructor.
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Email\Model\Template\Config $emailConfig
+     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
@@ -90,14 +99,14 @@ class Template extends Action
 
         $customVariables = $this->_objectManager->create('Magento\Variable\Model\Variable')
             ->getVariablesOptionArray(true);
-        $storeContactVariabls = $this->_objectManager->create(
+        $storeContactVariables = $this->_objectManager->create(
             'Magento\Email\Model\Source\Variables'
         )->toOptionArray(
             true
         );
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();
-        return $resultJson->setData([$storeContactVariabls, $template->getVariablesOptionArray(true)]);
+        return $resultJson->setData([$storeContactVariables, $customVariables, $template->getVariablesOptionArray(true)]);
     }
 
     /**

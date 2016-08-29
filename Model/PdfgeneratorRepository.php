@@ -24,7 +24,6 @@ use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterfaceFactory;
 use \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator as TemplateResource;
 use \Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface;
 
-
 class PdfgeneratorRepository implements TemplatesRepositoryInterface
 {
 

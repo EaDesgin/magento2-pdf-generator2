@@ -23,9 +23,6 @@ use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
 
-/**
- * Class MassDisable
- */
 abstract class MassAction  extends \Magento\Backend\App\Action
 {
     /**

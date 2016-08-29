@@ -21,15 +21,17 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order;
 
 use \Magento\Backend\App\Action;
 
-
 abstract class Abstractpdf extends Action
 {
 
+    /**
+     * @var \Magento\Framework\Registry
+     */
     private $_coreRegistry;
+
     /**
      * @var \Magento\Email\Model\Template\Config
      */
-
     private $emailConfig;
 
     /**
@@ -37,6 +39,13 @@ abstract class Abstractpdf extends Action
      */
     protected $resultJsonFactory;
 
+    /**
+     * Abstractpdf constructor.
+     * @param Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Email\Model\Template\Config $emailConfig
+     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
@@ -50,6 +59,5 @@ abstract class Abstractpdf extends Action
         $this->_coreRegistry = $coreRegistry;
         $this->resultJsonFactory = $resultJsonFactory;
     }
-
 
 }

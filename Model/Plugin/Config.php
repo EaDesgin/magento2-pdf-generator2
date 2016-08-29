@@ -54,6 +54,10 @@ class Config
 
     }
 
+    /**
+     * Returns the variable url
+     * @return string
+     */
     public function getUrl()
     {
         return $this->_url->getUrl('*/variable/template');

@@ -20,7 +20,6 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml;
 
-
 abstract class Templates extends \Magento\Backend\App\Action
 {
 

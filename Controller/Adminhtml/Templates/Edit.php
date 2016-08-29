@@ -23,7 +23,6 @@ use Magento\Backend\App\Action;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 
-
 class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 {
     /**

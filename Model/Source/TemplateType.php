@@ -51,7 +51,6 @@ class TemplateType extends \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource
      */
     const TYPE_INVOICE = 1;
 
-
     /**
      * Prepare post's statuses.
      *

@@ -24,7 +24,6 @@ use Magento\TestFramework\ErrorLog\Logger;
 
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 
-
 class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 {
 
@@ -38,6 +37,13 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
      */
     protected $templateRepository;
 
+    /**
+     * Delete constructor.
+     * @param Action\Context $context
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param \Magento\Framework\Registry $registry
+     * @param TemplateRepository $templateRepository
+     */
     public function __construct(
         Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,

@@ -18,7 +18,6 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates

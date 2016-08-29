@@ -21,9 +21,6 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 use Magento\Framework\Controller\ResultFactory;
 
-/**
- * Class MassDisable
- */
 class MassDisable extends MassAction
 {
     /**
