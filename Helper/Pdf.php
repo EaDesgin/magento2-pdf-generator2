@@ -200,7 +200,8 @@ class Pdf extends AbstractHelper
 
         $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
 
-        $pdf->WriteHTML('<body>' . $parts['body'] . '</body>');
+
+        $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
         return $pdfToOutput;
