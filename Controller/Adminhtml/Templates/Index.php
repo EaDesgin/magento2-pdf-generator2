@@ -40,7 +40,8 @@ class Index extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory
-    ) {
+    )
+    {
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context, $coreRegistry);
     }
@@ -57,4 +58,5 @@ class Index extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         $this->initPage($resultPage)->getConfig()->getTitle()->prepend(__('EaDesign PDF Generator Templates'));
         return $resultPage;
     }
+    
 }

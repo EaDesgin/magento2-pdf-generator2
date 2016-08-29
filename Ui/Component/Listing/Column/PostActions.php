@@ -26,6 +26,7 @@ use Magento\Framework\UrlInterface;
 
 class PostActions extends Column
 {
+
     /** Url path */
     const TEMPLATE_EDIT = 'pdfgenerator/templates/edit';
     const TEMPLATE_DELETE = 'pdfgenerator/templates/delete';
@@ -53,7 +54,8 @@ class PostActions extends Column
         array $components = [],
         array $data = [],
         $editUrl = self::TEMPLATE_EDIT
-    ) {
+    )
+    {
         $this->urlBuilder = $urlBuilder;
         $this->editUrl = $editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);
@@ -89,4 +91,5 @@ class PostActions extends Column
 
         return $dataSource;
     }
+    
 }

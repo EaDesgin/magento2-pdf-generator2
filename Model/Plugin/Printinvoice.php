@@ -23,73 +23,65 @@ use Eadesigndev\Pdfgenerator\Helper\Data;
 
 class Printinvoice
 {
+    
     /**
      * @var \Magento\Backend\Model\UrlInterface
      */
-    protected $_urlInterface;
+    protected $urlInterface;
 
     /**
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry;
+    protected $coreRegistry;
 
     /**
      * @var Data
      */
-    protected $_dataHelper;
+    protected $dataHelper;
 
     /**
      * Printinvoice constructor.
-     * @param \Magento\Framework\Registry $_coreRegistry
-     * @param \Magento\Backend\Model\UrlInterface $_urlInterface
-     * @param Data $_dataHelper
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Backend\Model\UrlInterface $urlInterface
+     * @param Data $dataHelper
      */
     public function __construct(
-        \Magento\Framework\Registry $_coreRegistry,
-        \Magento\Backend\Model\UrlInterface $_urlInterface,
-        Data $_dataHelper
-
+        \Magento\Framework\Registry $coreRegistry,
+        \Magento\Backend\Model\UrlInterface $urlInterface,
+        Data $dataHelper
     )
     {
-        $this->_coreRegistry = $_coreRegistry;
-        $this->_urlInterface = $_urlInterface;
-        $this->_dataHelper = $_dataHelper;
+        $this->coreRegistry = $coreRegistry;
+        $this->urlInterface = $urlInterface;
+        $this->dataHelper = $dataHelper;
     }
 
     /**
-     * Retrieve invoice model instance
-     *
-     * @return \Magento\Sales\Model\Order\Invoice
+     * @return mixed
      */
     public function getInvoice()
     {
-        return $this->_coreRegistry->registry('current_invoice');
+        return $this->coreRegistry->registry('current_invoice');
     }
 
 
     /**
-     * Check and see if and what we can print;
-     *
      * @param $subject
      * @param $result
      * @return string
      */
     public function afterGetPrintUrl($subject, $result)
     {
-
-        if (!$this->_dataHelper->isEnable()) {
+        if (!$this->dataHelper->isEnable()) {
             return $result;
         }
-
-        $lastItem = $this->_dataHelper->getTemplateStatus($this->getInvoice());
+        $lastItem = $this->dataHelper->getTemplateStatus($this->getInvoice());
 
         if (empty($lastItem->getId())) {
             return $result;
         }
 
         return $this->_print($lastItem);
-
-
     }
 
     /**
@@ -98,7 +90,7 @@ class Printinvoice
      */
     protected function _print($lastItem)
     {
-        return $this->_urlInterface->getUrl(
+        return $this->urlInterface->getUrl(
             'pdfgenerator/*/printpdf',
             [
                 'template_id' => $lastItem->getId(),
@@ -106,4 +98,5 @@ class Printinvoice
                 'invoice_id' => $this->getInvoice()->getId()
             ]);
     }
+
 }

@@ -109,7 +109,7 @@ class Save extends \Magento\Backend\App\Action
             }
 
             $model->setData($data);
-            $model->setData('update_time',time());
+            $model->setData('update_time', time());
 
             if (!$this->dataProcessor->validate($data)) {
                 return $resultRedirect->setPath('*/*/edit', ['template_id' => $model->getTemplateId(), '_current' => true]);
@@ -144,4 +144,5 @@ class Save extends \Magento\Backend\App\Action
     {
         return $this->_authorization->isAllowed(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW);
     }
+
 }

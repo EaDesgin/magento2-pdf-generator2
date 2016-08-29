@@ -19,18 +19,16 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Plugin;
 
-class Config
-{
+class Config{
+    
     /**
      * Config constructor.
      * @param \Magento\Backend\Model\UrlInterface $url
      * @param \Magento\Framework\Registry $registry
      */
-
     public function __construct(
         \Magento\Backend\Model\UrlInterface $url,
         \Magento\Framework\Registry $registry
-
     )
     {
         $this->_url = $url;
@@ -42,18 +40,18 @@ class Config
      * @param $result
      * @return string
      */
-
     public function afterGetVariablesWysiwygActionUrl($subject, $result)
     {
-
         if ($this->registry->registry('pdfgenerator_template')) {
             return $this->getUrl();
         }
 
         return $result;
-
     }
 
+    /**
+     * @return string
+     */
     public function getUrl()
     {
         return $this->_url->getUrl('*/variable/template');

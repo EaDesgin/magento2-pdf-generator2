@@ -24,7 +24,7 @@ use Magento\Framework\Controller\ResultFactory;
 /**
  * Class MassDisable
  */
-class MassDelete  extends MassAction
+class MassDelete extends MassAction
 {
 
     /**
@@ -48,4 +48,5 @@ class MassDelete  extends MassAction
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         return $resultRedirect->setPath('*/*/');
     }
+
 }

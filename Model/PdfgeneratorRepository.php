@@ -24,7 +24,6 @@ use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterfaceFactory;
 use \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator as TemplateResource;
 use \Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface;
 
-
 class PdfgeneratorRepository implements TemplatesRepositoryInterface
 {
 
@@ -94,7 +93,6 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
     public function getById($templateId)
     {
         if (!isset($this->instances[$templateId])) {
-
             $template = $this->pdfgeneratorFactory->create();
             $this->resource->load($template, $templateId);
             if (!$template->getId()) {
@@ -102,6 +100,7 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
             }
             $this->instances[$templateId] = $template;
         }
+
         return $this->instances[$templateId];
     }
 
@@ -129,7 +128,6 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
      */
     public function deleteById($templateId)
     {
-
         $template = $this->getById($templateId);
         return $this->delete($template);
     }

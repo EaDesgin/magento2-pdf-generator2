@@ -26,6 +26,7 @@ use Magento\Framework\View\Model\PageLayout\Config\BuilderInterface;
  */
 class TemplateType extends \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource
 {
+    
     /**
      * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface
      */

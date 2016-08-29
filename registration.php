@@ -23,4 +23,4 @@ ComponentRegistrar::register(
     ComponentRegistrar::MODULE,
     'Eadesigndev_Pdfgenerator',
     __DIR__
-); 
+);

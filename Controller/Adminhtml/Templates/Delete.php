@@ -21,9 +21,7 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 use Magento\Backend\App\Action;
 use Magento\TestFramework\ErrorLog\Logger;
-
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
-
 
 class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 {
@@ -84,4 +82,5 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_SAVE);
     }
+
 }

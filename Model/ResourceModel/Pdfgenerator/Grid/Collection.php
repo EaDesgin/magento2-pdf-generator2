@@ -29,6 +29,7 @@ use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection as PdfC
  */
 class Collection extends PdfCollection implements SearchResultInterface
 {
+    
     /**
      * @var AggregationInterface
      */
@@ -65,7 +66,8 @@ class Collection extends PdfCollection implements SearchResultInterface
         $model = 'Magento\Framework\View\Element\UiComponent\DataProvider\Document',
         $connection = null,
         \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
-    ) {
+    )
+    {
         parent::__construct(
             $entityFactory,
             $logger,
@@ -154,4 +156,5 @@ class Collection extends PdfCollection implements SearchResultInterface
     {
         return $this;
     }
+
 }

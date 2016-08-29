@@ -21,25 +21,34 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Variable;
 
 use Magento\Framework\App\Action\Action;
 
-
 class Template extends Action
 {
 
     CONST INVOICE_TMEPLTE_ID = 'sales_email_invoice_template';
     CONST ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
 
-    private $_coreRegistry;
-    /**
-     * @var \Magento\Email\Model\Template\Config
-     */
-
-    private $emailConfig;
-
     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
     protected $resultJsonFactory;
 
+    /**
+     * @var \Magento\Framework\Registry
+     */
+    private $_coreRegistry;
+
+    /**
+     * @var \Magento\Email\Model\Template\Config
+     */
+    private $emailConfig;
+
+    /**
+     * Template constructor.
+     * @param \Magento\Backend\App\Action\Context $context
+     * @param \Magento\Framework\Registry $coreRegistry
+     * @param \Magento\Email\Model\Template\Config $emailConfig
+     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     */
     public function __construct(
         \Magento\Backend\App\Action\Context $context,
         \Magento\Framework\Registry $coreRegistry,
@@ -47,7 +56,6 @@ class Template extends Action
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
     )
     {
-
         $this->emailConfig = $emailConfig;
         parent::__construct($context);
         $this->_coreRegistry = $coreRegistry;
@@ -107,7 +115,6 @@ class Template extends Action
      */
     protected function _initTemplate()
     {
-
         $model = $this->_objectManager->create('Magento\Email\Model\BackendTemplate');
 
         if (!$this->_coreRegistry->registry('email_template')) {
@@ -128,4 +135,5 @@ class Template extends Action
     {
         return $this->_authorization->isAllowed(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW);
     }
+
 }

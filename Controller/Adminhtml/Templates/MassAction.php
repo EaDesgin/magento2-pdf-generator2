@@ -26,7 +26,7 @@ use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory 
 /**
  * Class MassDisable
  */
-abstract class MassAction  extends \Magento\Backend\App\Action
+abstract class MassAction extends \Magento\Backend\App\Action
 {
     /**
      * @var Filter
@@ -37,7 +37,7 @@ abstract class MassAction  extends \Magento\Backend\App\Action
      * @var CollectionFactory
      */
     protected $templateCollectionFactory;
-    
+
     /**
      * @param Context $context
      * @param Filter $filter
