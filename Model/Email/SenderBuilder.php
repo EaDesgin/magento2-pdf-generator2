@@ -31,39 +31,39 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     /**
      * @var Pdf
      */
-    protected $_helper;
+    protected $helper;
 
     /**
      * @var Data
      */
-    private $_dataHelper;
+    private $dataHelper;
 
     /**
-     * @var
+     * @var DateTime
      */
-    protected $_dateTime;
+    protected $dateTime;
 
     /**
      * SenderBuilder constructor.
      * @param Template $templateContainer
      * @param IdentityInterface $identityContainer
      * @param TransportBuilder $transportBuilder
-     * @param Pdf $_helper
-     * @param Data $_dataHelper
-     * @param DateTime $_dateTime
+     * @param Pdf $helper
+     * @param Data $dataHelper
+     * @param DateTime $dateTime
      */
     public function __construct(
         Template $templateContainer,
         IdentityInterface $identityContainer,
         TransportBuilder $transportBuilder,
-        Pdf $_helper,
-        Data $_dataHelper,
-        DateTime $_dateTime
+        Pdf $helper,
+        Data $dataHelper,
+        DateTime $dateTime
     )
     {
-        $this->_helper = $_helper;
-        $this->_dataHelper = $_dataHelper;
-        $this->_dateTime = $_dateTime;
+        $this->helper = $helper;
+        $this->dataHelper = $dataHelper;
+        $this->dateTime = $dateTime;
         parent::__construct($templateContainer, $identityContainer, $transportBuilder);
     }
 
@@ -72,7 +72,6 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
      */
     public function send()
     {
-
         $vars = $this->templateContainer->getTemplateVars();
         $this->_checkInvoice($vars);
 
@@ -98,17 +97,17 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
      */
     private function _checkInvoice($vars)
     {
-        if (!$this->_dataHelper->isEmail()) {
+        if (!$this->dataHelper->isEmail()) {
             return $this;
         }
 
         if ($invoice = $vars['invoice']) {
             if ($invoice instanceof \Magento\Sales\Model\Order\Invoice) {
 
-                $helper = $this->_helper;
+                $helper = $this->helper;
 
                 $helper->setInvoice($invoice);
-                $template = $this->_dataHelper->getTemplateStatus($invoice);
+                $template = $this->dataHelper->getTemplateStatus($invoice);
 
                 if (empty($template->getId())) {
                     return $this;
@@ -118,7 +117,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
 
                 $pdfFileData = $helper->template2Pdf();
 
-                $date = $this->_dateTime->date('Y-m-d_H-i-s');
+                $date = $this->dateTime->date('Y-m-d_H-i-s');
 
                 $this->transportBuilder->addAttachment(
                     $pdfFileData['filestream']
@@ -126,12 +125,11 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
                     , \Zend_Mime::DISPOSITION_ATTACHMENT
                     , \Zend_Mime::ENCODING_BASE64
                     , $pdfFileData['filename'] . $date . '.pdf'
-
                 );
-
             }
         }
 
         return $this;
     }
+    
 }

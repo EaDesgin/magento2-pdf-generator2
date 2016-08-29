@@ -32,11 +32,11 @@ class PdfDataProcessor extends PostDataProcessor
 
         $requiredFields = [
             'template_name' => __('Template Name'),
-            'template_description'=> __('Template description'),
+            'template_description' => __('Template description'),
             'store_id' => __('Store View'),
-            'template_file_name'=> __('Template File Name'),
-            'template_paper_ori'=>__('Template Paper Orientation'),
-            'template_paper_form'=>__('Template Paper Form'),
+            'template_file_name' => __('Template File Name'),
+            'template_paper_ori' => __('Template Paper Orientation'),
+            'template_paper_form' => __('Template Paper Form'),
             'is_active' => __('Status')
         ];
 
@@ -49,4 +49,5 @@ class PdfDataProcessor extends PostDataProcessor
         }
         return $data;
     }
+
 }

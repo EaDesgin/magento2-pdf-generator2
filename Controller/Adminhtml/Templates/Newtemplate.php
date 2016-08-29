@@ -42,16 +42,6 @@ class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templat
     }
 
     /**
-     * Check the permission to run it
-     *
-     * @return boolean
-     */
-    protected function _isAllowed()
-    {
-        return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);
-    }
-
-    /**
      * Forward to edit
      *
      * @return \Magento\Backend\Model\View\Result\Forward
@@ -62,4 +52,15 @@ class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templat
         $resultForward = $this->resultForwardFactory->create();
         return $resultForward->forward('edit');
     }
+
+    /**
+     * Check the permission to run it
+     *
+     * @return boolean
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);
+    }
+
 }

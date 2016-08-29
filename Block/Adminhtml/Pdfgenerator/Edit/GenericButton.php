@@ -31,14 +31,14 @@ class GenericButton
     /**
      * @var \Magento\Framework\AuthorizationInterface
      */
-    protected $_authorization;
+    protected $authorization;
 
     /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry = null;
+    protected $coreRegistry = null;
     /**
      * @var Context
      */
@@ -52,9 +52,9 @@ class GenericButton
         Registry $registry
     )
     {
-        $this->_coreRegistry = $registry;
+        $this->coreRegistry = $registry;
         $this->context = $context;
-        $this->_authorization = $context->getAuthorization();
+        $this->authorization = $context->getAuthorization();
     }
 
     /**
@@ -65,7 +65,7 @@ class GenericButton
     public function getTemplateId()
     {
         try {
-            return $this->_coreRegistry->registry('pdfgenerator_template')->getData('template_id');
+            return $this->coreRegistry->registry('pdfgenerator_template')->getData('template_id');
         } catch (NoSuchEntityException $e) {
         }
         return null;
@@ -91,6 +91,6 @@ class GenericButton
      */
     protected function _isAllowedAction($resourceId)
     {
-        return $this->_authorization->isAllowed($resourceId);
+        return $this->authorization->isAllowed($resourceId);
     }
 }

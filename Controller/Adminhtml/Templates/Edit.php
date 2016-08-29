@@ -30,7 +30,7 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
      *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry = null;
+    protected $coreRegistry = null;
 
     /**
      * @var \Magento\Framework\View\Result\PageFactory
@@ -60,11 +60,12 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         \Magento\Framework\Registry $registry,
         TemplateRepository $templateRepository,
         PdfgeneratorFactory $pdfgeneratorFactory
-    ) {
+    )
+    {
         $this->resultPageFactory = $resultPageFactory;
         $this->templateRepository = $templateRepository;
         $this->pdfgeneratorFactory = $pdfgeneratorFactory;
-        parent::__construct($context,$registry);
+        parent::__construct($context, $registry);
     }
 
     /**
@@ -82,7 +83,6 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
      */
     protected function _initAction()
     {
-
         $resultPage = $this->resultPageFactory->create();
         $resultPage->setActiveMenu('Eadesigndev_Pdfgenerator::template_list')
             ->addBreadcrumb(__('PDF Template'), __('PDF Template'))
@@ -99,7 +99,6 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
      */
     public function execute()
     {
-
         $id = $this->getRequest()->getParam('template_id');
 
         if ($id) {
@@ -117,22 +116,24 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         }
 
         $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
+        
         if (!empty($data)) {
             $model->setData($data);
         }
 
-        $this->_coreRegistry->register('pdfgenerator_template', $model);
+        $this->coreRegistry->register('pdfgenerator_template', $model);
 
         $resultPage = $this->_initAction();
         $resultPage->addBreadcrumb(
             $id ? __('Edit Template') : __('New Template'),
             $id ? __('Edit Template') : __('New Template')
         );
-        
+
         $resultPage->getConfig()->getTitle()->prepend(__('Template'));
         $resultPage->getConfig()->getTitle()
             ->prepend($model->getData('template_id') ? __('Template ') . $model->getTemplateName() : __('New Template'));
 
         return $resultPage;
     }
+
 }

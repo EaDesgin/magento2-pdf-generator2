@@ -45,4 +45,5 @@ abstract class AbstractSource implements \Magento\Framework\Data\OptionSourceInt
         }
         return $options;
     }
+
 }

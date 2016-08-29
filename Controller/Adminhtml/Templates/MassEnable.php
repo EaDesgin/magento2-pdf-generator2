@@ -45,4 +45,5 @@ class MassEnable extends MassAction
         $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
         return $resultRedirect->setPath('*/*/');
     }
+
 }

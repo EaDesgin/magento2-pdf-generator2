@@ -59,7 +59,8 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         DataPersistorInterface $dataPersistor,
         array $meta = [],
         array $data = []
-    ) {
+    )
+    {
         $this->collection = $templateCollectionFactory->create();
         $this->dataPersistor = $dataPersistor;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
@@ -103,4 +104,5 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 
         return $this->loadedData;
     }
+    
 }

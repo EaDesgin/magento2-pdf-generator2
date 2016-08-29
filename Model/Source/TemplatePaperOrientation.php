@@ -53,7 +53,6 @@ class TemplatePaperOrientation extends \Eadesigndev\Pdfgenerator\Model\Source\Ab
     const TEMAPLATE_PAPER_LANDSCAPE = 2;
 
 
-
     /**
      * Prepare post's statuses.
      *

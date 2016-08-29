@@ -31,7 +31,7 @@ abstract class Templates extends \Magento\Backend\App\Action
      *
      * @var \Magento\Framework\Registry
      */
-    protected $_coreRegistry;
+    protected $coreRegistry;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
@@ -42,7 +42,7 @@ abstract class Templates extends \Magento\Backend\App\Action
         \Magento\Framework\Registry $coreRegistry
     )
     {
-        $this->_coreRegistry = $coreRegistry;
+        $this->coreRegistry = $coreRegistry;
         parent::__construct($context);
     }
 
@@ -69,4 +69,5 @@ abstract class Templates extends \Magento\Backend\App\Action
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);
     }
+
 }

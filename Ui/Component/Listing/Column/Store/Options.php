@@ -1,7 +1,7 @@
 <?php
 /**
  * Sample_News extension
-/**
+ * /**
  * EaDesgin
  *
  * NOTICE OF LICENSE
@@ -25,6 +25,7 @@ use Magento\Store\Ui\Component\Listing\Column\Store\Options as StoreOptions;
 
 class Options extends StoreOptions
 {
+
     /**
      * All Store Views value
      */
@@ -47,4 +48,5 @@ class Options extends StoreOptions
 
         return $this->options;
     }
+
 }

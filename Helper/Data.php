@@ -36,12 +36,12 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $_config;
+    protected $config;
 
     /**
      * @var \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
      */
-    protected $_templateCollection;
+    protected $templateCollection;
 
     /**
      * Constructor
@@ -55,40 +55,11 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         templateCollectionFactory $_templateCollection
     )
     {
-        $this->_templateCollection = $_templateCollection;
-        $this->_config = $context->getScopeConfig();
+        $this->templateCollection = $_templateCollection;
+        $this->config = $context->getScopeConfig();
         parent::__construct($context);
 
     }
-
-    /**
-     * Get config value
-     *
-     * @param string $configPath
-     * @return string
-     */
-    public function getConfig($configPath)
-    {
-        return $this->_config->getValue(
-            $configPath,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
-    }
-
-    /**
-     * Check if module is enable
-     *
-     * @return boolean
-     */
-    public function isEnable()
-    {
-        if(!class_exists('mPDF')){
-            return false;
-        }
-
-        return $this->getConfig(self::ENABLE);
-    }
-
 
     /**
      * Check if module will send email on new invoice or invoice update
@@ -104,6 +75,34 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
+     * Check if module is enable
+     *
+     * @return boolean
+     */
+    public function isEnable()
+    {
+        if (!class_exists('mPDF')) {
+            return false;
+        }
+
+        return $this->getConfig(self::ENABLE);
+    }
+
+    /**
+     * Get config value
+     *
+     * @param string $configPath
+     * @return string
+     */
+    public function getConfig($configPath)
+    {
+        return $this->config->getValue(
+            $configPath,
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
      * Get the active template
      *
      * @param $invoice
@@ -111,10 +110,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getTemplateStatus(\Magento\Sales\Model\Order\Invoice $invoice)
     {
-
         $invoiceStore = $invoice->getOrder()->getStoreId();
-
-        $collection = $this->_templateCollection->create();
+        $collection = $this->templateCollection->create();
         $collection->addStoreFilter($invoiceStore);
         $collection->addFieldToFilter('is_active', \Eadesigndev\Pdfgenerator\Model\Source\TemplateActive::STATUS_ENABLED);
         $collection->addFieldToFilter('template_default', \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource::IS_DEFAULT);

@@ -35,7 +35,7 @@ class Pdfgenerator extends AbstractDb
      *
      * @var StoreManagerInterface
      */
-    protected $_storeManager;
+    protected $storeManager;
 
     /**
      * @var DateTime
@@ -70,7 +70,7 @@ class Pdfgenerator extends AbstractDb
     )
     {
         parent::__construct($context, $connectionName);
-        $this->_storeManager = $storeManager;
+        $this->storeManager = $storeManager;
         $this->dateTime = $dateTime;
         $this->entityManager = $entityManager;
         $this->metadataPool = $metadataPool;
@@ -140,7 +140,6 @@ class Pdfgenerator extends AbstractDb
      */
     protected function saveStoreRelation(AbstractModel $template)
     {
-
         $oldStores = $this->lookupStoreIds($template->getId());
         $newStores = (array)$template->getStoreId();
         if (empty($newStores)) {
@@ -157,6 +156,7 @@ class Pdfgenerator extends AbstractDb
             ];
             $this->getConnection()->delete($table, $where);
         }
+
         if ($insert) {
             $data = [];
             foreach ($insert as $storeId) {

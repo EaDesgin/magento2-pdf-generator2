@@ -37,22 +37,19 @@ class Printpdf extends Abstractpdf
     /**
      * @var
      */
-    protected $_dateTime;
-
-    /**
-     * @var Pdf
-     */
-    private $helper;
-
+    protected $dateTime;
     /**
      * @var \Magento\Framework\App\Response\Http\FileFactory
      */
-    protected $_fileFactory;
-
+    protected $fileFactory;
     /**
      * @var \Magento\Backend\Model\View\Result\ForwardFactory
      */
     protected $resultForwardFactory;
+    /**
+     * @var Pdf
+     */
+    private $helper;
 
     /**
      * Printpdf constructor.
@@ -61,7 +58,7 @@ class Printpdf extends Abstractpdf
      * @param \Magento\Email\Model\Template\Config $emailConfig
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      * @param Pdf $helper
-     * @param DateTime $_dateTime
+     * @param DateTime $dateTime
      * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
      * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
      */
@@ -71,17 +68,17 @@ class Printpdf extends Abstractpdf
         \Magento\Email\Model\Template\Config $emailConfig,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         Pdf $helper,
-        DateTime $_dateTime,
+        DateTime $dateTime,
         \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
         \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
 
     )
     {
-        $this->_fileFactory = $fileFactory;
+        $this->fileFactory = $fileFactory;
         $this->helper = $helper;
         parent::__construct($context, $coreRegistry, $emailConfig, $resultJsonFactory);
         $this->resultForwardFactory = $resultForwardFactory;
-        $this->_dateTime = $_dateTime;
+        $this->dateTime = $dateTime;
     }
 
 
@@ -118,17 +115,16 @@ class Printpdf extends Abstractpdf
 
         $pdfFileData = $helper->template2Pdf();
 
-        $date = $this->_dateTime->date('Y-m-d_H-i-s');
+        $date = $this->dateTime->date('Y-m-d_H-i-s');
 
         $fileName = $pdfFileData['filename'] . $date . '.pdf';
 
-        return $this->_fileFactory->create(
+        return $this->fileFactory->create(
             $fileName,
             $pdfFileData['filestream'],
             DirectoryList::VAR_DIR,
             'application/pdf'
         );
-
     }
 
 }

@@ -33,12 +33,13 @@ use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
  */
 class InstallData implements InstallDataInterface
 {
+
     /**
      * Store manager
      *
      * @var StoreManagerInterface
      */
-    protected $_storeManager;
+    protected $storeManager;
 
     /**
      * @var PdfgeneratorFactory
@@ -62,7 +63,7 @@ class InstallData implements InstallDataInterface
         TemplateRepository $templateRepository
     )
     {
-        $this->_storeManager = $storeManager;
+        $this->storeManager = $storeManager;
         $this->templateFactory = $templateFactory;
         $this->templateRepository = $templateRepository;
     }
@@ -70,11 +71,11 @@ class InstallData implements InstallDataInterface
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
 
-        $storeId = $this->_storeManager->getStore()->getId();
+        $storeId = $this->storeManager->getStore()->getId();
 
         $templates = [
             [
-                'store_id'=> $storeId,
+                'store_id' => $storeId,
                 'is_active' => 1,
                 'template_name' => 'Invoice Template Portrait!',
                 'template_description' => 'The template for invoice default',
@@ -91,7 +92,7 @@ class InstallData implements InstallDataInterface
                 @font-face {  font-family: Arial;}.clearfix:after {  content: "";  display: table;  clear: both;}a {  color: #000;  text-decoration: none;}table {  width: 100%;  border-collapse: collapse;  border-spacing: 0;  margin-bottom: 20px;}table th, table td{  background: #EEEEEE;  text-align: center;  border-bottom: 1px solid #FFFFFF;}table thead th{font-weight: normal;text-transform: uppercase;padding-top: 5px;padding-bottom: 5px;}table thead th.item-info, table thead th.item-subtotal {  border: none;  background: #ff8b00;  color: #fff;}table thead th.item-info{text-align: left;padding-left: 10px;}table thead th.item-qty{padding-left: 10px;padding-right: 10px;}table thead th.item-subtotal{text-align: right;padding-right: 10px;}table tfoot {background: #FFFFFF;text-align: right;}table tfoot td, table tfoot th {  padding: 10px 20px;  background: #FFFFFF;  border-bottom: none;  font-size: 1em;  white-space: nowrap;  border-top: 1px solid #AAAAAA;  text-align: right;  text-transform: uppercase;  font-weight: normal;}table tbody tr td:nth-child(1) {  text-align: left;  background: #ff8b00;  color: #000;  padding-left: 10px;  border-top: 1px solid #AAAAAA;  padding-top: 5px;  padding-bottom: 5px;}table tbody tr td:nth-child(3) {  text-align: right;  background: #ff8b00;  color: #fff;  padding-right: 10px;  border-top: 1px solid #AAAAAA;  padding-top: 5px;  padding-bottom: 5px;}
                 ',
                 'template_file_name' => 'invoice {{var ea_invoice_id}} {{var ea_invoice_date}} {{var ea_invoice_status}} ',
-                'template_paper_form' => 1,
+                'template_paper_form' => \Eadesigndev\Pdfgenerator\Model\Source\TemplatePaperForm::TEMAPLATE_PAPER_FORM_A4,
                 'template_custom_form' => 0,
                 'template_custom_h' => 25,
                 'template_custom_w' => 25,
@@ -104,7 +105,7 @@ class InstallData implements InstallDataInterface
                 'update_time' => time(),
             ],
             [
-                'store_id'=> $storeId,
+                'store_id' => $storeId,
                 'is_active' => 0,
                 'template_name' => 'Invoice Template Landscape!',
                 'template_description' => 'The template for invoice default',

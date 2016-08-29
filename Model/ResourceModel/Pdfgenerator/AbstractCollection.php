@@ -57,7 +57,8 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
         \Magento\Framework\EntityManager\MetadataPool $metadataPool,
         \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
         \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
-    ) {
+    )
+    {
         $this->storeManager = $storeManager;
         $this->metadataPool = $metadataPool;
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
@@ -190,4 +191,5 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
 
         return $countSelect;
     }
+
 }

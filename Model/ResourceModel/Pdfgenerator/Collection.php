@@ -26,7 +26,7 @@ class Collection extends \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenera
     /**
      * @var string
      */
-    protected $_idFieldName = 'template_id';
+    protected $idFieldName = 'template_id';
 
     /**
      * Init resource model
@@ -38,7 +38,7 @@ class Collection extends \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenera
         $this->_map['fields']['template_id'] = 'main_table.template_id';
         $this->_map['fields']['store'] = 'store_table.store_id';
     }
-    
+
     /**
      * Add filter by store
      *

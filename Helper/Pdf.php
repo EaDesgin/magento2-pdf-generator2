@@ -51,12 +51,12 @@ class Pdf extends AbstractHelper
     /**
      * @var invoice;
      */
-    protected $_invoice;
+    protected $invoice;
 
     /**
      * @var template
      */
-    protected $_template;
+    protected $template;
 
     /**
      * @var IdentityInterface
@@ -79,7 +79,7 @@ class Pdf extends AbstractHelper
     protected $addressRenderer;
 
     /**
-     * @var TemplateFactory
+     * @var Processor
      */
     protected $processor;
 
@@ -89,18 +89,17 @@ class Pdf extends AbstractHelper
      * @param Renderer $addressRenderer
      * @param PaymentHelper $paymentHelper
      * @param InvoiceIdentity $identityContainer
-     * @param Processor $_templateFactory
+     * @param Processor $templateFactory
      */
     public function __construct(
         Context $context,
         Renderer $addressRenderer,
         PaymentHelper $paymentHelper,
         InvoiceIdentity $identityContainer,
-        Processor $_templateFactory
-
+        Processor $templateFactory
     )
     {
-        $this->processor = $_templateFactory;
+        $this->processor = $templateFactory;
         $this->paymentHelper = $paymentHelper;
         $this->identityContainer = $identityContainer;
         $this->addressRenderer = $addressRenderer;
@@ -113,7 +112,7 @@ class Pdf extends AbstractHelper
      */
     public function setInvoice(\Magento\Sales\Model\Order\Invoice $invoice)
     {
-        $this->_invoice = $invoice;
+        $this->invoice = $invoice;
         return $this;
     }
 
@@ -123,7 +122,7 @@ class Pdf extends AbstractHelper
      */
     public function setTemplate(\Eadesigndev\Pdfgenerator\Model\Pdfgenerator $template)
     {
-        $this->_template = $template;
+        $this->template = $template;
         return $this;
     }
 
@@ -134,9 +133,8 @@ class Pdf extends AbstractHelper
      */
     public function template2Pdf()
     {
-
-        $invoice = $this->_invoice;
-        $templateModel = $this->_template;
+        $invoice = $this->invoice;
+        $templateModel = $this->template;
         $order = $invoice->getOrder();
 
         /**transport use to get the variables $order object, $invoice object and the template model object*/
@@ -160,7 +158,6 @@ class Pdf extends AbstractHelper
      */
     private function _eapdfSettings($parts, $templateModel)
     {
-
         if (!$templateModel->getTemplateCustomForm()) {
             $pdf = new \mPDF(
                 $mode = '',
@@ -179,7 +176,6 @@ class Pdf extends AbstractHelper
             );
         }
 
-
         if ($templateModel->getTemplateCustomForm()) {
             $pdf = new \mPDF(
                 '',
@@ -195,12 +191,10 @@ class Pdf extends AbstractHelper
                 $mgb = $templateModel->getTemplateCustomB(),
                 $mgh = 9,
                 $mgf = 9
-
             );
         }
 
         //todo check for header template processing problem width breaking the templates.
-
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
 
@@ -221,7 +215,6 @@ class Pdf extends AbstractHelper
      */
     private function paperFormat($form, $ori)
     {
-
         $size = self::PAPER_SIZE;
         $oris = self::PAPER_ORI;
 
@@ -257,11 +250,8 @@ class Pdf extends AbstractHelper
         ];
 
         $processor = $this->processor;
-
         $processor->setVariables($transport);
         $processor->setTemplate($templateModel);
-
-
         $parts = $processor->processTemplate();
 
         return $parts;
@@ -298,6 +288,5 @@ class Pdf extends AbstractHelper
     {
         return $this->addressRenderer->format($order->getBillingAddress(), 'html');
     }
-
 
 }

@@ -27,6 +27,7 @@ use Magento\Framework\DB\Ddl\Table;
 
 class InstallSchema implements InstallSchemaInterface
 {
+
     /**
      * Installs DB schema for the module
      *
@@ -74,7 +75,6 @@ class InstallSchema implements InstallSchemaInterface
             ->setComment('Eadesign PDF Generator Installer');
 
         $installer->getConnection()->createTable($table);
-
 
         $table = $installer->getConnection()->newTable(
             $installer->getTable('eadesign_pdf_store')

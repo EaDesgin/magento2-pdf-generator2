@@ -19,7 +19,6 @@
 
 namespace Eadesigndev\Pdfgenerator\Api\Data;
 
-
 interface TemplatesInterface
 {
     /**

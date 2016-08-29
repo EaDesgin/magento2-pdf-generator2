@@ -33,13 +33,13 @@ class Processor extends Template
      * @var store id;
      */
     private $storeId;
+
     /**
      * Configuration of design package for template
      *
      * @var DataObject
      */
     protected $designConfig;
-
 
     /**
      * @return mixed
@@ -150,8 +150,8 @@ class Processor extends Template
                 ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => $this->storeId]
             );
         }
+        
         return $this->designConfig;
     }
-
 
 }
