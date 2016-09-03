@@ -156,7 +156,7 @@ class Pdf extends AbstractHelper
      * @param $templateModel
      * @return string
      */
-    private function _eapdfSettings($parts, $templateModel)
+    protected function _eapdfSettings($parts, $templateModel)
     {
         if (!$templateModel->getTemplateCustomForm()) {
             $pdf = new \mPDF(
