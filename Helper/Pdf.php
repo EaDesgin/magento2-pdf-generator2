@@ -48,6 +48,8 @@ class Pdf extends AbstractHelper
         6 => 'LEGAL-'
     ];
 
+    protected $order;
+
     /**
      * @var invoice;
      */
@@ -113,6 +115,17 @@ class Pdf extends AbstractHelper
     public function setInvoice(\Magento\Sales\Model\Order\Invoice $invoice)
     {
         $this->invoice = $invoice;
+        $this->setOrder($invoice->getOrder());
+        return $this;
+    }
+
+    /**
+     * @param \Magento\Sales\Model\Order $order
+     * @return $this
+     */
+    public function setOrder(\Magento\Sales\Model\Order $order)
+    {
+        $this->order = $order;
         return $this;
     }
 
@@ -133,15 +146,13 @@ class Pdf extends AbstractHelper
      */
     public function template2Pdf()
     {
-        $invoice = $this->invoice;
         $templateModel = $this->template;
-        $order = $invoice->getOrder();
 
         /**transport use to get the variables $order object, $invoice object and the template model object*/
-        $parts = $this->_transport($order, $invoice, $templateModel);
+        $parts = $this->_transport();
 
         /** instantiate the mPDF class and add the processed html to get the pdf*/
-        $applySettings = $this->_eapdfSettings($parts, $templateModel);
+        $applySettings = $this-> _eaPDFSettings($parts);
 
         $fileParts = [
             'filestream' => $applySettings,
@@ -152,12 +163,45 @@ class Pdf extends AbstractHelper
     }
 
     /**
-     * @param $parts
-     * @param $templateModel
+     *
+     * This will proces the template and the variables from the entity's
+     *
      * @return string
      */
-    protected function _eapdfSettings($parts, $templateModel)
+    protected function _transport()
     {
+
+        $invoice = $this->invoice;
+        $order = $this->order;
+
+        $transport = [
+            'order' => $order,
+            'invoice' => $invoice,
+            'comment' => $invoice->getCustomerNoteNotify() ? $invoice->getCustomerNote() : '',
+            'billing' => $order->getBillingAddress(),
+            'payment_html' => $this->getPaymentHtml($order),
+            'store' => $order->getStore(),
+            'formattedShippingAddress' => $this->getFormattedShippingAddress($order),
+            'formattedBillingAddress' => $this->getFormattedBillingAddress($order)
+        ];
+
+        $processor = $this->processor;
+        $processor->setVariables($transport);
+        $processor->setTemplate($this->template);
+        $parts = $processor->processTemplate();
+
+        return $parts;
+    }
+
+    /**
+     * @param $parts
+     * @return string
+     */
+    protected function _eaPDFSettings($parts)
+    {
+
+        $templateModel = $this->template;
+
         if (!$templateModel->getTemplateCustomForm()) {
             $pdf = new \mPDF(
                 $mode = '',
@@ -200,7 +244,6 @@ class Pdf extends AbstractHelper
 
         $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
 
-
         $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
@@ -227,35 +270,6 @@ class Pdf extends AbstractHelper
         return $format;
     }
 
-    /**
-     *
-     * This will proces the template and the variables from the entity's
-     *
-     * @param $order
-     * @param $invoice
-     * @param $templateModel
-     * @return string
-     */
-    protected function _transport($order, $invoice, $templateModel)
-    {
-        $transport = [
-            'order' => $order,
-            'invoice' => $invoice,
-            'comment' => $invoice->getCustomerNoteNotify() ? $invoice->getCustomerNote() : '',
-            'billing' => $order->getBillingAddress(),
-            'payment_html' => $this->getPaymentHtml($order),
-            'store' => $order->getStore(),
-            'formattedShippingAddress' => $this->getFormattedShippingAddress($order),
-            'formattedBillingAddress' => $this->getFormattedBillingAddress($order)
-        ];
-
-        $processor = $this->processor;
-        $processor->setVariables($transport);
-        $processor->setTemplate($templateModel);
-        $parts = $processor->processTemplate();
-
-        return $parts;
-    }
 
     /**
      * @param \Magento\Sales\Model\Order $order
