@@ -35,22 +35,22 @@ class Pdfgenerator extends AbstractDb
      *
      * @var StoreManagerInterface
      */
-    protected $storeManager;
+    private $storeManager;
 
     /**
      * @var DateTime
      */
-    protected $dateTime;
+    private $dateTime;
 
     /**
      * @var EntityManager
      */
-    protected $entityManager;
+    private $entityManager;
 
     /**
      * @var MetadataPool
      */
-    protected $metadataPool;
+    private $metadataPool;
 
     /**
      * @param Context $context
@@ -100,7 +100,6 @@ class Pdfgenerator extends AbstractDb
 
         return parent::_afterLoad($object);
     }
-
 
     /**
      * Assign $template to store views
@@ -165,8 +164,10 @@ class Pdfgenerator extends AbstractDb
                     'store_id' => (int)$storeId
                 ];
             }
+
             $this->getConnection()->insertMultiple($table, $data);
         }
+
         return $this;
     }
 

@@ -30,27 +30,27 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
     /**
      * @var array
      */
-    protected $instances = [];
+    private $instances = [];
 
     /**
      * @var TemplateResource
      */
-    public $resource;
+    private $resource;
 
     /**
      * @var TemplatesInterface
      */
-    public $templatesInterface;
+    private $templatesInterface;
 
     /**
      * @var TemplatesInterfaceFactory
      */
-    public $templatesInterfaceFactory;
+    private $templatesInterfaceFactory;
 
     /**
      * @var \Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory
      */
-    protected $pdfgeneratorFactory;
+    private $pdfgeneratorFactory;
 
     /**
      * PdfgeneratorRepository constructor.
@@ -83,6 +83,7 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
         } catch (\Exception $exception) {
             echo $exception->getMessage();
         }
+
         return $template;
     }
 
@@ -95,9 +96,11 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
         if (!isset($this->instances[$templateId])) {
             $template = $this->pdfgeneratorFactory->create();
             $this->resource->load($template, $templateId);
+
             if (!$template->getId()) {
                 echo(__('Requested template doesn\'t exist'));
             }
+
             $this->instances[$templateId] = $template;
         }
 
@@ -114,11 +117,12 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
         try {
             unset($this->instances[$id]);
             $this->resource->delete($template);
-
         } catch (\Exception $e) {
             echo __('Unable to remove template %1', $id);
         }
+
         unset($this->instances[$id]);
+
         return true;
     }
 

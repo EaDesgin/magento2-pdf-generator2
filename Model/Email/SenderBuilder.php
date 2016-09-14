@@ -31,7 +31,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     /**
      * @var Pdf
      */
-    protected $helper;
+    private $helper;
 
     /**
      * @var Data
@@ -41,7 +41,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     /**
      * @var DateTime
      */
-    protected $dateTime;
+    private $dateTime;
 
     /**
      * SenderBuilder constructor.
@@ -120,16 +120,16 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
                 $date = $this->dateTime->date('Y-m-d_H-i-s');
 
                 $this->transportBuilder->addAttachment(
-                    $pdfFileData['filestream']
-                    , \Zend_Mime::TYPE_OCTETSTREAM
-                    , \Zend_Mime::DISPOSITION_ATTACHMENT
-                    , \Zend_Mime::ENCODING_BASE64
-                    , $pdfFileData['filename'] . $date . '.pdf'
+                    $pdfFileData['filestream'],
+                    \Zend_Mime::TYPE_OCTETSTREAM,
+                    \Zend_Mime::DISPOSITION_ATTACHMENT,
+                    \Zend_Mime::ENCODING_BASE64,
+                    $pdfFileData['filename'] . $date . '.pdf'
                 );
             }
         }
 
         return $this;
     }
-    
+
 }

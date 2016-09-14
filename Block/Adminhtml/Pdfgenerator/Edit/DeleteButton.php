@@ -38,9 +38,13 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
                 $data = [
                     'label' => __('Delete Template'),
                     'class' => 'delete',
-                    'on_click' => 'deleteConfirm(\'' . __(
+                    'on_click' => 'deleteConfirm(\'' .
+                        __(
                             'Are you sure you want to do this?'
-                        ) . '\', \'' . $this->getDeleteUrl() . '\')',
+                        ) .
+                        '\', \'' .
+                        $this->getDeleteUrl() .
+                        '\')',
                     'sort_order' => 20,
                 ];
             }

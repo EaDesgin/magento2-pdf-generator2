@@ -38,22 +38,22 @@ class Save extends \Magento\Backend\App\Action
     /**
      * @var PdfDataProcessor
      */
-    protected $dataProcessor;
+    private $dataProcessor;
 
     /**
      * @var DataPersistorInterface
      */
-    protected $dataPersistor;
+    private $dataPersistor;
 
     /**
      * @var TemplateRepository
      */
-    protected $templateRepository;
+    private $templateRepository;
 
     /**
      * @var PdfgeneratorFactory
      */
-    protected $pdfgeneratorFactory;
+    private $pdfgeneratorFactory;
 
     /**
      * Save constructor.
@@ -89,11 +89,14 @@ class Save extends \Magento\Backend\App\Action
         $data = $this->getRequest()->getPostValue();
         /** @var \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
         $resultRedirect = $this->resultRedirectFactory->create();
+
         if ($data) {
             $data = $this->dataProcessor->validateRequireEntry($data);
+
             if (isset($data['is_active']) && $data['is_active'] === 'true') {
                 $data['is_active'] = TemplateActive::STATUS_ENABLED;
             }
+
             if (empty($data['template_id'])) {
                 $data['template_id'] = null;
             }
@@ -112,26 +115,40 @@ class Save extends \Magento\Backend\App\Action
             $model->setData('update_time', time());
 
             if (!$this->dataProcessor->validate($data)) {
-                return $resultRedirect->setPath('*/*/edit', ['template_id' => $model->getTemplateId(), '_current' => true]);
+                return $resultRedirect->setPath('*/*/edit', [
+                    'template_id' => $model->getTemplateId(),
+                    '_current' => true
+                ]);
             }
 
             try {
                 $this->templateRepository->save($model);
                 $this->messageManager->addSuccessMessage(__('You saved the template.'));
                 $this->dataPersistor->clear('pdfgenerator_template');
+
                 if ($this->getRequest()->getParam('back')) {
-                    return $resultRedirect->setPath('*/*/edit', ['template_id' => $model->getTemplateId(), '_current' => true]);
+                    return $resultRedirect->setPath('*/*/edit', [
+                        'template_id' => $model->getTemplateId(),
+                        '_current' => true
+                    ]);
                 }
+
                 return $resultRedirect->setPath('*/*/');
             } catch (LocalizedException $e) {
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
-                $this->messageManager->addExceptionMessage($e->getMessage(), __('Something went wrong while saving the template.'));
+                $this->messageManager->addExceptionMessage(
+                    $e->getMessage(),
+                    __('Something went wrong while saving the template.')
+                );
             }
 
             $this->dataPersistor->set('pdfgenerator_template', $data);
-            return $resultRedirect->setPath('*/*/edit', ['template_id' => $this->getRequest()->getParam('template_id')]);
+            return $resultRedirect->setPath('*/*/edit', [
+                'template_id' => $this->getRequest()->getParam('template_id')
+            ]);
         }
+
         return $resultRedirect->setPath('*/*/');
     }
 
@@ -142,7 +159,8 @@ class Save extends \Magento\Backend\App\Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW);
+        return $this->_authorization->isAllowed(
+            \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW
+        );
     }
-
 }

@@ -48,5 +48,4 @@ class Options extends StoreOptions
 
         return $this->options;
     }
-
 }

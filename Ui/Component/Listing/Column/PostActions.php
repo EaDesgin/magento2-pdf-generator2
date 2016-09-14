@@ -32,7 +32,7 @@ class PostActions extends Column
     const TEMPLATE_DELETE = 'pdfgenerator/templates/delete';
 
     /** @var UrlInterface */
-    protected $urlBuilder;
+    private $urlBuilder;
 
     /**
      * @var string
@@ -74,11 +74,17 @@ class PostActions extends Column
                 $name = $this->getData('name');
                 if (isset($item['template_id'])) {
                     $item[$name]['edit'] = [
-                        'href' => $this->urlBuilder->getUrl($this->editUrl, ['template_id' => $item['template_id']]),
+                        'href' => $this->urlBuilder->getUrl(
+                            $this->editUrl,
+                            ['template_id' => $item['template_id']]
+                        ),
                         'label' => __('Edit')
                     ];
                     $item[$name]['delete'] = [
-                        'href' => $this->urlBuilder->getUrl(self::TEMPLATE_DELETE, ['template_id' => $item['template_id']]),
+                        'href' => $this->urlBuilder->getUrl(
+                            self::TEMPLATE_DELETE,
+                            ['template_id' => $item['template_id']]
+                        ),
                         'label' => __('Delete'),
                         'confirm' => [
                             'title' => __('Delete "${ $.$data.title }"'),
@@ -91,5 +97,4 @@ class PostActions extends Column
 
         return $dataSource;
     }
-    
 }

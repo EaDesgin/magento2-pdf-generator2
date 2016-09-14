@@ -39,7 +39,7 @@ class InstallData implements InstallDataInterface
      *
      * @var StoreManagerInterface
      */
-    protected $storeManager;
+    private $storeManager;
 
     /**
      * @var PdfgeneratorFactory

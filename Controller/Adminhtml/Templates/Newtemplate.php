@@ -25,7 +25,7 @@ class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templat
     /**
      * @var \Magento\Backend\Model\View\Result\Forward
      */
-    protected $resultForwardFactory;
+    private $resultForwardFactory;
 
     /**
      * @param \Magento\Backend\App\Action\Context $context
@@ -62,5 +62,4 @@ class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templat
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);
     }
-
 }

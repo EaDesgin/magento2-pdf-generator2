@@ -29,12 +29,12 @@ class TemplatePaperForm extends \Eadesigndev\Pdfgenerator\Model\Source\AbstractS
     /**
      * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface
      */
-    protected $pageLayoutBuilder;
+    private $pageLayoutBuilder;
 
     /**
      * @var array
      */
-    protected $options;
+    private $options;
 
     /**
      * Constructor
@@ -55,7 +55,6 @@ class TemplatePaperForm extends \Eadesigndev\Pdfgenerator\Model\Source\AbstractS
     const TEMAPLATE_PAPER_FORMAT_A6 = 4;
     const TEMAPLATE_PAPER_FORMAT_LETTER = 5;
     const TEMAPLATE_PAPER_FORMAT_LEGAL = 6;
-
 
     /**
      * Prepare post's statuses.

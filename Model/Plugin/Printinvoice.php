@@ -23,21 +23,21 @@ use Eadesigndev\Pdfgenerator\Helper\Data;
 
 class Printinvoice
 {
-    
+
     /**
      * @var \Magento\Backend\Model\UrlInterface
      */
-    protected $urlInterface;
+    private $urlInterface;
 
     /**
      * @var \Magento\Framework\Registry
      */
-    protected $coreRegistry;
+    private $coreRegistry;
 
     /**
      * @var Data
      */
-    protected $dataHelper;
+    private $dataHelper;
 
     /**
      * Printinvoice constructor.
@@ -64,7 +64,6 @@ class Printinvoice
         return $this->coreRegistry->registry('current_invoice');
     }
 
-
     /**
      * @param $subject
      * @param $result
@@ -75,6 +74,7 @@ class Printinvoice
         if (!$this->dataHelper->isEnable()) {
             return $result;
         }
+
         $lastItem = $this->dataHelper->getTemplateStatus($this->getInvoice());
 
         if (empty($lastItem->getId())) {
@@ -96,7 +96,7 @@ class Printinvoice
                 'template_id' => $lastItem->getId(),
                 'order_id' => $this->getInvoice()->getOrder()->getId(),
                 'invoice_id' => $this->getInvoice()->getId()
-            ]);
+            ]
+        );
     }
-
 }

@@ -24,13 +24,13 @@ use Magento\Framework\App\Action\Action;
 class Template extends Action
 {
 
-    CONST INVOICE_TMEPLTE_ID = 'sales_email_invoice_template';
-    CONST ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
+    const INVOICE_TMEPLTE_ID = 'sales_email_invoice_template';
+    const ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
 
-    private $_coreRegistry;
     /**
-     * @var \Magento\Email\Model\Template\Config
+     * @var \Magento\Framework\Registry
      */
+    private $coreRegistry;
 
     /**
      * @var \Magento\Email\Model\Template\Config
@@ -40,7 +40,7 @@ class Template extends Action
     /**
      * @var \Magento\Framework\Controller\Result\JsonFactory
      */
-    protected $resultJsonFactory;
+    private $resultJsonFactory;
 
     /**
      * Template constructor.
@@ -59,7 +59,7 @@ class Template extends Action
 
         $this->emailConfig = $emailConfig;
         parent::__construct($context);
-        $this->_coreRegistry = $coreRegistry;
+        $this->coreRegistry = $coreRegistry;
         $this->resultJsonFactory = $resultJsonFactory;
     }
 
@@ -81,18 +81,29 @@ class Template extends Action
             if ($theme) {
                 $template->setForcedTheme($templateId, $theme);
             }
+
             $template->setForcedArea($templateId);
 
             $template->loadDefault($templateId);
             $template->setData('orig_template_code', $templateId);
-            $template->setData('template_variables', \Zend_Json::encode($template->getVariablesOptionArray(true)));
+            $template->setData(
+                'template_variables',
+                \Zend_Json::encode($template->getVariablesOptionArray(true)
+                ));
 
-            $templateBlock = $this->_view->getLayout()->createBlock('Magento\Email\Block\Adminhtml\Template\Edit');
-            $template->setData('orig_template_currently_used_for', $templateBlock->getCurrentlyUsedForPaths(false));
+            $templateBlock = $this->_view->getLayout()->createBlock(
+                'Magento\Email\Block\Adminhtml\Template\Edit'
+            );
+            $template->setData(
+                'orig_template_currently_used_for',
+                $templateBlock->getCurrentlyUsedForPaths(false)
+            );
 
             $this->getResponse()->representJson(
-                $this->_objectManager->get('Magento\Framework\Json\Helper\Data')->jsonEncode($template->getData())
-            );
+                $this->_objectManager
+                    ->get('Magento\Framework\Json\Helper\Data')
+                    ->jsonEncode($template->getData()
+                    ));
         } catch (\Exception $e) {
             $this->_objectManager->get('Psr\Log\LoggerInterface')->critical($e);
         }
@@ -106,7 +117,11 @@ class Template extends Action
         );
         /** @var \Magento\Framework\Controller\Result\Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();
-        return $resultJson->setData([$storeContactVariables, $customVariables, $template->getVariablesOptionArray(true)]);
+        return $resultJson->setData([
+            $storeContactVariables,
+            $customVariables,
+            $template->getVariablesOptionArray(true)
+        ]);
     }
 
     /**
@@ -119,12 +134,14 @@ class Template extends Action
 
         $model = $this->_objectManager->create('Magento\Email\Model\BackendTemplate');
 
-        if (!$this->_coreRegistry->registry('email_template')) {
-            $this->_coreRegistry->register('email_template', $model);
+        if (!$this->coreRegistry->registry('email_template')) {
+            $this->coreRegistry->register('email_template', $model);
         }
-        if (!$this->_coreRegistry->registry('current_email_template')) {
-            $this->_coreRegistry->register('current_email_template', $model);
+
+        if (!$this->coreRegistry->registry('current_email_template')) {
+            $this->coreRegistry->register('current_email_template', $model);
         }
+
         return $model;
     }
 
@@ -135,6 +152,8 @@ class Template extends Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW);
+        return $this->_authorization->isAllowed(
+            \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW
+        );
     }
 }

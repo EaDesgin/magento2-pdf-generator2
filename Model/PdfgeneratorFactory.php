@@ -29,14 +29,14 @@ class PdfgeneratorFactory implements FactoryInterface
      *
      * @var ObjectManagerInterface
      */
-    protected $objectManager = null;
+    private $objectManager = null;
 
     /**
      * Instance name to create
      *
      * @var string
      */
-    protected $instanceName = null;
+    private $instanceName = null;
 
     /**
      * PdfgeneratorFactory constructor.
@@ -53,9 +53,8 @@ class PdfgeneratorFactory implements FactoryInterface
      * @param array $data
      * @return mixed
      */
-    public function create(array $data = array())
+    public function create(array $data = [])
     {
         return $this->objectManager->create($this->instanceName, $data);
     }
-
 }

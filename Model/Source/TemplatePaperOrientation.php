@@ -29,12 +29,12 @@ class TemplatePaperOrientation extends \Eadesigndev\Pdfgenerator\Model\Source\Ab
     /**
      * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface
      */
-    protected $pageLayoutBuilder;
+    private $pageLayoutBuilder;
 
     /**
      * @var array
      */
-    protected $options;
+    private $options;
 
     /**
      * Constructor
@@ -51,7 +51,6 @@ class TemplatePaperOrientation extends \Eadesigndev\Pdfgenerator\Model\Source\Ab
      */
     const TEMAPLATE_PAPER_PORTRAIT = 1;
     const TEMAPLATE_PAPER_LANDSCAPE = 2;
-
 
     /**
      * Prepare post's statuses.

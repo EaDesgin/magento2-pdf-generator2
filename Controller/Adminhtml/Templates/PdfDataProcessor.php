@@ -47,6 +47,7 @@ class PdfDataProcessor extends PostDataProcessor
                 );
             }
         }
+
         return $data;
     }
 

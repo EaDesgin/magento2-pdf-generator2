@@ -26,23 +26,23 @@ use Magento\Framework\Registry;
 /**
  * Class GenericButton
  */
-class GenericButton
+abstract class GenericButton
 {
     /**
      * @var \Magento\Framework\AuthorizationInterface
      */
-    protected $authorization;
+    private $authorization;
 
     /**
      * Core registry
      *
      * @var \Magento\Framework\Registry
      */
-    protected $coreRegistry = null;
+    private $coreRegistry = null;
     /**
      * @var Context
      */
-    protected $context;
+    private $context;
 
     /**
      * @param Context $context
@@ -67,7 +67,9 @@ class GenericButton
         try {
             return $this->coreRegistry->registry('pdfgenerator_template')->getData('template_id');
         } catch (NoSuchEntityException $e) {
+
         }
+
         return null;
     }
 

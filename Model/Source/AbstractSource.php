@@ -43,6 +43,7 @@ abstract class AbstractSource implements \Magento\Framework\Data\OptionSourceInt
                 'value' => $key,
             ];
         }
+
         return $options;
     }
 

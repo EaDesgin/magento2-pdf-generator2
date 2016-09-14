@@ -35,17 +35,17 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */
-    protected $resultPageFactory;
+    private $resultPageFactory;
 
     /**
      * @var TemplateRepository
      */
-    protected $templateRepository;
+    private $templateRepository;
 
     /**
      * @var PdfgeneratorFactory
      */
-    protected $pdfgeneratorFactory;
+    private $pdfgeneratorFactory;
 
     /**
      * Edit constructor.
@@ -116,7 +116,7 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         }
 
         $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
-        
+
         if (!empty($data)) {
             $model->setData($data);
         }
@@ -131,7 +131,9 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
 
         $resultPage->getConfig()->getTitle()->prepend(__('Template'));
         $resultPage->getConfig()->getTitle()
-            ->prepend($model->getData('template_id') ? __('Template ') . $model->getTemplateName() : __('New Template'));
+            ->prepend(
+                $model->getData('template_id') ? __('Template ') . $model->getTemplateName() : __('New Template')
+            );
 
         return $resultPage;
     }

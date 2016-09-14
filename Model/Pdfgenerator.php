@@ -33,5 +33,4 @@ class Pdfgenerator extends AbstractModel implements TemplatesInterface
     {
         $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
     }
-
 }

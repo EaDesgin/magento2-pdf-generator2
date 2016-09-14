@@ -48,42 +48,42 @@ class Pdf extends AbstractHelper
         6 => 'LEGAL-'
     ];
 
-    protected $order;
+    private $order;
 
     /**
      * @var invoice;
      */
-    protected $invoice;
+    private $invoice;
 
     /**
      * @var template
      */
-    protected $template;
+    private $template;
 
     /**
      * @var IdentityInterface
      */
-    protected $identityContainer;
+    private $identityContainer;
 
     /**
      * @var
      */
-    public $_mPDF;
+    public $mPDF;
 
     /**
      * @var PaymentHelper
      */
-    protected $paymentHelper;
+    private $paymentHelper;
 
     /**
      * @var Renderer
      */
-    protected $addressRenderer;
+    private $addressRenderer;
 
     /**
      * @var Processor
      */
-    protected $processor;
+    private $processor;
 
     /**
      * Pdf constructor.

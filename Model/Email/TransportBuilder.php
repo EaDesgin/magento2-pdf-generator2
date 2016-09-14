@@ -40,10 +40,15 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
         $filename = null
     )
     {
-        $this->message->createAttachment($body, $mimeType, $disposition,
-            $encoding, $filename);
+        $this->message->createAttachment(
+            $body,
+            $mimeType,
+            $disposition,
+            $encoding,
+            $filename
+        );
 
         return $this;
     }
-    
+
 }

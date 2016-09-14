@@ -27,7 +27,7 @@ abstract class Abstractpdf extends Action
     /**
      * @var \Magento\Framework\Registry
      */
-    private $_coreRegistry;
+    private $coreRegistry;
 
     /**
      * @var \Magento\Email\Model\Template\Config
@@ -56,7 +56,7 @@ abstract class Abstractpdf extends Action
 
         $this->emailConfig = $emailConfig;
         parent::__construct($context);
-        $this->_coreRegistry = $coreRegistry;
+        $this->coreRegistry = $coreRegistry;
         $this->resultJsonFactory = $resultJsonFactory;
     }
 

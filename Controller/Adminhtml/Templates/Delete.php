@@ -29,12 +29,12 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     /**
      * @var \Magento\Framework\View\Result\PageFactory
      */
-    protected $resultPageFactory;
+    private $resultPageFactory;
 
     /**
      * @var TemplateRepository
      */
-    protected $templateRepository;
+    private $templateRepository;
 
     /**
      * Delete constructor.
@@ -54,7 +54,6 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
         $this->templateRepository = $templateRepository;
         parent::__construct($context, $registry);
     }
-
 
     /**
      * Delete action
@@ -76,6 +75,7 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
                 return $resultRedirect->setPath('*/*/edit', ['template_id' => $id]);
             }
         }
+
         $this->messageManager->addErrorMessage(__('We can\'t find a post to delete.'));
         return $resultRedirect->setPath('*/*/');
     }
@@ -89,5 +89,4 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_SAVE);
     }
-
 }

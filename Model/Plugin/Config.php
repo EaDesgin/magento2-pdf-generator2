@@ -26,11 +26,9 @@ class Config
      * @param \Magento\Backend\Model\UrlInterface $url
      * @param \Magento\Framework\Registry $registry
      */
-
     public function __construct(
         \Magento\Backend\Model\UrlInterface $url,
         \Magento\Framework\Registry $registry
-
     )
     {
         $this->_url = $url;
@@ -42,7 +40,6 @@ class Config
      * @param $result
      * @return string
      */
-
     public function afterGetVariablesWysiwygActionUrl($subject, $result)
     {
 
@@ -51,7 +48,6 @@ class Config
         }
 
         return $result;
-
     }
 
     /**

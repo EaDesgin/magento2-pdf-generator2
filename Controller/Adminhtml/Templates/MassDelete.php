@@ -21,7 +21,7 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 use Magento\Framework\Controller\ResultFactory;
 
-class MassDelete  extends MassAction
+class MassDelete extends MassAction
 {
 
     /**

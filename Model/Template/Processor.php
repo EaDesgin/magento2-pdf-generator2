@@ -39,7 +39,7 @@ class Processor extends Template
      *
      * @var DataObject
      */
-    protected $designConfig;
+    private $designConfig;
 
     /**
      * @return mixed
@@ -84,7 +84,6 @@ class Processor extends Template
     {
         // Support theme fallback for email templates
         $isDesignApplied = $this->applyDesignConfig();
-
 
         $processor = $this->getTemplateFilter()
             ->setUseSessionInUrl(false)
@@ -150,8 +149,7 @@ class Processor extends Template
                 ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => $this->storeId]
             );
         }
-        
+
         return $this->designConfig;
     }
-
 }

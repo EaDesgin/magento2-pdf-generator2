@@ -35,12 +35,12 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     /**
      * @var DataPersistorInterface
      */
-    protected $dataPersistor;
+    private $dataPersistor;
 
     /**
      * @var array
      */
-    protected $loadedData;
+    private $loadedData;
 
     /**
      * @param string $name
@@ -88,6 +88,7 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         if (isset($this->loadedData)) {
             return $this->loadedData;
         }
+
         $templates = $this->collection->getItems();
         /** @var $template \Eadesigndev\Pdfgenerator\Model\Pdfgenerator */
         foreach ($templates as $template) {
@@ -104,5 +105,5 @@ class DataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 
         return $this->loadedData;
     }
-    
+
 }

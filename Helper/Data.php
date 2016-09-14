@@ -36,22 +36,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
-    protected $config;
+    private $config;
 
     /**
      * @var \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
      */
-    protected $templateCollection;
+    private $templateCollection;
 
     /**
      * Constructor
      *
      * @param \Magento\Framework\App\Helper\Context $context
-     * @param \Magento\Framework\Module\ModuleListInterface $moduleList
      */
     public function __construct(
         \Magento\Framework\App\Helper\Context $context,
-        \Magento\Framework\Module\ModuleListInterface $moduleList,
         templateCollectionFactory $_templateCollection
     )
     {
@@ -71,6 +69,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         if ($this->isEnable()) {
             return $this->getConfig(self::EMAIL);
         }
+
         return false;
     }
 
@@ -113,10 +112,15 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $invoiceStore = $invoice->getOrder()->getStoreId();
         $collection = $this->templateCollection->create();
         $collection->addStoreFilter($invoiceStore);
-        $collection->addFieldToFilter('is_active', \Eadesigndev\Pdfgenerator\Model\Source\TemplateActive::STATUS_ENABLED);
-        $collection->addFieldToFilter('template_default', \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource::IS_DEFAULT);
+        $collection->addFieldToFilter(
+            'is_active',
+            \Eadesigndev\Pdfgenerator\Model\Source\TemplateActive::STATUS_ENABLED
+        );
+        $collection->addFieldToFilter(
+            'template_default',
+            \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource::IS_DEFAULT
+        );
 
         return $collection->getLastItem();
     }
-
 }

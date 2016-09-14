@@ -33,7 +33,7 @@ class Collection extends PdfCollection implements SearchResultInterface
     /**
      * @var AggregationInterface
      */
-    protected $aggregations;
+    private $aggregations;
 
     /**
      * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
@@ -118,7 +118,9 @@ class Collection extends PdfCollection implements SearchResultInterface
      * @return $this
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function setSearchCriteria(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null)
+    public function setSearchCriteria(
+        \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria = null
+    )
     {
         return $this;
     }
@@ -156,5 +158,4 @@ class Collection extends PdfCollection implements SearchResultInterface
     {
         return $this;
     }
-
 }

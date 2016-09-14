@@ -23,8 +23,8 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml;
 abstract class Templates extends \Magento\Backend\App\Action
 {
 
-    CONST ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
-    CONST ADMIN_RESOURCE_SAVE = 'Eadesigndev_Pdfgenerator::save';
+    const ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
+    const ADMIN_RESOURCE_SAVE = 'Eadesigndev_Pdfgenerator::save';
 
     /**
      * Core registry
@@ -69,5 +69,4 @@ abstract class Templates extends \Magento\Backend\App\Action
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);
     }
-
 }

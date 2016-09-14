@@ -26,17 +26,18 @@ use Magento\Store\Model\Store;
  */
 abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
 {
+
     /**
      * Store manager
      *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
-    protected $storeManager;
+    private $storeManager;
 
     /**
      * @var \Magento\Framework\EntityManager\MetadataPool
      */
-    protected $metadataPool;
+    private $metadataPool;
 
     /**
      * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
@@ -71,7 +72,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
      * @param string|null $linkField
      * @return void
      */
-    protected function performAfterLoad($tableName, $linkField)
+    public function performAfterLoad($tableName, $linkField)
     {
         $linkedIds = $this->getColumnValues($linkField);
         if (count($linkedIds)) {
@@ -79,6 +80,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
             $select = $connection->select()->from(['eadesign_pdf_store' => $this->getTable($tableName)])
                 ->where('eadesign_pdf_store.' . $linkField . ' IN (?)', $linkedIds);
             $result = $connection->fetchAll($select);
+
             if ($result) {
                 $storesData = [];
                 foreach ($result as $storeData) {
@@ -90,6 +92,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
                     if (!isset($storesData[$linkedId])) {
                         continue;
                     }
+
                     $storeIdKey = array_search(Store::DEFAULT_STORE_ID, $storesData[$linkedId], true);
                     if ($storeIdKey !== false) {
                         $stores = $this->storeManager->getStores(false, true);
@@ -99,6 +102,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
                         $storeId = current($storesData[$linkedId]);
                         $storeCode = $this->storeManager->getStore($storeId)->getCode();
                     }
+
                     $item->setData('_first_store_id', $storeId);
                     $item->setData('store_code', $storeCode);
                     $item->setData('store_id', $storesData[$linkedId]);
@@ -174,6 +178,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
                 'main_table.' . $linkField
             );
         }
+
         parent::_renderFiltersBefore();
     }
 
@@ -191,5 +196,4 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
 
         return $countSelect;
     }
-
 }

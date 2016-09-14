@@ -53,5 +53,4 @@ class Templates extends \Magento\Backend\Block\Widget\Grid\Container
     {
         return $this->_authorization->isAllowed($resourceId);
     }
-
 }

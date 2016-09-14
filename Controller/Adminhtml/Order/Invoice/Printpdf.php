@@ -35,17 +35,21 @@ class Printpdf extends Abstractpdf
     const ADMIN_RESOURCE = 'Magento_Sales::sales_invoice';
 
     /**
-     * @var
+     * @var DateTime
      */
-    protected $dateTime;
+    private $dateTime;
+
     /**
      * @var \Magento\Framework\App\Response\Http\FileFactory
      */
-    protected $fileFactory;
+
+    private $fileFactory;
     /**
      * @var \Magento\Backend\Model\View\Result\ForwardFactory
      */
-    protected $resultForwardFactory;
+
+    private $resultForwardFactory;
+
     /**
      * @var Pdf
      */
@@ -81,7 +85,6 @@ class Printpdf extends Abstractpdf
         $this->dateTime = $dateTime;
     }
 
-
     /**
      * @return \Magento\Framework\App\ResponseInterface
      */
@@ -93,7 +96,10 @@ class Printpdf extends Abstractpdf
             return $this->resultForwardFactory->create()->forward('noroute');
         }
 
-        $templateModel = $this->_objectManager->create('Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface')->getById($templateId);
+        $templateModel = $this->_objectManager
+            ->create('Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface')
+            ->getById($templateId);
+
         if (!$templateModel) {
             return $this->resultForwardFactory->create()->forward('noroute');
         }
@@ -103,7 +109,9 @@ class Printpdf extends Abstractpdf
             return $this->resultForwardFactory->create()->forward('noroute');
         }
 
-        $invoice = $this->_objectManager->create('Magento\Sales\Api\InvoiceRepositoryInterface')->get($invoiceId);
+        $invoice = $this->_objectManager
+            ->create('Magento\Sales\Api\InvoiceRepositoryInterface')
+            ->get($invoiceId);
         if (!$invoice) {
             return $this->resultForwardFactory->create()->forward('noroute');
         }
@@ -126,5 +134,4 @@ class Printpdf extends Abstractpdf
             'application/pdf'
         );
     }
-
 }

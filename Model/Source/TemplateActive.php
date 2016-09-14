@@ -37,5 +37,4 @@ class TemplateActive extends \Eadesigndev\Pdfgenerator\Model\Source\AbstractSour
     {
         return [self::STATUS_ENABLED => __('Enabled'), self::STATUS_DISABLED => __('Disabled')];
     }
-
 }
