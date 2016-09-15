@@ -33,7 +33,7 @@ class Collection extends \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenera
      */
     protected function _construct()
     {
-        
+
         $this->_init(
             'Eadesigndev\Pdfgenerator\Model\Pdfgenerator',
             'Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator'
