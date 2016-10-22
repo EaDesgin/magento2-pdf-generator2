@@ -40,6 +40,12 @@ class InstallSchema implements InstallSchemaInterface
         $installer = $setup;
 
         $installer->startSetup();
+		
+		if ($installer->getConnection()->isTableExists(self::PDF_TABLE)) {
+            $installer->endSetup();
+            return;
+        }
+
 
         $table = $installer->getConnection()
             ->newTable($installer->getTable('eadesign_pdf_templates'))

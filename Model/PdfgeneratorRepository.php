@@ -81,7 +81,6 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
         try {
             $this->resource->save($template);
         } catch (\Exception $exception) {
-            echo $exception->getMessage();
         }
 
         return $template;
@@ -98,7 +97,6 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
             $this->resource->load($template, $templateId);
 
             if (!$template->getId()) {
-                echo(__('Requested template doesn\'t exist'));
             }
 
             $this->instances[$templateId] = $template;
@@ -118,7 +116,6 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
             unset($this->instances[$id]);
             $this->resource->delete($template);
         } catch (\Exception $e) {
-            echo __('Unable to remove template %1', $id);
         }
 
         unset($this->instances[$id]);

@@ -68,7 +68,7 @@ class Pdf extends AbstractHelper
     /**
      * @var
      */
-    public $mPDF;
+    public $_mPDF;
 
     /**
      * @var PaymentHelper
@@ -136,6 +136,7 @@ class Pdf extends AbstractHelper
     public function setTemplate(\Eadesigndev\Pdfgenerator\Model\Pdfgenerator $template)
     {
         $this->template = $template;
+        $this->processor->setPDFTemplate($template);
         return $this;
     }
 
