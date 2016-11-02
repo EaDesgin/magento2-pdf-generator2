@@ -28,7 +28,7 @@
     "magento/module-backend": "~100.1.0",
     "magento/module-sales": "~100.1.0",
     "eadesignro/module-eacore": "^0.0.2",
-    "eadesignro/mpdf": "^7.0"
+    "eadesignro/mpdf": "~7.0.1
   },
   "require-dev": {
     "phpunit/phpunit": "^4.5"
