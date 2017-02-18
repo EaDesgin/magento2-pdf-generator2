@@ -7,3 +7,9 @@ For the variable system you can read the Magento domentation here: http://devdoc
 #Video install and use
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/-O4qhzL9_SM/0.jpg)](https://www.youtube.com/watch?v=-O4qhzL9_SM)
+
+#Installation
+
+#Supported Magento Versions
+
+#Requirements (e.g. PHP Version)
