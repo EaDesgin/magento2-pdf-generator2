@@ -19,12 +19,13 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Source;
 
+use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
 use Magento\Framework\View\Model\PageLayout\Config\BuilderInterface;
 
 /**
  * Class PageLayout
  */
-class TemplatePaperOrientation extends \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource
+class TemplatePaperOrientation extends AbstractSource
 {
     /**
      * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface

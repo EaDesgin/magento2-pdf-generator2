@@ -20,23 +20,30 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
-class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
+use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\Forward;
+use Magento\Backend\Model\View\Result\ForwardFactory;
+use Magento\Framework\Registry;
+
+class Newtemplate extends Templates
 {
     /**
-     * @var \Magento\Backend\Model\View\Result\Forward
+     * @var Forward
      */
     private $resultForwardFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
+     * Newtemplate constructor.
+     * @param Context $context
+     * @param Registry $coreRegistry
+     * @param ForwardFactory $resultForwardFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
-    )
-    {
+        Context $context,
+        Registry $coreRegistry,
+        ForwardFactory $resultForwardFactory
+    ) {
         $this->resultForwardFactory = $resultForwardFactory;
         parent::__construct($context, $coreRegistry);
     }
@@ -44,11 +51,11 @@ class Newtemplate extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templat
     /**
      * Forward to edit
      *
-     * @return \Magento\Backend\Model\View\Result\Forward
+     * @return Forward
      */
     public function execute()
     {
-        /** @var \Magento\Backend\Model\View\Result\Forward $resultForward */
+        /** @var Forward $resultForward */
         $resultForward = $this->resultForwardFactory->create();
         return $resultForward->forward('edit');
     }

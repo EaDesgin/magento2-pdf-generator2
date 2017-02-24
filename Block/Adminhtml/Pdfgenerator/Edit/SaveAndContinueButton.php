@@ -19,6 +19,7 @@
 
 namespace Eadesigndev\Pdfgenerator\Block\Adminhtml\Pdfgenerator\Edit;
 
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
@@ -32,8 +33,10 @@ class SaveAndContinueButton extends GenericButton implements ButtonProviderInter
      */
     public function getButtonData()
     {
-        if ($this->_isAllowedAction(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_SAVE)) {
-            return [
+        $data = [];
+
+        if ($this->_isAllowedAction(Templates::ADMIN_RESOURCE_SAVE)) {
+            return $data = [
                 'label' => __('Save and Continue Edit'),
                 'class' => 'save',
                 'data_attribute' => [
@@ -44,5 +47,6 @@ class SaveAndContinueButton extends GenericButton implements ButtonProviderInter
                 'sort_order' => 80,
             ];
         }
+        return $data;
     }
 }

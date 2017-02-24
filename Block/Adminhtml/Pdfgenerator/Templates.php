@@ -20,7 +20,9 @@
 
 namespace Eadesigndev\Pdfgenerator\Block\Adminhtml\Pdfgenerator;
 
-class Templates extends \Magento\Backend\Block\Widget\Grid\Container
+use Magento\Backend\Block\Widget\Grid\Container;
+
+class Templates extends Container
 {
 
     /**

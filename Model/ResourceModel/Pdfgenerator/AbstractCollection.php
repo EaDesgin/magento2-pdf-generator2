@@ -19,7 +19,16 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator;
 
+use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
+use Magento\Framework\Data\Collection\EntityFactoryInterface;
+use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\DB\Select;
+use Magento\Framework\EntityManager\MetadataPool;
+use Magento\Framework\Event\ManagerInterface;
+use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Store\Model\Store;
+use Magento\Store\Model\StoreManagerInterface;
+use Psr\Log\LoggerInterface;
 
 /**
  * Abstract collection of PDF templates
@@ -30,36 +39,35 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
     /**
      * Store manager
      *
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var StoreManagerInterface
      */
     private $storeManager;
 
     /**
-     * @var \Magento\Framework\EntityManager\MetadataPool
+     * @var MetadataPool
      */
     private $metadataPool;
 
     /**
-     * @param \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy
-     * @param \Magento\Framework\Event\ManagerInterface $eventManager
-     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
-     * @param \Magento\Framework\EntityManager\MetadataPool $metadataPool
-     * @param \Magento\Framework\DB\Adapter\AdapterInterface|null $connection
-     * @param \Magento\Framework\Model\ResourceModel\Db\AbstractDb|null $resource
+     * @param EntityFactoryInterface $entityFactory
+     * @param LoggerInterface $logger
+     * @param FetchStrategyInterface $fetchStrategy
+     * @param ManagerInterface $eventManager
+     * @param StoreManagerInterface $storeManager
+     * @param MetadataPool $metadataPool
+     * @param AdapterInterface|null $connection
+     * @param AbstractDb|null $resource
      */
     public function __construct(
-        \Magento\Framework\Data\Collection\EntityFactoryInterface $entityFactory,
-        \Psr\Log\LoggerInterface $logger,
-        \Magento\Framework\Data\Collection\Db\FetchStrategyInterface $fetchStrategy,
-        \Magento\Framework\Event\ManagerInterface $eventManager,
-        \Magento\Store\Model\StoreManagerInterface $storeManager,
-        \Magento\Framework\EntityManager\MetadataPool $metadataPool,
-        \Magento\Framework\DB\Adapter\AdapterInterface $connection = null,
-        \Magento\Framework\Model\ResourceModel\Db\AbstractDb $resource = null
-    )
-    {
+        EntityFactoryInterface $entityFactory,
+        LoggerInterface $logger,
+        FetchStrategyInterface $fetchStrategy,
+        ManagerInterface $eventManager,
+        StoreManagerInterface $storeManager,
+        MetadataPool $metadataPool,
+        AdapterInterface $connection = null,
+        AbstractDb $resource = null
+    ) {
         $this->storeManager = $storeManager;
         $this->metadataPool = $metadataPool;
         parent::__construct($entityFactory, $logger, $fetchStrategy, $eventManager, $connection, $resource);
@@ -75,6 +83,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
     public function performAfterLoad($tableName, $linkField)
     {
         $linkedIds = $this->getColumnValues($linkField);
+
         if (count($linkedIds)) {
             $connection = $this->getConnection();
             $select = $connection->select()->from(['eadesign_pdf_store' => $this->getTable($tableName)])
@@ -187,12 +196,12 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
      *
      * Extra GROUP BY strip added.
      *
-     * @return \Magento\Framework\DB\Select
+     * @return Select
      */
     public function getSelectCountSql()
     {
         $countSelect = parent::getSelectCountSql();
-        $countSelect->reset(\Magento\Framework\DB\Select::GROUP);
+        $countSelect->reset(Select::GROUP);
 
         return $countSelect;
     }

@@ -20,17 +20,19 @@
 namespace Eadesigndev\Pdfgenerator\Model\Plugin;
 
 use Eadesigndev\Pdfgenerator\Helper\Data;
+use Magento\Backend\Model\UrlInterface;
+use Magento\Framework\Registry;
 
 class Printinvoice
 {
 
     /**
-     * @var \Magento\Backend\Model\UrlInterface
+     * @var UrlInterface
      */
     private $urlInterface;
 
     /**
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     private $coreRegistry;
 
@@ -41,13 +43,13 @@ class Printinvoice
 
     /**
      * Printinvoice constructor.
-     * @param \Magento\Framework\Registry $coreRegistry
-     * @param \Magento\Backend\Model\UrlInterface $urlInterface
+     * @param Registry $coreRegistry
+     * @param UrlInterface $urlInterface
      * @param Data $dataHelper
      */
     public function __construct(
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Backend\Model\UrlInterface $urlInterface,
+        Registry $coreRegistry,
+        UrlInterface $urlInterface,
         Data $dataHelper
     )
     {

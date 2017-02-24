@@ -19,6 +19,7 @@
 
 namespace Eadesigndev\Pdfgenerator\Block\Adminhtml\Pdfgenerator\Edit;
 
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
@@ -32,7 +33,8 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
      */
     public function getButtonData()
     {
-        if ($this->_isAllowedAction(\Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_SAVE)) {
+        $data = [];
+        if ($this->_isAllowedAction(Templates::ADMIN_RESOURCE_SAVE)) {
             $data = [];
             if ($this->getTemplateId()) {
                 $data = [
@@ -48,8 +50,8 @@ class DeleteButton extends GenericButton implements ButtonProviderInterface
                     'sort_order' => 20,
                 ];
             }
-            return $data;
         }
+        return $data;
     }
 
     /**

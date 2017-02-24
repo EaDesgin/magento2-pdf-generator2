@@ -20,7 +20,11 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml;
 
-abstract class Templates extends \Magento\Backend\App\Action
+use Magento\Backend\App\Action;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Registry;
+
+abstract class Templates extends Action
 {
 
     const ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
@@ -29,17 +33,17 @@ abstract class Templates extends \Magento\Backend\App\Action
     /**
      * Core registry
      *
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     protected $coreRegistry;
 
     /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
+     * @param Context $context
+     * @param Registry $coreRegistry
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry
+        Context $context,
+        Registry $coreRegistry
     )
     {
         $this->coreRegistry = $coreRegistry;

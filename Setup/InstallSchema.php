@@ -20,10 +20,10 @@
 
 namespace Eadesigndev\Pdfgenerator\Setup;
 
+use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-use Magento\Framework\DB\Ddl\Table;
 
 class InstallSchema implements InstallSchemaInterface
 {
@@ -86,13 +86,13 @@ class InstallSchema implements InstallSchemaInterface
             $installer->getTable('eadesign_pdf_store')
         )->addColumn(
             'template_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            Table::TYPE_SMALLINT,
             null,
             ['nullable' => false, 'primary' => true],
             'Template ID'
         )->addColumn(
             'store_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_SMALLINT,
+            Table::TYPE_SMALLINT,
             null,
             ['unsigned' => true, 'nullable' => false, 'primary' => true],
             'Store ID'
@@ -104,13 +104,13 @@ class InstallSchema implements InstallSchemaInterface
             'template_id',
             $installer->getTable('eadesign_pdf_templates'),
             'template_id',
-            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+            Table::ACTION_CASCADE
         )->addForeignKey(
             $installer->getFkName('eadesign_pdf_store', 'store_id', 'store', 'store_id'),
             'store_id',
             $installer->getTable('store'),
             'store_id',
-            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+            Table::ACTION_CASCADE
         )->setComment(
             'PDF Generator To Store Linkage Table'
         );

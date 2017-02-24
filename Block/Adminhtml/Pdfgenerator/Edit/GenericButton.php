@@ -45,7 +45,9 @@ abstract class GenericButton
     private $context;
 
     /**
+     * GenericButton constructor.
      * @param Context $context
+     * @param Registry $registry
      */
     public function __construct(
         Context $context,

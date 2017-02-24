@@ -20,28 +20,29 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Backend\App\Action\Context;
+use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
 
-class Index extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
+class Index extends Templates
 {
 
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @var PageFactory
      */
     private $resultPageFactory;
 
     /**
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     * @param Context $context
+     * @param Registry $coreRegistry
+     * @param PageFactory $resultPageFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory
-    )
-    {
+        Context $context,
+        Registry $coreRegistry,
+        PageFactory $resultPageFactory
+    ) {
         $this->resultPageFactory = $resultPageFactory;
         parent::__construct($context, $coreRegistry);
     }

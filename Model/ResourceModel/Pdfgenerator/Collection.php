@@ -19,7 +19,7 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator;
 
-class Collection extends \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\AbstractCollection
+class Collection extends AbstractCollection
 {
 
     /**
@@ -68,7 +68,6 @@ class Collection extends \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenera
     protected function _afterLoad()
     {
         $this->performAfterLoad('eadesign_pdf_store', 'template_id');
-        $this->_previewFlag = false;
 
         return parent::_afterLoad();
     }

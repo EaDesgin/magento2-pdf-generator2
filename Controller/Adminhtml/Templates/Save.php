@@ -19,6 +19,7 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -26,7 +27,7 @@ use Eadesigndev\Pdfgenerator\Model\Source\TemplateActive;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 
-class Save extends \Magento\Backend\App\Action
+class Save extends Action
 {
     /**
      * Authorization level of a basic admin session
@@ -69,8 +70,7 @@ class Save extends \Magento\Backend\App\Action
         DataPersistorInterface $dataPersistor,
         TemplateRepository $templateRepository,
         PdfgeneratorFactory $pdfgeneratorFactory
-    )
-    {
+    ) {
         $this->dataProcessor = $dataProcessor;
         $this->dataPersistor = $dataPersistor;
         $this->templateRepository = $templateRepository;
@@ -160,7 +160,7 @@ class Save extends \Magento\Backend\App\Action
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed(
-            \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW
+            Templates::ADMIN_RESOURCE_VIEW
         );
     }
 }

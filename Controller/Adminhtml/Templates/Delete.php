@@ -19,15 +19,18 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Backend\App\Action;
+use Magento\Framework\Registry;
+use Magento\Framework\View\Result\PageFactory;
 use Magento\TestFramework\ErrorLog\Logger;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 
-class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
+class Delete extends Templates
 {
 
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @var PageFactory
      */
     private $resultPageFactory;
 
@@ -39,14 +42,14 @@ class Delete extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     /**
      * Delete constructor.
      * @param Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\Registry $registry
+     * @param PageFactory $resultPageFactory
+     * @param Registry $registry
      * @param TemplateRepository $templateRepository
      */
     public function __construct(
         Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Registry $registry,
+        PageFactory $resultPageFactory,
+        Registry $registry,
         TemplateRepository $templateRepository
     )
     {

@@ -19,21 +19,24 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Backend\App\Action;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
+use Magento\Framework\Registry;
+use Magento\Framework\View\Result\PageFactory;
 
-class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
+class Edit extends Templates
 {
     /**
      * Core registry
      *
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     protected $coreRegistry = null;
 
     /**
-     * @var \Magento\Framework\View\Result\PageFactory
+     * @var PageFactory
      */
     private $resultPageFactory;
 
@@ -50,14 +53,15 @@ class Edit extends \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
     /**
      * Edit constructor.
      * @param Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\Registry $registry
+     * @param PageFactory $resultPageFactory
+     * @param Registry $registry
      * @param TemplateRepository $templateRepository
+     * @param PdfgeneratorFactory $pdfgeneratorFactory
      */
     public function __construct(
         Action\Context $context,
-        \Magento\Framework\View\Result\PageFactory $resultPageFactory,
-        \Magento\Framework\Registry $registry,
+        PageFactory $resultPageFactory,
+        Registry $registry,
         TemplateRepository $templateRepository,
         PdfgeneratorFactory $pdfgeneratorFactory
     )

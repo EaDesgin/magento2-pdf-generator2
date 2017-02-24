@@ -19,12 +19,16 @@
 
 namespace Eadesigndev\Pdfgenerator\Helper;
 
+use Eadesigndev\Pdfgenerator\Model\Pdfgenerator;
+use Eadesigndev\Pdfgenerator\Model\Source\TemplatePaperOrientation;
 use Eadesigndev\Pdfgenerator\Model\Template\Processor;
 use Magento\Payment\Helper\Data as PaymentHelper;
+use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Email\Container\InvoiceIdentity;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Sales\Model\Order\Invoice;
 
 class Pdf extends AbstractHelper
 {
@@ -109,10 +113,10 @@ class Pdf extends AbstractHelper
     }
 
     /**
-     * @param \Magento\Sales\Model\Order\Invoice $invoice
+     * @param Invoice $invoice
      * @return $this
      */
-    public function setInvoice(\Magento\Sales\Model\Order\Invoice $invoice)
+    public function setInvoice(Invoice $invoice)
     {
         $this->invoice = $invoice;
         $this->setOrder($invoice->getOrder());
@@ -120,20 +124,20 @@ class Pdf extends AbstractHelper
     }
 
     /**
-     * @param \Magento\Sales\Model\Order $order
+     * @param Order $order
      * @return $this
      */
-    public function setOrder(\Magento\Sales\Model\Order $order)
+    public function setOrder(Order $order)
     {
         $this->order = $order;
         return $this;
     }
 
     /**
-     * @param \Eadesigndev\Pdfgenerator\Model\Pdfgenerator $template
+     * @param Pdfgenerator $template
      * @return $this
      */
-    public function setTemplate(\Eadesigndev\Pdfgenerator\Model\Pdfgenerator $template)
+    public function setTemplate(Pdfgenerator $template)
     {
         $this->template = $template;
         $this->processor->setPDFTemplate($template);
@@ -262,7 +266,7 @@ class Pdf extends AbstractHelper
         $size = self::PAPER_SIZE;
         $oris = self::PAPER_ORI;
 
-        if ($ori == \Eadesigndev\Pdfgenerator\Model\Source\TemplatePaperOrientation::TEMAPLATE_PAPER_PORTRAIT) {
+        if ($ori == TemplatePaperOrientation::TEMAPLATE_PAPER_PORTRAIT) {
             return str_replace('-', '', $size[$form]);
         }
 
@@ -273,10 +277,10 @@ class Pdf extends AbstractHelper
 
 
     /**
-     * @param \Magento\Sales\Model\Order $order
+     * @param Order $order
      * @return mixed
      */
-    protected function getPaymentHtml(\Magento\Sales\Model\Order $order)
+    protected function getPaymentHtml(Order $order)
     {
         return $this->paymentHelper->getInfoBlockHtml(
             $order->getPayment(),
@@ -285,10 +289,10 @@ class Pdf extends AbstractHelper
     }
 
     /**
-     * @param \Magento\Sales\Model\Order $order
+     * @param Order $order
      * @return null
      */
-    protected function getFormattedShippingAddress(\Magento\Sales\Model\Order $order)
+    protected function getFormattedShippingAddress(Order $order)
     {
         return $order->getIsVirtual()
             ? null
@@ -296,10 +300,10 @@ class Pdf extends AbstractHelper
     }
 
     /**
-     * @param \Magento\Sales\Model\Order $order
+     * @param Order $order
      * @return mixed
      */
-    protected function getFormattedBillingAddress(\Magento\Sales\Model\Order $order)
+    protected function getFormattedBillingAddress(Order $order)
     {
         return $this->addressRenderer->format($order->getBillingAddress(), 'html');
     }

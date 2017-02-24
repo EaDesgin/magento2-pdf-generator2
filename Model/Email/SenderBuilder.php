@@ -24,6 +24,7 @@ use Magento\Sales\Model\Order\Email\Container\Template;
 use Eadesigndev\Pdfgenerator\Helper\Pdf;
 use Eadesigndev\Pdfgenerator\Helper\Data;
 use Magento\Framework\Stdlib\DateTime\DateTime;
+use Magento\Sales\Model\Order\Invoice;
 
 class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
 {
@@ -102,7 +103,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
         }
 
         if ($invoice = $vars['invoice']) {
-            if ($invoice instanceof \Magento\Sales\Model\Order\Invoice) {
+            if ($invoice instanceof Invoice) {
 
                 $helper = $this->helper;
 

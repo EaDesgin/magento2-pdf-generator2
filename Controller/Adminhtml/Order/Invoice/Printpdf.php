@@ -21,7 +21,13 @@ namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Invoice;
 
 use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Abstractpdf;
 use Eadesigndev\Pdfgenerator\Helper\Pdf;
+use Magento\Backend\App\Action\Context;
+use Magento\Backend\Model\View\Result\ForwardFactory;
+use Magento\Email\Model\Template\Config;
 use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\App\Response\Http\FileFactory;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 
 class Printpdf extends Abstractpdf
@@ -40,12 +46,12 @@ class Printpdf extends Abstractpdf
     private $dateTime;
 
     /**
-     * @var \Magento\Framework\App\Response\Http\FileFactory
+     * @var FileFactory
      */
 
     private $fileFactory;
     /**
-     * @var \Magento\Backend\Model\View\Result\ForwardFactory
+     * @var ForwardFactory
      */
 
     private $resultForwardFactory;
@@ -57,27 +63,25 @@ class Printpdf extends Abstractpdf
 
     /**
      * Printpdf constructor.
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
-     * @param \Magento\Email\Model\Template\Config $emailConfig
-     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     * @param Context $context
+     * @param Registry $coreRegistry
+     * @param Config $emailConfig
+     * @param JsonFactory $resultJsonFactory
      * @param Pdf $helper
      * @param DateTime $dateTime
-     * @param \Magento\Framework\App\Response\Http\FileFactory $fileFactory
-     * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
+     * @param FileFactory $fileFactory
+     * @param ForwardFactory $resultForwardFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Email\Model\Template\Config $emailConfig,
-        \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+        Context $context,
+        Registry $coreRegistry,
+        Config $emailConfig,
+        JsonFactory $resultJsonFactory,
         Pdf $helper,
         DateTime $dateTime,
-        \Magento\Framework\App\Response\Http\FileFactory $fileFactory,
-        \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
-
-    )
-    {
+        FileFactory $fileFactory,
+        ForwardFactory $resultForwardFactory
+    ) {
         $this->fileFactory = $fileFactory;
         $this->helper = $helper;
         parent::__construct($context, $coreRegistry, $emailConfig, $resultJsonFactory);

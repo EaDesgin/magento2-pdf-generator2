@@ -20,6 +20,7 @@
 namespace Eadesigndev\Pdfgenerator\Model\Template;
 
 use Magento\Email\Model\Template;
+use Magento\Framework\App\Area;
 use Magento\Framework\DataObject;
 
 /**
@@ -146,7 +147,7 @@ class Processor extends Template
 
         if ($this->designConfig === null) {
             $this->designConfig = new DataObject(
-                ['area' => \Magento\Framework\App\Area::AREA_FRONTEND, 'store' => $this->storeId]
+                ['area' => Area::AREA_FRONTEND, 'store' => $this->storeId]
             );
         }
 

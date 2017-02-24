@@ -19,7 +19,15 @@
 
 namespace Eadesigndev\Pdfgenerator\Helper;
 
+use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection;
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
+use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
+use Eadesigndev\Pdfgenerator\Model\Source\TemplateActive;
+use Magento\Framework\App\Helper\AbstractHelper;
+use Magento\Framework\App\Helper\Context;
+use Magento\Framework\Module\ModuleListInterface;
+use Magento\Sales\Model\Order\Invoice;
+use Magento\Store\Model\ScopeInterface;
 
 /**
  * Handles the config and other settings
@@ -27,7 +35,7 @@ use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory 
  * Class Data
  * @package Eadesigndev\Pdfgenerator\Helper
  */
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+class Data extends AbstractHelper
 {
 
     const ENABLE = 'eadesign_pdfgenerator/general/enabled';
@@ -39,26 +47,25 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     protected $config;
 
     /**
-     * @var \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
+     * @var Collection
      */
     protected $templateCollection;
 
     /**
-     * Constructor
-     *
-     * @param \Magento\Framework\App\Helper\Context $context
-     * @param \Magento\Framework\Module\ModuleListInterface $moduleList
+     * Data constructor.
+     * @param Context $context
+     * @param ModuleListInterface $moduleList
+     * @param templateCollectionFactory $_templateCollection
      */
     public function __construct(
-        \Magento\Framework\App\Helper\Context $context,
-        \Magento\Framework\Module\ModuleListInterface $moduleList,
+        Context $context,
+        ModuleListInterface $moduleList,
         templateCollectionFactory $_templateCollection
     )
     {
         $this->templateCollection = $_templateCollection;
         $this->config = $context->getScopeConfig();
         parent::__construct($context);
-
     }
 
     /**
@@ -86,7 +93,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             return false;
         }
 
-        if(!$this->collection()->count()){
+        if (!$this->collection()->count()) {
             return false;
         }
 
@@ -103,7 +110,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     {
         return $this->config->getValue(
             $configPath,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+            ScopeInterface::SCOPE_STORE
         );
     }
 
@@ -113,25 +120,23 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      * @param $invoice
      * @return \Magento\Framework\DataObject
      */
-    public function getTemplateStatus(\Magento\Sales\Model\Order\Invoice $invoice)
+    public function getTemplateStatus(Invoice $invoice)
     {
         $invoiceStore = $invoice->getOrder()->getStoreId();
         $collection = $this->collection();
         $collection->addStoreFilter($invoiceStore);
-        $collection->addFieldToFilter('is_active', \Eadesigndev\Pdfgenerator\Model\Source\TemplateActive::STATUS_ENABLED);
-        $collection->addFieldToFilter('template_default', \Eadesigndev\Pdfgenerator\Model\Source\AbstractSource::IS_DEFAULT);
+        $collection->addFieldToFilter('is_active', TemplateActive::STATUS_ENABLED);
+        $collection->addFieldToFilter('template_default', AbstractSource::IS_DEFAULT);
 
         return $collection->getLastItem();
     }
 
     /**
-     * @return \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
+     * @return Collection
      */
-    public function collection(){
-
+    public function collection()
+    {
         $collection = $this->templateCollection->create();
-
         return $collection;
     }
-
 }

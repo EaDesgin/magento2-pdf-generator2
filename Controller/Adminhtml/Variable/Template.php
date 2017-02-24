@@ -19,7 +19,12 @@
 
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Variable;
 
+use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
+use Magento\Backend\App\Action\Context;
+use Magento\Email\Model\Template\Config;
 use Magento\Framework\App\Action\Action;
+use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Registry;
 
 class Template extends Action
 {
@@ -28,32 +33,37 @@ class Template extends Action
     const ADMIN_RESOURCE_VIEW = 'Eadesigndev_Pdfgenerator::templates';
 
     /**
-     * @var \Magento\Framework\Registry
+     * @var Registry
      */
     private $coreRegistry;
 
     /**
-     * @var \Magento\Email\Model\Template\Config
+     * @var Config
      */
     private $emailConfig;
 
     /**
-     * @var \Magento\Framework\Controller\Result\JsonFactory
+     * @var JsonFactory
      */
     private $resultJsonFactory;
 
     /**
+     * @var \Magento\Framework\AuthorizationInterface
+     */
+    private $authorization;
+
+    /**
      * Template constructor.
-     * @param \Magento\Backend\App\Action\Context $context
-     * @param \Magento\Framework\Registry $coreRegistry
-     * @param \Magento\Email\Model\Template\Config $emailConfig
-     * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+     * @param Context $context
+     * @param Registry $coreRegistry
+     * @param Config $emailConfig
+     * @param JsonFactory $resultJsonFactory
      */
     public function __construct(
-        \Magento\Backend\App\Action\Context $context,
-        \Magento\Framework\Registry $coreRegistry,
-        \Magento\Email\Model\Template\Config $emailConfig,
-        \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
+        Context $context,
+        Registry $coreRegistry,
+        Config $emailConfig,
+        JsonFactory $resultJsonFactory
     )
     {
 
@@ -152,8 +162,8 @@ class Template extends Action
      */
     protected function _isAllowed()
     {
-        return $this->_authorization->isAllowed(
-            \Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates::ADMIN_RESOURCE_VIEW
+        return $this->authorization->isAllowed(
+            Templates::ADMIN_RESOURCE_VIEW
         );
     }
 }
