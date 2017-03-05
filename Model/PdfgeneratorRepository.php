@@ -20,7 +20,6 @@
 namespace Eadesigndev\Pdfgenerator\Model;
 
 use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface;
-use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterfaceFactory;
 use \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator as TemplateResource;
 use \Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface;
 use Magento\Framework\Message\ManagerInterface;
@@ -44,11 +43,6 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
     private $templatesInterface;
 
     /**
-     * @var TemplatesInterfaceFactory
-     */
-    private $templatesInterfaceFactory;
-
-    /**
      * @var \Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory
      */
     private $pdfgeneratorFactory;
@@ -62,20 +56,17 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
      * PdfgeneratorRepository constructor.
      * @param TemplateResource $resource
      * @param TemplatesInterface $templatesInterface
-     * @param TemplatesInterfaceFactory $templatesInterfaceFactory
      * @param PdfgeneratorFactory $pdfgeneratorFactory
      * @param ManagerInterface $messageManager
      */
     public function __construct(
         TemplateResource $resource,
         TemplatesInterface $templatesInterface,
-        TemplatesInterfaceFactory $templatesInterfaceFactory,
         PdfgeneratorFactory $pdfgeneratorFactory,
         ManagerInterface $messageManager
     ) {
         $this->resource = $resource;
         $this->templatesInterface = $templatesInterface;
-        $this->templatesInterfaceFactory = $templatesInterfaceFactory;
         $this->pdfgeneratorFactory = $pdfgeneratorFactory;
         $this->messageManager = $messageManager;
     }
