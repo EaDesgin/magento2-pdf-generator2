@@ -1,4 +1,7 @@
 # Magento Invoice PDF Generator
+
+[![Build Status](https://travis-ci.org/EaDesgin/magento2-pdf-generator2.svg?branch=master)](https://travis-ci.org/EaDesgin/magento2-pdf-generator2)
+
 Magento 2 Invoice PDF Generator -  helps you to customize the pdf templates for Magento 2. 
 If you have an enabled template and a default template for the store you need your template the system will print the pdf template. 
 
