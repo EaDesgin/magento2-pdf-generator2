@@ -14,7 +14,6 @@ install:
 script:
     - php magento-coding-standard/vendor/bin/phpcs --standard=vendor/eadesignro/module-pdfgenerator/Test/Php/_files/phpcs/ruleset.xml vendor/eadesignro/module-pdfgenerator/
     - php vendor/bin/phpmd vendor/eadesignro/module-pdfgenerator/ text vendor/eadesignro/module-pdfgenerator/Test/Php/_files/phpmd/ruleset.xml
-    - php vendor/bin/phpcpd View/ Helper/ Test/
     - php vendor/bin/phpunit Test/
 
 env:
