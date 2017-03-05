@@ -32,7 +32,7 @@ class PdfgeneratorRepositoryTest extends \PHPUnit_Framework_TestCase
     private $repository;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|\Eadesigndev\Pdfgenerator\Model\ResourceModel\Feed
+     * @var \PHPUnit_Framework_MockObject_MockObject|\Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator
      */
     private $pdfGeneratorResourceModel;
 
@@ -42,7 +42,7 @@ class PdfgeneratorRepositoryTest extends \PHPUnit_Framework_TestCase
     private $pdfGeneratorFactory;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|\Eadesigndev\Pdfgenerator\Api\Data\FeedInterface;
+     * @var \PHPUnit_Framework_MockObject_MockObject|\Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface;
      */
     private $pdfGenerator;
 
