@@ -26,6 +26,11 @@ use Magento\Framework\App\Action\Action;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Registry;
 
+/**
+ * Class Template
+ * @package Eadesigndev\Pdfgenerator\Controller\Adminhtml\Variable
+ * @SuppressWarnings("CouplingBetweenObjects")
+ */
 class Template extends Action
 {
 
@@ -64,8 +69,7 @@ class Template extends Action
         Registry $coreRegistry,
         Config $emailConfig,
         JsonFactory $resultJsonFactory
-    )
-    {
+    ) {
 
         $this->emailConfig = $emailConfig;
         parent::__construct($context);
@@ -98,8 +102,8 @@ class Template extends Action
             $template->setData('orig_template_code', $templateId);
             $template->setData(
                 'template_variables',
-                \Zend_Json::encode($template->getVariablesOptionArray(true)
-                ));
+                \Zend_Json::encode($template->getVariablesOptionArray(true))
+            );
 
             $templateBlock = $this->_view->getLayout()->createBlock(
                 'Magento\Email\Block\Adminhtml\Template\Edit'
@@ -110,16 +114,19 @@ class Template extends Action
             );
 
             $this->getResponse()->representJson(
-                $this->_objectManager
-                    ->get('Magento\Framework\Json\Helper\Data')
-                    ->jsonEncode($template->getData()
-                    ));
+            // @codingStandardsIgnoreLine
+                $this->_objectManager->get('Magento\Framework\Json\Helper\Data')
+                    ->jsonEncode($template->getData())
+            );
         } catch (\Exception $e) {
+            // @codingStandardsIgnoreLine
             $this->_objectManager->get('Psr\Log\LoggerInterface')->critical($e);
         }
 
+        // @codingStandardsIgnoreLine
         $customVariables = $this->_objectManager->create('Magento\Variable\Model\Variable')
             ->getVariablesOptionArray(true);
+        // @codingStandardsIgnoreLine
         $storeContactVariables = $this->_objectManager->create(
             'Magento\Email\Model\Source\Variables'
         )->toOptionArray(
@@ -142,6 +149,7 @@ class Template extends Action
     protected function _initTemplate()
     {
 
+        // @codingStandardsIgnoreLine
         $model = $this->_objectManager->create('Magento\Email\Model\BackendTemplate');
 
         if (!$this->coreRegistry->registry('email_template')) {

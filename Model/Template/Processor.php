@@ -92,7 +92,6 @@ class Processor extends Template
             ->setIsChildTemplate($this->isChildTemplate())
             ->setTemplateProcessor([$this, 'getTemplateContent']);
 
-
         $processor->setVariables($this->getVariables());
         $this->setUseAbsoluteLinks(true);
         $html = $this->html($processor);
@@ -146,6 +145,7 @@ class Processor extends Template
         $this->storeId = $templates[0];
 
         if ($this->designConfig === null) {
+            // @codingStandardsIgnoreLine
             $this->designConfig = new DataObject(
                 ['area' => Area::AREA_FRONTEND, 'store' => $this->storeId]
             );

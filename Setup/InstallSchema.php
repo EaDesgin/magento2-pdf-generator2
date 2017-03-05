@@ -34,18 +34,20 @@ class InstallSchema implements InstallSchemaInterface
      * @param SchemaSetupInterface $setup
      * @param ModuleContextInterface $context
      * @return void
+     * @SuppressWarnings("unused")
+     * @SuppressWarnings("ExcessiveMethodLength")
      */
+    // @codingStandardsIgnoreLine
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup;
 
         $installer->startSetup();
-		
-		if ($installer->tableExists('eadesign_pdf_templates')) {
+
+        if ($installer->tableExists('eadesign_pdf_templates')) {
             $installer->endSetup();
             return;
         }
-
 
         $table = $installer->getConnection()
             ->newTable($installer->getTable('eadesign_pdf_templates'))
@@ -56,25 +58,109 @@ class InstallSchema implements InstallSchemaInterface
                 ['identity' => true, 'nullable' => false, 'primary' => true],
                 'Template Id'
             )
-            ->addColumn('is_active', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '1'], 'Template active?')
-            ->addColumn('template_name', Table::TYPE_TEXT, 100, ['nullable' => false], 'Template name')
-            ->addColumn('template_description', Table::TYPE_TEXT, 500, ['nullable' => false], 'Template description')
-            ->addColumn('template_default', Table::TYPE_BOOLEAN, null, ['nullable' => false, 'default' => '0'], 'Template default')
-            ->addColumn('template_type', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '1'], 'Template type')
+            ->addColumn(
+                'is_active',
+                Table::TYPE_SMALLINT,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Template active?'
+            )
+            ->addColumn(
+                'template_name',
+                Table::TYPE_TEXT,
+                100,
+                ['nullable' => false],
+                'Template name'
+            )
+            ->addColumn(
+                'template_description',
+                Table::TYPE_TEXT,
+                500,
+                ['nullable' => false],
+                'Template description'
+            )
+            ->addColumn(
+                'template_default',
+                Table::TYPE_BOOLEAN,
+                null,
+                ['nullable' => false, 'default' => '0'],
+                'Template default'
+            )
+            ->addColumn(
+                'template_type',
+                Table::TYPE_SMALLINT,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Template type'
+            )
             ->addColumn('template_body', Table::TYPE_TEXT, '2M', [], 'Template body')
             ->addColumn('template_header', Table::TYPE_TEXT, '2M', [], 'Template header')
             ->addColumn('template_footer', Table::TYPE_TEXT, '2M', [], 'Template footer')
             ->addColumn('template_css', Table::TYPE_TEXT, 500, ['nullable' => false], 'Template css')
             ->addColumn('template_file_name', Table::TYPE_TEXT, 100, ['nullable' => false], 'Template file name')
-            ->addColumn('template_paper_form', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '0'], 'Paper format')
-            ->addColumn('template_custom_form', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '0'], 'Paper custom format')
-            ->addColumn('template_custom_h', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template height')
-            ->addColumn('template_custom_w', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template width')
-            ->addColumn('template_custom_t', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template top margin')
-            ->addColumn('template_custom_b', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template bottom margin')
-            ->addColumn('template_custom_l', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template left margin')
-            ->addColumn('template_custom_r', Table::TYPE_DECIMAL, null, ['nullable' => false, 'default' => '1'], 'Custom template right margin')
-            ->addColumn('template_paper_ori', Table::TYPE_SMALLINT, null, ['nullable' => false, 'default' => '0'], 'Paper orientation')
+            ->addColumn(
+                'template_paper_form',
+                Table::TYPE_SMALLINT,
+                null,
+                ['nullable' => false, 'default' => '0'],
+                'Paper format'
+            )
+            ->addColumn(
+                'template_custom_form',
+                Table::TYPE_SMALLINT,
+                null,
+                ['nullable' => false, 'default' => '0'],
+                'Paper custom format'
+            )
+            ->addColumn(
+                'template_custom_h',
+                Table::TYPE_DECIMAL,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Custom template height'
+            )
+            ->addColumn(
+                'template_custom_w',
+                Table::TYPE_DECIMAL,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Custom template width'
+            )
+            ->addColumn(
+                'template_custom_t',
+                Table::TYPE_DECIMAL,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Custom template top margin'
+            )
+            ->addColumn(
+                'template_custom_b',
+                Table::TYPE_DECIMAL,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Custom template bottom margin'
+            )
+            ->addColumn(
+                'template_custom_l',
+                Table::TYPE_DECIMAL,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Custom template left margin'
+            )
+            ->addColumn(
+                'template_custom_r',
+                Table::TYPE_DECIMAL,
+                null,
+                ['nullable' => false, 'default' => '1'],
+                'Custom template right margin'
+            )
+            ->addColumn(
+                'template_paper_ori',
+                Table::TYPE_SMALLINT,
+                null,
+                ['nullable' => false, 'default' => '0'],
+                'Paper orientation'
+            )
             ->addColumn('creation_time', Table::TYPE_TIMESTAMP, null, ['nullable' => false], 'Creation Time')
             ->addColumn('update_time', Table::TYPE_TIMESTAMP, null, ['nullable' => false], 'Update Time')
             ->addIndex($installer->getIdxName('template_id', ['template_id']), ['template_id'])
@@ -118,5 +204,4 @@ class InstallSchema implements InstallSchemaInterface
 
         $installer->endSetup();
     }
-
 }

@@ -25,7 +25,7 @@ use Magento\Backend\App\Action\Context;
 use Magento\Ui\Component\MassAction\Filter;
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
 
-abstract class MassAction  extends Action
+abstract class MassAction extends Action
 {
     /**
      * @var Filter
@@ -46,8 +46,7 @@ abstract class MassAction  extends Action
         Context $context,
         Filter $filter,
         templateCollectionFactory $templateCollectionFactory
-    )
-    {
+    ) {
         $this->filter = $filter;
         $this->templateCollectionFactory = $templateCollectionFactory;
         parent::__construct($context);
@@ -61,7 +60,7 @@ abstract class MassAction  extends Action
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed(
-            Templates::ADMIN_RESOURCE_SAVE);
+            Templates::ADMIN_RESOURCE_SAVE
+        );
     }
-
 }

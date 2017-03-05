@@ -31,5 +31,4 @@ interface TemplatesInterface
      * @return mixed
      */
     public function setId($value);
-
 }

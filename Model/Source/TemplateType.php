@@ -19,7 +19,6 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Source;
 
-use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
 use Magento\Framework\View\Model\PageLayout\Config\BuilderInterface;
 
 /**
@@ -32,11 +31,6 @@ class TemplateType extends AbstractSource
      * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface
      */
     private $pageLayoutBuilder;
-
-    /**
-     * @var array
-     */
-    private $options;
 
     /**
      * Constructor
@@ -62,5 +56,4 @@ class TemplateType extends AbstractSource
     {
         return [self::TYPE_INVOICE => __('Invoice')];
     }
-
 }

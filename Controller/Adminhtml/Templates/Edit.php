@@ -20,9 +20,9 @@
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
-use Magento\Backend\App\Action;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
+use Magento\Backend\App\Action\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
 
@@ -52,20 +52,19 @@ class Edit extends Templates
 
     /**
      * Edit constructor.
-     * @param Action\Context $context
+     * @param Context $context
      * @param PageFactory $resultPageFactory
      * @param Registry $registry
      * @param TemplateRepository $templateRepository
      * @param PdfgeneratorFactory $pdfgeneratorFactory
      */
     public function __construct(
-        Action\Context $context,
+        Context $context,
         PageFactory $resultPageFactory,
         Registry $registry,
         TemplateRepository $templateRepository,
         PdfgeneratorFactory $pdfgeneratorFactory
-    )
-    {
+    ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->templateRepository = $templateRepository;
         $this->pdfgeneratorFactory = $pdfgeneratorFactory;
@@ -83,7 +82,7 @@ class Edit extends Templates
     /**
      * Init actions
      *
-     * @return \Magento\Backend\Model\View\Result\Page
+     * @return object
      */
     protected function _initAction()
     {
@@ -98,7 +97,7 @@ class Edit extends Templates
     /**
      * Edit PDF Templates
      *
-     * @return \Magento\Backend\Model\View\Result\Page|\Magento\Backend\Model\View\Result\Redirect
+     * @return \Magento\Framework\Controller\Result\Redirect|object
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute()
@@ -119,6 +118,7 @@ class Edit extends Templates
             $model = $this->pdfgeneratorFactory->create();
         }
 
+        // @codingStandardsIgnoreLine
         $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
 
         if (!empty($data)) {
@@ -141,5 +141,4 @@ class Edit extends Templates
 
         return $resultPage;
     }
-
 }

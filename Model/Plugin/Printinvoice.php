@@ -51,8 +51,7 @@ class Printinvoice
         Registry $coreRegistry,
         UrlInterface $urlInterface,
         Data $dataHelper
-    )
-    {
+    ) {
         $this->coreRegistry = $coreRegistry;
         $this->urlInterface = $urlInterface;
         $this->dataHelper = $dataHelper;
@@ -70,7 +69,9 @@ class Printinvoice
      * @param $subject
      * @param $result
      * @return string
+     * @SuppressWarnings("unused")
      */
+    // @codingStandardsIgnoreLine
     public function afterGetPrintUrl($subject, $result)
     {
         if (!$this->dataHelper->isEnable()) {

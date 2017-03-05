@@ -54,8 +54,7 @@ class PostActions extends Column
         array $components = [],
         array $data = [],
         $editUrl = self::TEMPLATE_EDIT
-    )
-    {
+    ) {
         $this->urlBuilder = $urlBuilder;
         $this->editUrl = $editUrl;
         parent::__construct($context, $uiComponentFactory, $components, $data);

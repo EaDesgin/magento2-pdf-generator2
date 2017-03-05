@@ -44,8 +44,7 @@ abstract class Templates extends Action
     public function __construct(
         Context $context,
         Registry $coreRegistry
-    )
-    {
+    ) {
         $this->coreRegistry = $coreRegistry;
         parent::__construct($context);
     }

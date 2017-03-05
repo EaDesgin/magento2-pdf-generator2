@@ -26,14 +26,16 @@ use Magento\Framework\DB\Select;
 use Magento\Framework\EntityManager\MetadataPool;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection as MagentoAbstractCollection;
 use Magento\Store\Model\Store;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 
 /**
  * Abstract collection of PDF templates
+ * @SuppressWarnings("CouplingBetweenObjects")
  */
-abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
+abstract class AbstractCollection extends MagentoAbstractCollection
 {
 
     /**
@@ -79,16 +81,20 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
      * @param string $tableName
      * @param string|null $linkField
      * @return void
+     * @SuppressWarnings("Performance.InefficientMethods")
      */
     public function performAfterLoad($tableName, $linkField)
     {
         $linkedIds = $this->getColumnValues($linkField);
 
-        if (count($linkedIds)) {
+        if (!empty($linkedIds)) {
             $connection = $this->getConnection();
             $select = $connection->select()->from(['eadesign_pdf_store' => $this->getTable($tableName)])
                 ->where('eadesign_pdf_store.' . $linkField . ' IN (?)', $linkedIds);
+
+            //@codingStandardsIgnoreStart
             $result = $connection->fetchAll($select);
+            //@codingStandardsIgnoreEnd
 
             if ($result) {
                 $storesData = [];
@@ -125,7 +131,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
      *
      * @param array|string $field
      * @param string|int|array|null $condition
-     * @return $this
+     * @return \Magento\Framework\Data\Collection\AbstractDb
      */
     public function addFieldToFilter($field, $condition = null)
     {
@@ -152,7 +158,7 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
      * @param bool $withAdmin
      * @return void
      */
-    protected function performAddStoreFilter($store, $withAdmin = true)
+    public function performAddStoreFilter($store, $withAdmin = true)
     {
         if ($store instanceof Store) {
             $store = [$store->getId()];
@@ -175,17 +181,21 @@ abstract class AbstractCollection extends \Magento\Framework\Model\ResourceModel
      * @param string $tableName
      * @param string|null $linkField
      * @return void
+     * @SuppressWarnings("MEQP1.SlowQuery")
      */
-    protected function joinStoreRelationTable($tableName, $linkField)
+    public function joinStoreRelationTable($tableName, $linkField)
     {
         if ($this->getFilter('store')) {
             $this->getSelect()->join(
                 ['store_table' => $this->getTable($tableName)],
                 'main_table.' . $linkField . ' = store_table.' . $linkField,
                 []
-            )->group(
-                'main_table.' . $linkField
-            );
+            )
+                //@codingStandardsIgnoreStart
+                ->group(
+                    'main_table.' . $linkField
+                );
+                //@codingStandardsIgnoreEnd
         }
 
         parent::_renderFiltersBefore();

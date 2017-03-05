@@ -67,8 +67,7 @@ class Pdfgenerator extends AbstractDb
         EntityManager $entityManager,
         MetadataPool $metadataPool,
         $connectionName = null
-    )
-    {
+    ) {
         parent::__construct($context, $connectionName);
         $this->storeManager = $storeManager;
         $this->dateTime = $dateTime;
@@ -89,7 +88,7 @@ class Pdfgenerator extends AbstractDb
      * Perform operations after object load
      *
      * @param AbstractModel $object
-     * @return $this
+     * @return \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _afterLoad(AbstractModel $object)
     {
@@ -105,7 +104,7 @@ class Pdfgenerator extends AbstractDb
      * Assign $template to store views
      *
      * @param AbstractModel | \Magento\Framework\Model\AbstractModel $object
-     * @return $this
+     * @return \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
     protected function _afterSave(AbstractModel $object)
     {
@@ -170,5 +169,4 @@ class Pdfgenerator extends AbstractDb
 
         return $this;
     }
-
 }

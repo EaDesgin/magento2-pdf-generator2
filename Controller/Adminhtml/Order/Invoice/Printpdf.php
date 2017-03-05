@@ -30,6 +30,11 @@ use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 
+/**
+ * Class Printpdf
+ * @package Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Invoice
+ * @SuppressWarnings("CouplingBetweenObjects")
+ */
 class Printpdf extends Abstractpdf
 {
 
@@ -90,7 +95,7 @@ class Printpdf extends Abstractpdf
     }
 
     /**
-     * @return \Magento\Framework\App\ResponseInterface
+     * @return object
      */
     public function execute()
     {
@@ -101,6 +106,7 @@ class Printpdf extends Abstractpdf
         }
 
         $templateModel = $this->_objectManager
+            // @codingStandardsIgnoreLine
             ->create('Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface')
             ->getById($templateId);
 
@@ -114,6 +120,7 @@ class Printpdf extends Abstractpdf
         }
 
         $invoice = $this->_objectManager
+            // @codingStandardsIgnoreLine
             ->create('Magento\Sales\Api\InvoiceRepositoryInterface')
             ->get($invoiceId);
         if (!$invoice) {

@@ -25,7 +25,6 @@ use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
 use Eadesigndev\Pdfgenerator\Model\Source\TemplateActive;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\Module\ModuleListInterface;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Store\Model\ScopeInterface;
 
@@ -54,15 +53,12 @@ class Data extends AbstractHelper
     /**
      * Data constructor.
      * @param Context $context
-     * @param ModuleListInterface $moduleList
      * @param templateCollectionFactory $_templateCollection
      */
     public function __construct(
         Context $context,
-        ModuleListInterface $moduleList,
         templateCollectionFactory $_templateCollection
-    )
-    {
+    ) {
         $this->templateCollection = $_templateCollection;
         $this->config = $context->getScopeConfig();
         parent::__construct($context);
@@ -93,6 +89,7 @@ class Data extends AbstractHelper
             return false;
         }
 
+        // @codingStandardsIgnoreLine
         if (!$this->collection()->count()) {
             return false;
         }

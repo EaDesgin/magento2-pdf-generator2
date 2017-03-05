@@ -19,6 +19,7 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Email;
 
+use Eadesigndev\Pdfgenerator\Model\Pdfgenerator;
 use Magento\Sales\Model\Order\Email\Container\IdentityInterface;
 use Magento\Sales\Model\Order\Email\Container\Template;
 use Eadesigndev\Pdfgenerator\Helper\Pdf;
@@ -60,8 +61,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
         Pdf $helper,
         Data $dataHelper,
         DateTime $dateTime
-    )
-    {
+    ) {
         $this->helper = $helper;
         $this->dataHelper = $dataHelper;
         $this->dateTime = $dateTime;
@@ -102,35 +102,34 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
             return $this;
         }
 
-        if ($invoice = $vars['invoice']) {
-            if ($invoice instanceof Invoice) {
+        if ($vars['invoice'] instanceof Invoice) {
+            $invoice = $vars['invoice'];
+            $helper = $this->helper;
 
-                $helper = $this->helper;
+            $helper->setInvoice($invoice);
 
-                $helper->setInvoice($invoice);
-                $template = $this->dataHelper->getTemplateStatus($invoice);
+            /** @var Pdfgenerator $template */
+            $template = $this->dataHelper->getTemplateStatus($invoice);
 
-                if (empty($template->getId())) {
-                    return $this;
-                }
-
-                $helper->setTemplate($template);
-
-                $pdfFileData = $helper->template2Pdf();
-
-                $date = $this->dateTime->date('Y-m-d_H-i-s');
-
-                $this->transportBuilder->addAttachment(
-                    $pdfFileData['filestream'],
-                    \Zend_Mime::TYPE_OCTETSTREAM,
-                    \Zend_Mime::DISPOSITION_ATTACHMENT,
-                    \Zend_Mime::ENCODING_BASE64,
-                    $pdfFileData['filename'] . $date . '.pdf'
-                );
+            if (empty($template->getId())) {
+                return $this;
             }
+
+            $helper->setTemplate($template);
+
+            $pdfFileData = $helper->template2Pdf();
+
+            $date = $this->dateTime->date('Y-m-d_H-i-s');
+
+            $this->transportBuilder->addAttachment(
+                $pdfFileData['filestream'],
+                \Zend_Mime::TYPE_OCTETSTREAM,
+                \Zend_Mime::DISPOSITION_ATTACHMENT,
+                \Zend_Mime::ENCODING_BASE64,
+                $pdfFileData['filename'] . $date . '.pdf'
+            );
         }
 
         return $this;
     }
-
 }

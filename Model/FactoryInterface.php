@@ -26,5 +26,4 @@ interface FactoryInterface
      * @return mixed
      */
     public function create();
-
 }

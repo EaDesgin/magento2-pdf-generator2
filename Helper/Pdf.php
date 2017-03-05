@@ -29,7 +29,13 @@ use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Sales\Model\Order\Invoice;
+use mPDF;
 
+/**
+ * Class Pdf
+ * @package Eadesigndev\Pdfgenerator\Helper
+ * @SuppressWarnings("CouplingBetweenObjects")
+ */
 class Pdf extends AbstractHelper
 {
     /**
@@ -72,7 +78,7 @@ class Pdf extends AbstractHelper
     /**
      * @var
      */
-    public $_mPDF;
+    public $mPDF;
 
     /**
      * @var PaymentHelper
@@ -103,8 +109,7 @@ class Pdf extends AbstractHelper
         PaymentHelper $paymentHelper,
         InvoiceIdentity $identityContainer,
         Processor $templateFactory
-    )
-    {
+    ) {
         $this->processor = $templateFactory;
         $this->paymentHelper = $paymentHelper;
         $this->identityContainer = $identityContainer;
@@ -151,8 +156,6 @@ class Pdf extends AbstractHelper
      */
     public function template2Pdf()
     {
-        $templateModel = $this->template;
-
         /**transport use to get the variables $order object, $invoice object and the template model object*/
         $parts = $this->_transport();
 
@@ -208,9 +211,12 @@ class Pdf extends AbstractHelper
         $templateModel = $this->template;
 
         if (!$templateModel->getTemplateCustomForm()) {
-            $pdf = new \mPDF(
-                $mode = '',
-                $format = $this->paperFormat(
+
+            /** @var mPDF $pdf */
+            // @codingStandardsIgnoreLine
+            $pdf = new mPDF(
+                '',
+                $this->paperFormat(
                     $templateModel->getTemplatePaperForm(),
                     $templateModel->getTemplatePaperOri()
                 ),
@@ -226,7 +232,8 @@ class Pdf extends AbstractHelper
         }
 
         if ($templateModel->getTemplateCustomForm()) {
-            $pdf = new \mPDF(
+            // @codingStandardsIgnoreLine
+            $pdf = new mPDF(
                 '',
                 [
                     $templateModel->getTemplateCustomW(),
@@ -243,12 +250,12 @@ class Pdf extends AbstractHelper
             );
         }
 
-        //todo check for header template processing problem width breaking the templates.
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
 
         $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
 
+        // @codingStandardsIgnoreLine
         $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
@@ -275,7 +282,6 @@ class Pdf extends AbstractHelper
         return $format;
     }
 
-
     /**
      * @param Order $order
      * @return mixed
@@ -301,11 +307,13 @@ class Pdf extends AbstractHelper
 
     /**
      * @param Order $order
-     * @return mixed
+     * @return null|string
      */
     protected function getFormattedBillingAddress(Order $order)
     {
-        return $this->addressRenderer->format($order->getBillingAddress(), 'html');
+        /** @var \Magento\Sales\Model\Order\Address $billing */
+        $billing = $order->getBillingAddress();
+        $address = $this->addressRenderer->format($billing, 'html');
+        return $address;
     }
-
 }

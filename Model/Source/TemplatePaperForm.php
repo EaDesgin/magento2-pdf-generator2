@@ -19,7 +19,6 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Source;
 
-use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
 use Magento\Framework\View\Model\PageLayout\Config\BuilderInterface;
 
 /**
@@ -31,11 +30,6 @@ class TemplatePaperForm extends AbstractSource
      * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface
      */
     private $pageLayoutBuilder;
-
-    /**
-     * @var array
-     */
-    private $options;
 
     /**
      * Constructor
@@ -73,5 +67,4 @@ class TemplatePaperForm extends AbstractSource
             self::TEMAPLATE_PAPER_FORMAT_LEGAL => __('Legal'),
         ];
     }
-
 }

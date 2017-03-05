@@ -27,6 +27,11 @@ use Eadesigndev\Pdfgenerator\Model\Source\TemplateActive;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 
+/**
+ * Class Save
+ * @package Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
+ * @SuppressWarnings("CouplingBetweenObjects")
+ */
 class Save extends Action
 {
     /**
@@ -138,7 +143,7 @@ class Save extends Action
                 $this->messageManager->addErrorMessage($e->getMessage());
             } catch (\Exception $e) {
                 $this->messageManager->addExceptionMessage(
-                    $e->getMessage(),
+                    $e,
                     __('Something went wrong while saving the template.')
                 );
             }

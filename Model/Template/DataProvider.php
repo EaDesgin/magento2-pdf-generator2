@@ -60,8 +60,7 @@ class DataProvider extends AbstractDataProvider
         DataPersistorInterface $dataPersistor,
         array $meta = [],
         array $data = []
-    )
-    {
+    ) {
         $this->collection = $templateCollectionFactory->create();
         $this->dataPersistor = $dataPersistor;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
@@ -106,5 +105,4 @@ class DataProvider extends AbstractDataProvider
 
         return $this->loadedData;
     }
-
 }

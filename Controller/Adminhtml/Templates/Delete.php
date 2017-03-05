@@ -23,7 +23,6 @@ use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 use Magento\Backend\App\Action;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
-use Magento\TestFramework\ErrorLog\Logger;
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository as TemplateRepository;
 
 class Delete extends Templates
@@ -51,8 +50,7 @@ class Delete extends Templates
         PageFactory $resultPageFactory,
         Registry $registry,
         TemplateRepository $templateRepository
-    )
-    {
+    ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->templateRepository = $templateRepository;
         parent::__construct($context, $registry);

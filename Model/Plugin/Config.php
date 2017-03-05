@@ -32,8 +32,7 @@ class Config
     public function __construct(
         UrlInterface $url,
         Registry $registry
-    )
-    {
+    ) {
         $this->_url = $url;
         $this->registry = $registry;
     }
@@ -42,7 +41,9 @@ class Config
      * @param $subject
      * @param $result
      * @return string
+     * @SuppressWarnings("unused")
      */
+    // @codingStandardsIgnoreLine
     public function afterGetVariablesWysiwygActionUrl($subject, $result)
     {
 

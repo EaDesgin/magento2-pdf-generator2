@@ -62,5 +62,4 @@ abstract class Abstractpdf extends Action
         $this->coreRegistry = $coreRegistry;
         $this->resultJsonFactory = $resultJsonFactory;
     }
-
 }

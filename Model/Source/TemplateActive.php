@@ -20,8 +20,6 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Source;
 
-use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
-
 class TemplateActive extends AbstractSource
 {
     /**

@@ -27,6 +27,7 @@ class PdfDataProcessor extends PostDataProcessor
      * @param array $data
      * @return array
      */
+    // @codingStandardsIgnoreLine
     public function validateRequireEntry(array $data)
     {
 
@@ -50,5 +51,4 @@ class PdfDataProcessor extends PostDataProcessor
 
         return $data;
     }
-
 }

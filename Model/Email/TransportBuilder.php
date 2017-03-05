@@ -38,8 +38,7 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
         $disposition = \Zend_Mime::DISPOSITION_ATTACHMENT,
         $encoding = \Zend_Mime::ENCODING_BASE64,
         $filename = null
-    )
-    {
+    ) {
         $this->message->createAttachment(
             $body,
             $mimeType,
@@ -50,5 +49,4 @@ class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
 
         return $this;
     }
-
 }

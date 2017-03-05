@@ -47,5 +47,4 @@ interface TemplatesRepositoryInterface
      * @return mixed
      */
     public function deleteById($value);
-
 }

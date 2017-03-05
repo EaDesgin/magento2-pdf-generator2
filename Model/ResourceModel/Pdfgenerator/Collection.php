@@ -25,6 +25,7 @@ class Collection extends AbstractCollection
     /**
      * @var string
      */
+    // @codingStandardsIgnoreLine
     protected $_idFieldName = 'template_id';
 
     /**
@@ -42,7 +43,6 @@ class Collection extends AbstractCollection
         $this->_map['fields']['template_id'] = 'main_table.template_id';
         $this->_map['fields']['store'] = 'store_table.store_id';
     }
-
 
     /**
      * Add filter by store
@@ -63,7 +63,7 @@ class Collection extends AbstractCollection
     /**
      * Perform operations after collection load
      *
-     * @return $this
+     * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
      */
     protected function _afterLoad()
     {

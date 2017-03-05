@@ -48,5 +48,4 @@ abstract class AbstractSource implements OptionSourceInterface
 
         return $options;
     }
-
 }

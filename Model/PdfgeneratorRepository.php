@@ -23,6 +23,7 @@ use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface;
 use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterfaceFactory;
 use \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator as TemplateResource;
 use \Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface;
+use Magento\Framework\Message\ManagerInterface;
 
 class PdfgeneratorRepository implements TemplatesRepositoryInterface
 {
@@ -53,41 +54,49 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
     private $pdfgeneratorFactory;
 
     /**
+     * @var ManagerInterface
+     */
+    private $messageManager;
+
+    /**
      * PdfgeneratorRepository constructor.
      * @param TemplateResource $resource
      * @param TemplatesInterface $templatesInterface
      * @param TemplatesInterfaceFactory $templatesInterfaceFactory
-     * @param \Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory $pdfgeneratorFactory
+     * @param PdfgeneratorFactory $pdfgeneratorFactory
+     * @param ManagerInterface $messageManager
      */
     public function __construct(
         TemplateResource $resource,
         TemplatesInterface $templatesInterface,
         TemplatesInterfaceFactory $templatesInterfaceFactory,
-        PdfgeneratorFactory $pdfgeneratorFactory
-    )
-    {
+        PdfgeneratorFactory $pdfgeneratorFactory,
+        ManagerInterface $messageManager
+    ) {
         $this->resource = $resource;
         $this->templatesInterface = $templatesInterface;
         $this->templatesInterfaceFactory = $templatesInterfaceFactory;
         $this->pdfgeneratorFactory = $pdfgeneratorFactory;
+        $this->messageManager = $messageManager;
     }
 
     /**
-     * @param TemplatesInterface $template
+     * @param TemplatesInterface|Pdfgenerator $template
      * @return TemplatesInterface
      */
     public function save(TemplatesInterface $template)
     {
         try {
             $this->resource->save($template);
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
+            $this->messageManager->addExceptionMessage($e, 'There was a error');
         }
 
         return $template;
     }
 
     /**
-     * @param \Eadesigndev\Pdfgenerator\Api\the $templateId
+     * @param int $templateId
      * @return mixed
      */
     public function getById($templateId)
@@ -96,9 +105,6 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
             $template = $this->pdfgeneratorFactory->create();
             $this->resource->load($template, $templateId);
 
-            if (!$template->getId()) {
-            }
-
             $this->instances[$templateId] = $template;
         }
 
@@ -106,7 +112,7 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
     }
 
     /**
-     * @param TemplatesInterface $template
+     * @param TemplatesInterface|Pdfgenerator $template
      * @return bool
      */
     public function delete(TemplatesInterface $template)
@@ -116,6 +122,7 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
             unset($this->instances[$id]);
             $this->resource->delete($template);
         } catch (\Exception $e) {
+            $this->messageManager->addExceptionMessage($e, 'There was a error');
         }
 
         unset($this->instances[$id]);
@@ -124,7 +131,7 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
     }
 
     /**
-     * @param \Eadesigndev\Pdfgenerator\Api\the $templateId
+     * @param int $templateId
      * @return bool
      */
     public function deleteById($templateId)
@@ -132,5 +139,4 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
         $template = $this->getById($templateId);
         return $this->delete($template);
     }
-
 }

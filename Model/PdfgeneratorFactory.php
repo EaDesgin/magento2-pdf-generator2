@@ -55,6 +55,7 @@ class PdfgeneratorFactory implements FactoryInterface
      */
     public function create(array $data = [])
     {
+        // @codingStandardsIgnoreLine
         return $this->objectManager->create($this->instanceName, $data);
     }
 }
