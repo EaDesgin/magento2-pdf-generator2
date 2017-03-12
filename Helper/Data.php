@@ -23,6 +23,7 @@ use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection;
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
 use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
 use Eadesigndev\Pdfgenerator\Model\Source\TemplateActive;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Sales\Model\Order\Invoice;
@@ -41,7 +42,7 @@ class Data extends AbstractHelper
     const EMAIL = 'eadesign_pdfgenerator/general/email';
 
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var ScopeConfigInterface
      */
     protected $config;
 
@@ -72,7 +73,7 @@ class Data extends AbstractHelper
     public function isEmail()
     {
         if ($this->isEnable()) {
-            return $this->getConfig(self::EMAIL);
+            return $this->hasConfig(self::EMAIL);
         }
         return false;
     }
@@ -84,26 +85,30 @@ class Data extends AbstractHelper
      */
     public function isEnable()
     {
-
-        if (!class_exists('mPDF')) {
-            return false;
-        }
-
         // @codingStandardsIgnoreLine
-        if (!$this->collection()->count()) {
+        if (!$this->mPDFExists() || !$this->collection()->count()) {
             return false;
         }
 
-        return $this->getConfig(self::ENABLE);
+        return $this->hasConfig(self::ENABLE);
     }
 
     /**
-     * Get config value
-     *
-     * @param string $configPath
-     * @return string
+     * @return bool
      */
-    public function getConfig($configPath)
+    private function mPDFExists()
+    {
+        if (class_exists('mPDF')) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @param string $configPath
+     * @return bool
+     */
+    public function hasConfig($configPath)
     {
         return $this->config->getValue(
             $configPath,
