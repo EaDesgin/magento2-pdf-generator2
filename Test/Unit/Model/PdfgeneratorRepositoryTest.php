@@ -4,7 +4,7 @@
  * See LICENSE for license details.
  */
 
-namespace Eadesigndev\Pdfgenerator\Test\Unit;
+namespace Eadesigndev\Pdfgenerator\Test\Unit\Model;
 
 use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository;
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator as PdfgeneratorResourceModel;
