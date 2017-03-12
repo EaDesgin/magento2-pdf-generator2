@@ -22,6 +22,7 @@ namespace Eadesigndev\Pdfgenerator\Model;
 use \Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface;
 use \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator as TemplateResource;
 use \Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface;
+use Exception;
 use Magento\Framework\Message\ManagerInterface;
 
 class PdfgeneratorRepository implements TemplatesRepositoryInterface
@@ -79,7 +80,7 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
     {
         try {
             $this->resource->save($template);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->messageManager->addExceptionMessage($e, 'There was a error');
         }
 
@@ -112,7 +113,7 @@ class PdfgeneratorRepository implements TemplatesRepositoryInterface
         try {
             unset($this->instances[$id]);
             $this->resource->delete($template);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->messageManager->addExceptionMessage($e, 'There was a error');
         }
 
