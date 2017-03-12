@@ -29,11 +29,14 @@ use Magento\Framework\App\Response\Http\FileFactory;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Registry;
 use Magento\Framework\Stdlib\DateTime\DateTime;
+use Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository;
+use Magento\Sales\Model\Order\InvoiceRepository;
 
 /**
  * Class Printpdf
  * @package Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order\Invoice
  * @SuppressWarnings("CouplingBetweenObjects")
+ * @SuppressWarnings("ExcessiveParameterList")
  */
 class Printpdf extends Abstractpdf
 {
@@ -67,6 +70,16 @@ class Printpdf extends Abstractpdf
     private $helper;
 
     /**
+     * @var PdfgeneratorRepository
+     */
+    private $pdfGeneratorRepository;
+
+    /**
+     * @var InvoiceRepository
+     */
+    private $invoiceRepository;
+
+    /**
      * Printpdf constructor.
      * @param Context $context
      * @param Registry $coreRegistry
@@ -76,6 +89,8 @@ class Printpdf extends Abstractpdf
      * @param DateTime $dateTime
      * @param FileFactory $fileFactory
      * @param ForwardFactory $resultForwardFactory
+     * @param PdfgeneratorRepository $pdfGeneratorRepository
+     * @param InvoiceRepository $invoiceRepository
      */
     public function __construct(
         Context $context,
@@ -85,13 +100,17 @@ class Printpdf extends Abstractpdf
         Pdf $helper,
         DateTime $dateTime,
         FileFactory $fileFactory,
-        ForwardFactory $resultForwardFactory
+        ForwardFactory $resultForwardFactory,
+        PdfgeneratorRepository $pdfGeneratorRepository,
+        InvoiceRepository $invoiceRepository
     ) {
         $this->fileFactory = $fileFactory;
         $this->helper = $helper;
         parent::__construct($context, $coreRegistry, $emailConfig, $resultJsonFactory);
         $this->resultForwardFactory = $resultForwardFactory;
         $this->dateTime = $dateTime;
+        $this->pdfGeneratorRepository = $pdfGeneratorRepository;
+        $this->invoiceRepository = $invoiceRepository;
     }
 
     /**
@@ -101,30 +120,27 @@ class Printpdf extends Abstractpdf
     {
 
         $templateId = $this->getRequest()->getParam('template_id');
+
         if (!$templateId) {
-            return $this->resultForwardFactory->create()->forward('noroute');
+            return $this->returnNoRoute();
         }
 
-        $templateModel = $this->_objectManager
-            // @codingStandardsIgnoreLine
-            ->create('Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface')
+        $templateModel = $this->pdfGeneratorRepository
             ->getById($templateId);
 
         if (!$templateModel) {
-            return $this->resultForwardFactory->create()->forward('noroute');
+            return $this->returnNoRoute();
         }
 
         $invoiceId = $this->getRequest()->getParam('invoice_id');
         if (!$invoiceId) {
-            return $this->resultForwardFactory->create()->forward('noroute');
+            return $this->returnNoRoute();
         }
 
-        $invoice = $this->_objectManager
-            // @codingStandardsIgnoreLine
-            ->create('Magento\Sales\Api\InvoiceRepositoryInterface')
+        $invoice = $this->invoiceRepository
             ->get($invoiceId);
         if (!$invoice) {
-            return $this->resultForwardFactory->create()->forward('noroute');
+            return $this->returnNoRoute();
         }
 
         $helper = $this->helper;
@@ -144,5 +160,13 @@ class Printpdf extends Abstractpdf
             DirectoryList::VAR_DIR,
             'application/pdf'
         );
+    }
+
+    /**
+     * @return $this
+     */
+    private function returnNoRoute()
+    {
+        return $this->resultForwardFactory->create()->forward('noroute');
     }
 }

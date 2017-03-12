@@ -20,11 +20,18 @@
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Variable;
 
 use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
+use Exception;
 use Magento\Backend\App\Action\Context;
 use Magento\Email\Model\Template\Config;
 use Magento\Framework\App\Action\Action;
+use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Registry;
+use Magento\Framework\Json\Helper\Data as JsonHelperData;
+use Magento\Variable\Model\Variable as VariableModel;
+use Magento\Email\Model\Source\Variables as EmailVariables;
+use Magento\Email\Model\BackendTemplate as EmailBackendTemplate;
+use Zend_Json;
 
 /**
  * Class Template
@@ -58,29 +65,61 @@ class Template extends Action
     private $authorization;
 
     /**
+     * @var JsonHelperData
+     */
+    private $jsonHelperData;
+
+    /**
+     * @var VariableModel
+     */
+    private $variableModel;
+
+    /**
+     * @var EmailVariables
+     */
+    private $emailVariables;
+
+    /**
+     * @var EmailBackendTemplate
+     */
+    private $emailBackendTemplate;
+
+    /**
      * Template constructor.
      * @param Context $context
      * @param Registry $coreRegistry
      * @param Config $emailConfig
      * @param JsonFactory $resultJsonFactory
+     * @param JsonHelperData $jsonHelperData
+     * @param VariableModel $variableModel
+     * @param EmailVariables $emailVariables
+     * @param EmailBackendTemplate $emailBackendTemplate
      */
     public function __construct(
         Context $context,
         Registry $coreRegistry,
         Config $emailConfig,
-        JsonFactory $resultJsonFactory
+        JsonFactory $resultJsonFactory,
+        JsonHelperData $jsonHelperData,
+        VariableModel $variableModel,
+        EmailVariables $emailVariables,
+        EmailBackendTemplate $emailBackendTemplate
     ) {
 
         $this->emailConfig = $emailConfig;
         parent::__construct($context);
         $this->coreRegistry = $coreRegistry;
         $this->resultJsonFactory = $resultJsonFactory;
+        $this->jsonHelperData = $jsonHelperData;
+        $this->variableModel = $variableModel;
+        $this->emailVariables = $emailVariables;
+        $this->emailBackendTemplate = $emailBackendTemplate;
     }
 
     /**
      * WYSIWYG Plugin Action
      *
-     * @return \Magento\Framework\Controller\Result\Json
+     * @return Json
      */
     public function execute()
     {
@@ -102,7 +141,7 @@ class Template extends Action
             $template->setData('orig_template_code', $templateId);
             $template->setData(
                 'template_variables',
-                \Zend_Json::encode($template->getVariablesOptionArray(true))
+                Zend_Json::encode($template->getVariablesOptionArray(true))
             );
 
             $templateBlock = $this->_view->getLayout()->createBlock(
@@ -114,25 +153,17 @@ class Template extends Action
             );
 
             $this->getResponse()->representJson(
-            // @codingStandardsIgnoreLine
-                $this->_objectManager->get('Magento\Framework\Json\Helper\Data')
+                $this->jsonHelperData
                     ->jsonEncode($template->getData())
             );
-        } catch (\Exception $e) {
-            // @codingStandardsIgnoreLine
-            $this->_objectManager->get('Psr\Log\LoggerInterface')->critical($e);
+        } catch (Exception $e) {
+            $this->messageManager->addErrorMessage($e, 'There was a problem:' . $e->getMessage());
         }
 
-        // @codingStandardsIgnoreLine
-        $customVariables = $this->_objectManager->create('Magento\Variable\Model\Variable')
+        $customVariables = $this->variableModel
             ->getVariablesOptionArray(true);
-        // @codingStandardsIgnoreLine
-        $storeContactVariables = $this->_objectManager->create(
-            'Magento\Email\Model\Source\Variables'
-        )->toOptionArray(
-            true
-        );
-        /** @var \Magento\Framework\Controller\Result\Json $resultJson */
+        $storeContactVariables = $this->emailVariables->toOptionArray(true);
+        /** @var Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();
         return $resultJson->setData([
             $storeContactVariables,
@@ -150,7 +181,7 @@ class Template extends Action
     {
 
         // @codingStandardsIgnoreLine
-        $model = $this->_objectManager->create('Magento\Email\Model\BackendTemplate');
+        $model = $this->emailBackendTemplate;
 
         if (!$this->coreRegistry->registry('email_template')) {
             $this->coreRegistry->register('email_template', $model);

@@ -25,6 +25,7 @@ use Eadesigndev\Pdfgenerator\Model\PdfgeneratorFactory;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
+use Magento\Backend\Model\Session;
 
 class Edit extends Templates
 {
@@ -51,23 +52,31 @@ class Edit extends Templates
     private $pdfgeneratorFactory;
 
     /**
+     * @var Session
+     */
+    private $session;
+
+    /**
      * Edit constructor.
      * @param Context $context
      * @param PageFactory $resultPageFactory
      * @param Registry $registry
      * @param TemplateRepository $templateRepository
      * @param PdfgeneratorFactory $pdfgeneratorFactory
+     * @param Session $session
      */
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory,
         Registry $registry,
         TemplateRepository $templateRepository,
-        PdfgeneratorFactory $pdfgeneratorFactory
+        PdfgeneratorFactory $pdfgeneratorFactory,
+        Session $session
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->templateRepository = $templateRepository;
         $this->pdfgeneratorFactory = $pdfgeneratorFactory;
+        $this->session = $session;
         parent::__construct($context, $registry);
     }
 
@@ -118,8 +127,8 @@ class Edit extends Templates
             $model = $this->pdfgeneratorFactory->create();
         }
 
-        // @codingStandardsIgnoreLine
-        $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
+        /** @var Session $data */
+        $data = $this->session->getFormData(true);
 
         if (!empty($data)) {
             $model->setData($data);
