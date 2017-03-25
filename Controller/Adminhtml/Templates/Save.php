@@ -20,6 +20,7 @@
 namespace Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
 
 use Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates;
+use Eadesigndev\Pdfgenerator\Model\Pdfgenerator;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -106,13 +107,15 @@ class Save extends Action
                 $data['template_id'] = null;
             }
 
-            /** @var \Eadesigndev\Pdfgenerator\Model\Pdfgenerator $model */
+            /** @var Pdfgenerator $model */
 
             $id = $this->getRequest()->getParam('template_id');
             if ($id) {
+                /** @var Pdfgenerator $model */
                 $model = $this->templateRepository->getById($id);
             } else {
                 unset($data['template_id']);
+                /** @var Pdfgenerator $model */
                 $model = $this->pdfgeneratorFactory->create();
             }
 
@@ -140,7 +143,7 @@ class Save extends Action
 
                 return $resultRedirect->setPath('*/*/');
             } catch (LocalizedException $e) {
-                $this->messageManager->addErrorMessage($e->getMessage());
+                $this->messageManager->addErrorMessage($e, $e->getMessage());
             } catch (\Exception $e) {
                 $this->messageManager->addExceptionMessage(
                     $e,
