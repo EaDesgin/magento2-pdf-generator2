@@ -63,20 +63,18 @@ class Edit extends Templates
      * @param Registry $registry
      * @param TemplateRepository $templateRepository
      * @param PdfgeneratorFactory $pdfgeneratorFactory
-     * @param Session $session
      */
     public function __construct(
         Context $context,
         PageFactory $resultPageFactory,
         Registry $registry,
         TemplateRepository $templateRepository,
-        PdfgeneratorFactory $pdfgeneratorFactory,
-        Session $session
+        PdfgeneratorFactory $pdfgeneratorFactory
     ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->templateRepository = $templateRepository;
         $this->pdfgeneratorFactory = $pdfgeneratorFactory;
-        $this->session = $session;
+        $this->session = $context->getSession();
         parent::__construct($context, $registry);
     }
 
