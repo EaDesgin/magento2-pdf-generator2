@@ -165,6 +165,7 @@ class Save extends Action
      *
      * @return boolean
      */
+    //@codingStandardsIgnoreLine
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed(

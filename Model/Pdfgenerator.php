@@ -29,7 +29,7 @@ class Pdfgenerator extends AbstractModel implements TemplatesInterface
      * Init resource model for the templates
      * @return void
      */
-    protected function _construct()
+    public function _construct()
     {
         $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
     }

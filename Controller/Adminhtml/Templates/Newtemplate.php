@@ -65,6 +65,7 @@ class Newtemplate extends Templates
      *
      * @return boolean
      */
+    //@codingStandardsIgnoreLine
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);

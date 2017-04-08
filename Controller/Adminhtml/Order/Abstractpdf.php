@@ -25,6 +25,11 @@ use Magento\Email\Model\Template\Config;
 use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Registry;
 
+/**
+ * Class Abstractpdf
+ * @package Eadesigndev\Pdfgenerator\Controller\Adminhtml\Order
+ * @SuppressWarnings("FoundProtected")
+ */
 abstract class Abstractpdf extends Action
 {
 
@@ -41,7 +46,7 @@ abstract class Abstractpdf extends Action
     /**
      * @var JsonFactory
      */
-    protected $resultJsonFactory;
+    public $resultJsonFactory;
 
     /**
      * Abstractpdf constructor.

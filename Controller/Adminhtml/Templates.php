@@ -35,7 +35,7 @@ abstract class Templates extends Action
      *
      * @var Registry
      */
-    protected $coreRegistry;
+    public $coreRegistry;
 
     /**
      * @param Context $context
@@ -55,7 +55,7 @@ abstract class Templates extends Action
      * @param \Magento\Backend\Model\View\Result\Page $resultPage
      * @return \Magento\Backend\Model\View\Result\Page
      */
-    protected function initPage($resultPage)
+    public function initPage($resultPage)
     {
         $resultPage->setActiveMenu('Eadesigndev_Pdfgenerator::template_list')
             ->addBreadcrumb(__('EaDesign PDF Generator Templates'), __('EaDesign PDF Generator Templates'));
@@ -68,6 +68,7 @@ abstract class Templates extends Action
      *
      * @return boolean
      */
+    //@codingStandardsIgnoreLine
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_VIEW);

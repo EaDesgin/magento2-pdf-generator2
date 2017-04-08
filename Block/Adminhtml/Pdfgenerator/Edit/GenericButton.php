@@ -86,6 +86,7 @@ abstract class GenericButton
      * @param string $resourceId
      * @return bool
      */
+    //@codingStandardsIgnoreLine
     protected function _isAllowedAction($resourceId)
     {
         return $this->authorization->isAllowed($resourceId);

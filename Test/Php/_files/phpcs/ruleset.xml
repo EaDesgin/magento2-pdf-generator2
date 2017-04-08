@@ -6,8 +6,6 @@
         <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
         <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
     </rule>
-    <rule ref="Generic.Files.OneClassPerFile"/>
-    <rule ref="Generic.Files.OneInterfacePerFile"/>
     <rule ref="Generic.WhiteSpace.ScopeIndent">
         <exclude-pattern>*.js</exclude-pattern>
     </rule>
@@ -79,7 +77,7 @@
         <severity>8</severity>
     </rule>
     <rule ref="Generic.Files.LineEndings.InvalidEOLChar">
-        <severity>0</severity>
+        <severity>8</severity>
         <type>warning</type>
     </rule>
     <rule ref="Generic.Metrics.CyclomaticComplexity.MaxExceeded">
@@ -809,10 +807,6 @@
     </rule>
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine">
         <severity>6</severity>
-        <type>warning</type>
-    </rule>
-    <rule ref="MEQP2.PHP.ProtectedClassMember.FoundProtected">
-        <severity>0</severity>
         <type>warning</type>
     </rule>
 </ruleset>

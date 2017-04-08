@@ -30,12 +30,12 @@ abstract class MassAction extends Action
     /**
      * @var Filter
      */
-    protected $filter;
+    public $filter;
 
     /**
      * @var CollectionFactory
      */
-    protected $templateCollectionFactory;
+    public $templateCollectionFactory;
     
     /**
      * @param Context $context
@@ -57,6 +57,7 @@ abstract class MassAction extends Action
      *
      * @return boolean
      */
+    //@codingStandardsIgnoreLine
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed(

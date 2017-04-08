@@ -27,6 +27,10 @@ use Magento\Framework\Registry;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Backend\Model\Session;
 
+/**
+ * Class Edit
+ * @package Eadesigndev\Pdfgenerator\Controller\Adminhtml\Templates
+ */
 class Edit extends Templates
 {
     /**
@@ -34,7 +38,7 @@ class Edit extends Templates
      *
      * @var Registry
      */
-    protected $coreRegistry = null;
+    public $coreRegistry = null;
 
     /**
      * @var PageFactory
@@ -79,8 +83,9 @@ class Edit extends Templates
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool
      */
+    //@codingStandardsIgnoreLine
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE);
@@ -91,6 +96,7 @@ class Edit extends Templates
      *
      * @return object
      */
+    //@codingStandardsIgnoreLine
     protected function _initAction()
     {
         $resultPage = $this->resultPageFactory->create();

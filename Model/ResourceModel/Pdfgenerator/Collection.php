@@ -25,14 +25,14 @@ class Collection extends AbstractCollection
     /**
      * @var string
      */
-    // @codingStandardsIgnoreLine
+    //@codingStandardsIgnoreLine
     protected $_idFieldName = 'template_id';
 
     /**
      * Init resource model
      * @return void
      */
-    protected function _construct()
+    public function _construct()
     {
 
         $this->_init(
@@ -65,7 +65,7 @@ class Collection extends AbstractCollection
      *
      * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
      */
-    protected function _afterLoad()
+    public function _afterLoad()
     {
         $this->performAfterLoad('eadesign_pdf_store', 'template_id');
 
@@ -77,7 +77,7 @@ class Collection extends AbstractCollection
      *
      * @return void
      */
-    protected function _renderFiltersBefore()
+    public function _renderFiltersBefore()
     {
         $this->joinStoreRelationTable('eadesign_pdf_store', 'template_id');
     }

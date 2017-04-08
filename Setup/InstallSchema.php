@@ -37,7 +37,7 @@ class InstallSchema implements InstallSchemaInterface
      * @SuppressWarnings("unused")
      * @SuppressWarnings("ExcessiveMethodLength")
      */
-    // @codingStandardsIgnoreLine
+    //@codingStandardsIgnoreLine
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $installer = $setup;

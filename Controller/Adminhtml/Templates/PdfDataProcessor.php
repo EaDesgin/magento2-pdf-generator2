@@ -27,7 +27,7 @@ class PdfDataProcessor extends PostDataProcessor
      * @param array $data
      * @return array
      */
-    // @codingStandardsIgnoreLine
+    //@codingStandardsIgnoreLine
     public function validateRequireEntry(array $data)
     {
 

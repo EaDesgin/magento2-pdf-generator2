@@ -43,7 +43,7 @@ class Config
      * @return string
      * @SuppressWarnings("unused")
      */
-    // @codingStandardsIgnoreLine
+    //@codingStandardsIgnoreLine
     public function afterGetVariablesWysiwygActionUrl($subject, $result)
     {
 

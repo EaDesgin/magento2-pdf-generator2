@@ -86,7 +86,8 @@ class Delete extends Templates
      *
      * @return boolean
      */
-    protected function _isAllowed()
+    //@codingStandardsIgnoreLine
+    public function _isAllowed()
     {
         return $this->_authorization->isAllowed(self::ADMIN_RESOURCE_SAVE);
     }

@@ -36,7 +36,7 @@ class MassEnable extends MassAction
 
         foreach ($collection as $item) {
             $item->setIsActive(true);
-            // @codingStandardsIgnoreLine
+            //@codingStandardsIgnoreLine
             $item->save();
         }
 

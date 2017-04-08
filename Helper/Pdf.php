@@ -58,22 +58,22 @@ class Pdf extends AbstractHelper
         6 => 'LEGAL-'
     ];
 
-    protected $order;
+    public $order;
 
     /**
      * @var invoice;
      */
-    protected $invoice;
+    public $invoice;
 
     /**
      * @var template
      */
-    protected $template;
+    public $template;
 
     /**
      * @var IdentityInterface
      */
-    protected $identityContainer;
+    public $identityContainer;
 
     /**
      * @var
@@ -83,17 +83,17 @@ class Pdf extends AbstractHelper
     /**
      * @var PaymentHelper
      */
-    protected $paymentHelper;
+    public $paymentHelper;
 
     /**
      * @var Renderer
      */
-    protected $addressRenderer;
+    public $addressRenderer;
 
     /**
      * @var Processor
      */
-    protected $processor;
+    public $processor;
 
     /**
      * Pdf constructor.
@@ -176,7 +176,7 @@ class Pdf extends AbstractHelper
      *
      * @return string
      */
-    protected function _transport()
+    public function _transport()
     {
 
         $invoice = $this->invoice;
@@ -205,7 +205,7 @@ class Pdf extends AbstractHelper
      * @param $parts
      * @return string
      */
-    protected function _eaPDFSettings($parts)
+    public function _eaPDFSettings($parts)
     {
 
         $templateModel = $this->template;
@@ -213,7 +213,7 @@ class Pdf extends AbstractHelper
         if (!$templateModel->getTemplateCustomForm()) {
 
             /** @var mPDF $pdf */
-            // @codingStandardsIgnoreLine
+            //@codingStandardsIgnoreLine
             $pdf = new mPDF(
                 '',
                 $this->paperFormat(
@@ -232,7 +232,7 @@ class Pdf extends AbstractHelper
         }
 
         if ($templateModel->getTemplateCustomForm()) {
-            // @codingStandardsIgnoreLine
+            //@codingStandardsIgnoreLine
             $pdf = new mPDF(
                 '',
                 [
@@ -255,7 +255,7 @@ class Pdf extends AbstractHelper
 
         $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
 
-        // @codingStandardsIgnoreLine
+        //@codingStandardsIgnoreLine
         $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
@@ -286,7 +286,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return mixed
      */
-    protected function getPaymentHtml(Order $order)
+    public function getPaymentHtml(Order $order)
     {
         return $this->paymentHelper->getInfoBlockHtml(
             $order->getPayment(),
@@ -298,7 +298,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null
      */
-    protected function getFormattedShippingAddress(Order $order)
+    public function getFormattedShippingAddress(Order $order)
     {
         return $order->getIsVirtual()
             ? null
@@ -309,7 +309,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null|string
      */
-    protected function getFormattedBillingAddress(Order $order)
+    public function getFormattedBillingAddress(Order $order)
     {
         /** @var \Magento\Sales\Model\Order\Address $billing */
         $billing = $order->getBillingAddress();

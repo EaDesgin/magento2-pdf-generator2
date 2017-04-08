@@ -31,7 +31,7 @@ class DataProvider extends AbstractDataProvider
     /**
      * @var \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection
      */
-    protected $collection;
+    public $collection;
 
     /**
      * @var DataPersistorInterface

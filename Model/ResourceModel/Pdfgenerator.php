@@ -79,7 +79,7 @@ class Pdfgenerator extends AbstractDb
      * Init resource model
      * @return void
      */
-    protected function _construct()
+    public function _construct()
     {
         $this->_init('eadesign_pdf_templates', 'template_id');
     }
@@ -90,7 +90,7 @@ class Pdfgenerator extends AbstractDb
      * @param AbstractModel $object
      * @return \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
-    protected function _afterLoad(AbstractModel $object)
+    public function _afterLoad(AbstractModel $object)
     {
         if ($object->getId()) {
             $stores = $this->lookupStoreIds($object->getId());
@@ -106,7 +106,7 @@ class Pdfgenerator extends AbstractDb
      * @param AbstractModel | \Magento\Framework\Model\AbstractModel $object
      * @return \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
-    protected function _afterSave(AbstractModel $object)
+    public function _afterSave(AbstractModel $object)
     {
         $this->saveStoreRelation($object);
         return parent::_afterSave($object);
@@ -136,7 +136,7 @@ class Pdfgenerator extends AbstractDb
      * @param AbstractModel $template
      * @return $this
      */
-    protected function saveStoreRelation(AbstractModel $template)
+    public function saveStoreRelation(AbstractModel $template)
     {
         $oldStores = $this->lookupStoreIds($template->getId());
         $newStores = (array)$template->getStoreId();

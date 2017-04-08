@@ -44,12 +44,12 @@ class Data extends AbstractHelper
     /**
      * @var ScopeConfigInterface
      */
-    protected $config;
+    public $config;
 
     /**
      * @var Collection
      */
-    protected $templateCollection;
+    public $templateCollection;
 
     /**
      * Data constructor.
@@ -85,7 +85,7 @@ class Data extends AbstractHelper
      */
     public function isEnable()
     {
-        // @codingStandardsIgnoreLine
+        //@codingStandardsIgnoreLine
         if (!$this->mPDFExists() || !$this->collection()->count()) {
             return false;
         }

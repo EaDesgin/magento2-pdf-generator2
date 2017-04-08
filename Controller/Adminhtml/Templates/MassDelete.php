@@ -36,7 +36,7 @@ class MassDelete extends MassAction
         $collectionSize = $collection->getSize();
 
         foreach ($collection as $item) {
-            // @codingStandardsIgnoreLine
+            //@codingStandardsIgnoreLine
             $item->delete();
         }
 

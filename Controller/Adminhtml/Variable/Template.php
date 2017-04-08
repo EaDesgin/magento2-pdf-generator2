@@ -177,10 +177,10 @@ class Template extends Action
      *
      * @return \Magento\Email\Model\BackendTemplate $model
      */
+    //@codingStandardsIgnoreLine
     protected function _initTemplate()
     {
 
-        // @codingStandardsIgnoreLine
         $model = $this->emailBackendTemplate;
 
         if (!$this->coreRegistry->registry('email_template')) {
@@ -199,6 +199,7 @@ class Template extends Action
      *
      * @return boolean
      */
+    //@codingStandardsIgnoreLine
     protected function _isAllowed()
     {
         return $this->authorization->isAllowed(

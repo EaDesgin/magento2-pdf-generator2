@@ -74,7 +74,7 @@ class InstallData implements InstallDataInterface
      * @SuppressWarnings("unused")
      * @SuppressWarnings("ExcessiveMethodLength")
      */
-    // @codingStandardsIgnoreLine
+    //@codingStandardsIgnoreLine
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
 
@@ -187,7 +187,7 @@ class InstallData implements InstallDataInterface
         foreach ($templates as $template) {
             $tmpl = $this->templateFactory->create();
             $tmpl->setData($template);
-            // @codingStandardsIgnoreLine
+            //@codingStandardsIgnoreLine
             $this->templateRepository->save($tmpl);
         }
     }

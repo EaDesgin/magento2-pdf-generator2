@@ -145,7 +145,7 @@ class Processor extends Template
         $this->storeId = $templates[0];
 
         if ($this->designConfig === null) {
-            // @codingStandardsIgnoreLine
+            //@codingStandardsIgnoreLine
             $this->designConfig = new DataObject(
                 ['area' => Area::AREA_FRONTEND, 'store' => $this->storeId]
             );

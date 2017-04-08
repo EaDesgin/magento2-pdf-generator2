@@ -71,7 +71,7 @@ class Printinvoice
      * @return string
      * @SuppressWarnings("unused")
      */
-    // @codingStandardsIgnoreLine
+    //@codingStandardsIgnoreLine
     public function afterGetPrintUrl($subject, $result)
     {
         if (!$this->dataHelper->isEnable()) {
@@ -91,7 +91,7 @@ class Printinvoice
      * @param $lastItem
      * @return string
      */
-    protected function _print($lastItem)
+    public function _print($lastItem)
     {
         return $this->urlInterface->getUrl(
             'pdfgenerator/*/printpdf',
