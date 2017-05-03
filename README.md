@@ -46,11 +46,11 @@ You can install the module via composer or manually by adding it to the app/code
 Via composer:
 
 ``` bash
-composer config repositories.magento2-warehouses git git@github.com:EaDesgin/magento2-pdf-generator2.git;
+composer config repositories.magento2-pdf-generator2 git git@github.com:EaDesgin/magento2-pdf-generator2.git;
 ```
 
 ``` bash
-composer require eadesignro/module-warehouses;
+composer require eadesignro/module-pdfgenerator;
 ```
 
 ``` bash 
