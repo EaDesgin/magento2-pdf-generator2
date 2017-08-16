@@ -6,7 +6,7 @@
 
 namespace Eadesigndev\Pdfgenerator\Test\Unit\Helper;
 
-use Eadesigndev\Opicmsppdfgenerator\Helper\Data as DataHelper;
+use Eadesigndev\Pdfgenerator\Helper\Data as DataHelper;
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as PdfGeneratorCollectionFactory;
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection as PdfGeneratorCollection;
 use Magento\Framework\App\Config\ScopeConfigInterface;

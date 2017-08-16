@@ -17,10 +17,10 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 
-namespace Eadesigndev\Opicmsppdfgenerator\Block\Sales\Shipment;
+namespace Eadesigndev\Pdfgenerator\Block\Sales\Shipment;
 
-use Eadesigndev\Opicmsppdfgenerator\Helper\Data;
-use Eadesigndev\Opicmsppdfgenerator\Model\Source\TemplateType;
+use Eadesigndev\Pdfgenerator\Helper\Data;
+use Eadesigndev\Pdfgenerator\Model\Source\TemplateType;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template\Context;
 
@@ -83,7 +83,7 @@ class Items extends \Magento\Shipping\Block\Items
      */
     public function getPrintPDFUrl($source)
     {
-        return $this->getUrl('opicmsppdfgenerator/index/index', [
+        return $this->getUrl('pdfgenerator/index/index', [
             'template_id' => $this->lastitem->getId(),
             'order_id' => $source->getOrder()->getId(),
             'source_id' => $source->getId()
