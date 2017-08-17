@@ -13,7 +13,7 @@ use Magento\Sales\Model\Order\Item as OrderItem;
 /**
  * Class DefaultOrder
  *
- * @package Eadesigndev\Opicmsppdfgenerator\Block\Sales\Order\Email\Items\Order
+ * @package Eadesigndev\Pdfgenerator\Block\Sales\Order\Email\Items\Order
  */
 class DefaultOrder extends Template
 {
