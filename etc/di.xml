@@ -29,10 +29,6 @@
     <preference for="\Magento\Sales\Model\Order\Email\SenderBuilder"
                 type="Eadesigndev\Pdfgenerator\Model\Email\SenderBuilder"/>
 
-    <!--fix for bug magento https://github.com/magento/magento2/issues/5105-->
-    <preference for="Magento\GroupedProduct\Block\Order\Email\Items\Order\Grouped"
-                type="Eadesigndev\Pdfgenerator\Block\Sales\Order\Email\Items\Order\Grouped" />
-
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
@@ -57,7 +53,7 @@
         </arguments>
     </virtualType>
 
-    <virtualType name="Eadesigndev/Pdfgenerator/Model/ResourceModel/Pdfgenerator/Grid/Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">eadesign_pdf_templates</argument>
             <argument name="resourceModel" xsi:type="string">Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator</argument>
