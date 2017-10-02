@@ -57,7 +57,7 @@
         </arguments>
     </virtualType>
 
-    <virtualType name="Eadesigndev/Pdfgenerator/Model/ResourceModel/Pdfgenerator/Grid/Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+    <virtualType name="Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
         <arguments>
             <argument name="mainTable" xsi:type="string">eadesign_pdf_templates</argument>
             <argument name="resourceModel" xsi:type="string">Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator</argument>
