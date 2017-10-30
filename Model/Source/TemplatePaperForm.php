@@ -59,12 +59,12 @@ class TemplatePaperForm extends AbstractSource
     public function getAvailable()
     {
         return [
-            self::TEMAPLATE_PAPER_FORM_A4 => __('A4'),
-            self::TEMAPLATE_PAPER_FORMAT_A3 => __('A3'),
-            self::TEMAPLATE_PAPER_FORMAT_A5 => __('A5'),
-            self::TEMAPLATE_PAPER_FORMAT_A6 => __('A6'),
-            self::TEMAPLATE_PAPER_FORMAT_LETTER => __('Letter'),
-            self::TEMAPLATE_PAPER_FORMAT_LEGAL => __('Legal'),
+            self::TEMAPLATE_PAPER_FORM_A4 => 'A4',
+            self::TEMAPLATE_PAPER_FORMAT_A3 => 'A3',
+            self::TEMAPLATE_PAPER_FORMAT_A5 => 'A5',
+            self::TEMAPLATE_PAPER_FORMAT_A6 => 'A6',
+            self::TEMAPLATE_PAPER_FORMAT_LETTER => 'Letter',
+            self::TEMAPLATE_PAPER_FORMAT_LEGAL => 'Legal',
         ];
     }
 }

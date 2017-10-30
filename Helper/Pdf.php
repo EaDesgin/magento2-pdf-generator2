@@ -21,6 +21,7 @@ namespace Eadesigndev\Pdfgenerator\Helper;
 
 use Eadesigndev\Pdfgenerator\Model\Pdfgenerator;
 use Eadesigndev\Pdfgenerator\Model\Source\TemplatePaperOrientation;
+use Eadesigndev\Pdfgenerator\Model\Source\TemplatePaperForm;
 use Eadesigndev\Pdfgenerator\Model\Template\Processor;
 use Magento\Payment\Helper\Data as PaymentHelper;
 use Magento\Sales\Model\Order;
@@ -29,7 +30,8 @@ use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Sales\Model\Order\Invoice;
-use mPDF;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Mpdf\Mpdf;
 
 /**
  * Class Pdf
@@ -96,6 +98,17 @@ class Pdf extends AbstractHelper
     public $processor;
 
     /**
+     * @var TemplatePaperForm
+     */
+    private $templatePaperForm;
+    /**
+     * @var TemplatePaperOrientation
+     */
+    private $templatePaperOrientation;
+
+    private $directoryList;
+
+    /**
      * Pdf constructor.
      * @param Context $context
      * @param Renderer $addressRenderer
@@ -108,12 +121,18 @@ class Pdf extends AbstractHelper
         Renderer $addressRenderer,
         PaymentHelper $paymentHelper,
         InvoiceIdentity $identityContainer,
-        Processor $templateFactory
+        Processor $templateFactory,
+        DirectoryList $directoryList,
+        TemplatePaperForm $templatePaperForm,
+        TemplatePaperOrientation $templatePaperOrientation
     ) {
-        $this->processor = $templateFactory;
-        $this->paymentHelper = $paymentHelper;
-        $this->identityContainer = $identityContainer;
-        $this->addressRenderer = $addressRenderer;
+        $this->processor                = $templateFactory;
+        $this->paymentHelper            = $paymentHelper;
+        $this->identityContainer        = $identityContainer;
+        $this->addressRenderer          = $addressRenderer;
+        $this->directoryList            = $directoryList;
+        $this->templatePaperForm        = $templatePaperForm;
+        $this->templatePaperOrientation = $templatePaperOrientation;
         parent::__construct($context);
     }
 
@@ -210,44 +229,18 @@ class Pdf extends AbstractHelper
 
         $templateModel = $this->template;
 
-        if (!$templateModel->getTemplateCustomForm()) {
+        $oldErrorReporting = error_reporting();
+        error_reporting(0);
 
+        if (!$templateModel->getTemplateCustomForm()) {
             /** @var mPDF $pdf */
             //@codingStandardsIgnoreLine
-            $pdf = new mPDF(
-                '',
-                $this->paperFormat(
-                    $templateModel->getTemplatePaperForm(),
-                    $templateModel->getTemplatePaperOri()
-                ),
-                $default_font_size = 0,
-                $default_font = '',
-                $mgl = $templateModel->getTemplateCustomL(),
-                $mgr = $templateModel->getTemplateCustomR(),
-                $mgt = $templateModel->getTemplateCustomT(),
-                $mgb = $templateModel->getTemplateCustomB(),
-                $mgh = 9,
-                $mgf = 9
-            );
+            $pdf = new Mpdf($this->config($templateModel));
         }
 
         if ($templateModel->getTemplateCustomForm()) {
             //@codingStandardsIgnoreLine
-            $pdf = new mPDF(
-                '',
-                [
-                    $templateModel->getTemplateCustomW(),
-                    $templateModel->getTemplateCustomH()
-                ],
-                $default_font_size = 0,
-                $default_font = '',
-                $mgl = $templateModel->getTemplateCustomL(),
-                $mgr = $templateModel->getTemplateCustomR(),
-                $mgt = $templateModel->getTemplateCustomT(),
-                $mgb = $templateModel->getTemplateCustomB(),
-                $mgh = 9,
-                $mgf = 9
-            );
+            $pdf = new Mpdf($this->config($templateModel));
         }
 
         $pdf->SetHTMLHeader($parts['header']);
@@ -259,27 +252,66 @@ class Pdf extends AbstractHelper
         $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
+        error_reporting($oldErrorReporting);
+
         return $pdfToOutput;
     }
 
     /**
-     * Get the format and orientation, ex: A4-L
-     * @param $form
-     * @param $ori
-     * @return string
+     * @param Pdfgenerator $templateModel
+     * @return array
      */
-    private function paperFormat($form, $ori)
+    private function config($templateModel): array
     {
-        $size = self::PAPER_SIZE;
-        $oris = self::PAPER_ORI;
-
-        if ($ori == TemplatePaperOrientation::TEMAPLATE_PAPER_PORTRAIT) {
-            return str_replace('-', '', $size[$form]);
+        $ori = $templateModel->getTemplatePaperOri();
+        $orientation = $this->templatePaperOrientation->getAvailable();
+        $finalOri = $orientation[$ori][0];
+        $marginTop = $templateModel->getTemplateCustomT();
+        $marginBottom = $templateModel->getTemplateCustomB();
+        $paperForms = $this->templatePaperForm->getAvailable();
+        $templatePaperForm = $templateModel->getTemplatePaperForm();
+        if (!$templatePaperForm) {
+            $templatePaperForm = 1;
+        }
+        $form = $paperForms[$templatePaperForm];
+        if ($ori == TemplatePaperOrientation::TEMAPLATE_PAPER_LANDSCAPE) {
+            $form = $paperForms[$templateModel->getTemplatePaperForm()] . '-' . $finalOri;
         }
 
-        $format = $size[$form] . $oris[$ori];
+        $config = [
+            'mode' => '',
+            'format' => $form,
+            'default_font_size' => '',
+            'default_font' => '',
+            'margin_left' => $templateModel->getTemplateCustomL(),
+            'margin_right' => $templateModel->getTemplateCustomR(),
+            'margin_top' => $marginTop,
+            'margin_bottom' => $marginBottom,
+            'margin_header' => 0,
+            'margin_footer' => 0,
+            'tempDir' => $this->directoryList->getPath('tmp')
+        ];
 
-        return $format;
+        if ($templateModel->getTemplateCustomForm()) {
+            $config = [
+                'mode' => '',
+                'format' => [
+                    $templateModel->getTemplateCustomW(),
+                    $templateModel->getTemplateCustomH()
+                ],
+                'default_font_size' => '',
+                'default_font' => '',
+                'margin_left' => $templateModel->getTemplateCustomL(),
+                'margin_right' => $templateModel->getTemplateCustomR(),
+                'margin_top' => $marginTop,
+                'margin_bottom' => $marginBottom,
+                'margin_header' => 0,
+                'margin_footer' => 0,
+                'tempDir' => $this->directoryList->getPath('tmp')
+            ];
+        }
+
+        return $config;
     }
 
     /**
