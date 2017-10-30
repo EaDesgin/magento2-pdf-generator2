@@ -55,8 +55,8 @@ class TemplatePaperOrientation extends AbstractSource
     public function getAvailable()
     {
         return [
-            self::TEMAPLATE_PAPER_PORTRAIT => __('Portrait'),
-            self::TEMAPLATE_PAPER_LANDSCAPE => __('Landscape'),
+            self::TEMAPLATE_PAPER_PORTRAIT => 'Portrait',
+            self::TEMAPLATE_PAPER_LANDSCAPE =>'Landscape',
         ];
     }
 }
