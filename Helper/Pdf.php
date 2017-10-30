@@ -229,8 +229,10 @@ class Pdf extends AbstractHelper
 
         $templateModel = $this->template;
 
-        if (!$templateModel->getTemplateCustomForm()) {
+        $oldErrorReporting = error_reporting();
+        error_reporting(0);
 
+        if (!$templateModel->getTemplateCustomForm()) {
             /** @var mPDF $pdf */
             //@codingStandardsIgnoreLine
             $pdf = new Mpdf($this->config($templateModel));
@@ -250,6 +252,8 @@ class Pdf extends AbstractHelper
         $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
         $pdfToOutput = $pdf->Output('', 'S');
 
+        error_reporting($oldErrorReporting);
+        
         return $pdfToOutput;
     }
 
