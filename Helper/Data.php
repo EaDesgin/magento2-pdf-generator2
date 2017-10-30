@@ -28,6 +28,7 @@ use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Framework\App\Helper\Context;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Store\Model\ScopeInterface;
+use Mpdf\Mpdf;
 
 /**
  * Handles the config and other settings
@@ -98,7 +99,7 @@ class Data extends AbstractHelper
      */
     private function mPDFExists()
     {
-        if (class_exists('mPDF')) {
+        if (class_exists(Mpdf::class)) {
             return true;
         }
         return false;
