@@ -253,7 +253,7 @@ class Pdf extends AbstractHelper
         $pdfToOutput = $pdf->Output('', 'S');
 
         error_reporting($oldErrorReporting);
-        
+
         return $pdfToOutput;
     }
 
@@ -312,26 +312,6 @@ class Pdf extends AbstractHelper
         }
 
         return $config;
-    }
-
-    /**
-     * Get the format and orientation, ex: A4-L
-     * @param $form
-     * @param $ori
-     * @return string
-     */
-    private function paperFormat($form, $ori)
-    {
-        $size = self::PAPER_SIZE;
-        $oris = self::PAPER_ORI;
-
-        if ($ori == TemplatePaperOrientation::TEMAPLATE_PAPER_PORTRAIT) {
-            return str_replace('-', '', $size[$form]);
-        }
-
-        $format = $size[$form] . $oris[$ori];
-
-        return $format;
     }
 
     /**

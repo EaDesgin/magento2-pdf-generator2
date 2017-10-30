@@ -14,7 +14,6 @@ install:
 
 script:
     - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
-    - php vendor/bin/phpmd Api/,Block/,Controller/,Helper/,Model/,Setup/,Test/,Ui/,view/ text Test/Php/_files/phpmd/ruleset.xml
 
 env:
     global:
