@@ -60,8 +60,8 @@ php bin/magento setup:upgrade;
 
 # Requirements
 
-* ~5.6.5|7.0.2|7.0.4|~7.0.6
-* https://github.com/EaDesgin/mpdf - the library for pdf generation.
+* ~5.6.0|7.0.2|7.0.4|~7.0.6|~7.1.0
+* https://github.com/mpdf/mpdf - the library for pdf generation.
 
 # Video install and use
 
