@@ -37,7 +37,8 @@ We use the exact same system to generate the variables.
 
 # Supported Versions
 
-Magento 2.1.*
+* Magento 2.1.*
+* Magento 2.2.*
 
 # Installation
 
