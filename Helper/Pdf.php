@@ -261,7 +261,7 @@ class Pdf extends AbstractHelper
      * @param Pdfgenerator $templateModel
      * @return array
      */
-    private function config($templateModel): array
+    private function config($templateModel)
     {
         $ori = $templateModel->getTemplatePaperOri();
         $orientation = $this->templatePaperOrientation->getAvailable();
