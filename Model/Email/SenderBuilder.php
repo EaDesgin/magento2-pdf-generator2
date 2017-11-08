@@ -102,6 +102,10 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
             return $this;
         }
 
+        if (!array_key_exists('invoice', $vars)) {
+            return $this;
+        }
+
         if ($vars['invoice'] instanceof Invoice) {
             $invoice = $vars['invoice'];
             $helper = $this->helper;
