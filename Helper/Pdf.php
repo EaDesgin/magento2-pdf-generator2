@@ -200,13 +200,14 @@ class Pdf extends AbstractHelper
 
         $invoice = $this->invoice;
         $order = $this->order;
-
+        $paymentTitle= $order->getPayment()->getMethodInstance()->getTitle();
         $transport = [
             'order' => $order,
             'invoice' => $invoice,
             'comment' => $invoice->getCustomerNoteNotify() ? $invoice->getCustomerNote() : '',
             'billing' => $order->getBillingAddress(),
             'payment_html' => $this->getPaymentHtml($order),
+            'paymentInfo' => $paymentTitle,
             'store' => $order->getStore(),
             'formattedShippingAddress' => $this->getFormattedShippingAddress($order),
             'formattedBillingAddress' => $this->getFormattedBillingAddress($order)
