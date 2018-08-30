@@ -5,6 +5,13 @@
 **Magento 2 Invoice PDF Generator** -  helps you to customize the pdf templates for Magento 2. 
 If you have an enabled template and a default template for the store you need your template the system will print the pdf template. 
 
+<a href="https://www.eadesign.ro/magento2-invoice-credit-memo-shipping-and-product-pdf-generator-pro.html">
+          <img
+            src="https://www.eadesign.ro/pub/media/wysiwyg/banner_git_pdfproAsset_4_2x.png?raw=true"
+            alt="B2C Theme demo"
+           >
+        </a>
+
 # How to use the module 
 Add a new template from the "Add new template" button. This will prompt you with a set of fields. 
 
