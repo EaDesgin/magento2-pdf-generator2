@@ -5,12 +5,14 @@ sudo: false
 php:
     - 7.0
     - 7.1
+    - 7.2
 
 install:
     - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > ~/.composer/auth.json
     - composer install --prefer-dist
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
     - magento-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../..
+    - php vendor/bin/phpunit Test/
 
 script:
     - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
