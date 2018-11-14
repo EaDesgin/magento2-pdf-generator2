@@ -20,6 +20,7 @@
 namespace Eadesigndev\Pdfgenerator\Model;
 
 use Eadesigndev\Pdfgenerator\Api\Data\TemplatesInterface;
+use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator as PdfgeneratorClass;
 use Magento\Framework\Model\AbstractModel;
 
 class Pdfgenerator extends AbstractModel implements TemplatesInterface
@@ -29,8 +30,11 @@ class Pdfgenerator extends AbstractModel implements TemplatesInterface
      * Init resource model for the templates
      * @return void
      */
+    //@codingStandardsIgnoreLine
     public function _construct()
     {
-        $this->_init('Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator');
+        $this->_init(
+            PdfgeneratorClass::class
+        );
     }
 }

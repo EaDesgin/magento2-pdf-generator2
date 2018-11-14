@@ -84,14 +84,14 @@ class Printinvoice
             return $result;
         }
 
-        return $this->_print($lastItem);
+        return $this->printPDF($lastItem);
     }
 
     /**
      * @param $lastItem
      * @return string
      */
-    public function _print($lastItem)
+    public function printPDF($lastItem)
     {
         return $this->urlInterface->getUrl(
             'pdfgenerator/*/printpdf',

@@ -79,6 +79,7 @@ class Pdfgenerator extends AbstractDb
      * Init resource model
      * @return void
      */
+    //@codingStandardsIgnoreLine
     public function _construct()
     {
         $this->_init('eadesign_pdf_templates', 'template_id');
@@ -90,6 +91,7 @@ class Pdfgenerator extends AbstractDb
      * @param AbstractModel $object
      * @return \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
+    //@codingStandardsIgnoreLine
     public function _afterLoad(AbstractModel $object)
     {
         if ($object->getId()) {
@@ -106,6 +108,7 @@ class Pdfgenerator extends AbstractDb
      * @param AbstractModel | \Magento\Framework\Model\AbstractModel $object
      * @return \Magento\Framework\Model\ResourceModel\Db\AbstractDb
      */
+    //@codingStandardsIgnoreLine
     public function _afterSave(AbstractModel $object)
     {
         $this->saveStoreRelation($object);

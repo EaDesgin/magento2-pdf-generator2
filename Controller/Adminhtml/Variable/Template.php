@@ -145,7 +145,7 @@ class Template extends Action
             );
 
             $templateBlock = $this->_view->getLayout()->createBlock(
-                'Magento\Email\Block\Adminhtml\Template\Edit'
+                \Magento\Email\Block\Adminhtml\Template\Edit::class
             );
             $template->setData(
                 'orig_template_currently_used_for',

@@ -28,6 +28,7 @@ class Templates extends Container
     /**
      * @return void;
      */
+    //@codingStandardsIgnoreLine
     public function _construct()
     {
 
@@ -51,6 +52,7 @@ class Templates extends Container
      * @param $resourceId
      * @return bool
      */
+    //@codingStandardsIgnoreLine
     public function _isAllowedAction($resourceId)
     {
         return $this->_authorization->isAllowed($resourceId);
