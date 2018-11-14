@@ -11,6 +11,7 @@ install:
     - composer install --prefer-dist
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
     - magento-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../..
+    - php vendor/bin/phpunit Test/
 
 script:
     - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
