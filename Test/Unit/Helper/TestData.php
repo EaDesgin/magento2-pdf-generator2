@@ -17,7 +17,7 @@ use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
  * Class Test
  * @package Eadesigndev\Pdfgenerator\Test\Unit\Helper
  */
-class TestData extends \PHPUnit_Framework_TestCase
+class TestData extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ScopeConfigInterface|\PHPUnit_Framework_MockObject_MockObject
