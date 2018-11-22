@@ -176,10 +176,10 @@ class Pdf extends AbstractHelper
     public function template2Pdf()
     {
         /**transport use to get the variables $order object, $invoice object and the template model object*/
-        $parts = $this->_transport();
+        $parts = $this->transport();
 
         /** instantiate the mPDF class and add the processed html to get the pdf*/
-        $applySettings = $this-> _eaPDFSettings($parts);
+        $applySettings = $this->eaPDFSettings($parts);
 
         $fileParts = [
             'filestream' => $applySettings,
@@ -195,7 +195,7 @@ class Pdf extends AbstractHelper
      *
      * @return string
      */
-    public function _transport()
+    public function transport()
     {
 
         $invoice = $this->invoice;
@@ -225,7 +225,7 @@ class Pdf extends AbstractHelper
      * @param $parts
      * @return string
      */
-    public function _eaPDFSettings($parts)
+    public function eaPDFSettings($parts)
     {
 
         $templateModel = $this->template;

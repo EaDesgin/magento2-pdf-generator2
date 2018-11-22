@@ -74,7 +74,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     public function send()
     {
         $vars = $this->templateContainer->getTemplateVars();
-        $this->_checkInvoice($vars);
+        $this->checkInvoice($vars);
 
         parent::send();
     }
@@ -85,7 +85,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     public function sendCopyTo()
     {
         $vars = $this->templateContainer->getTemplateVars();
-        $this->_checkInvoice($vars);
+        $this->checkInvoice($vars);
         parent::sendCopyTo();
     }
 
@@ -96,7 +96,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
      * @param $vars
      * @return $this
      */
-    private function _checkInvoice($vars)
+    private function checkInvoice($vars)
     {
         if (!$this->dataHelper->isEmail()) {
             return $this;

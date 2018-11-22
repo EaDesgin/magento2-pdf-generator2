@@ -32,12 +32,13 @@ class Collection extends AbstractCollection
      * Init resource model
      * @return void
      */
+    //@codingStandardsIgnoreLine
     public function _construct()
     {
 
         $this->_init(
-            'Eadesigndev\Pdfgenerator\Model\Pdfgenerator',
-            'Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator'
+            \Eadesigndev\Pdfgenerator\Model\Pdfgenerator::class,
+            \Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator::class
         );
 
         $this->_map['fields']['template_id'] = 'main_table.template_id';
@@ -65,6 +66,7 @@ class Collection extends AbstractCollection
      *
      * @return \Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection
      */
+    //@codingStandardsIgnoreLine
     public function _afterLoad()
     {
         $this->performAfterLoad('eadesign_pdf_store', 'template_id');
@@ -77,6 +79,7 @@ class Collection extends AbstractCollection
      *
      * @return void
      */
+    //@codingStandardsIgnoreLine
     public function _renderFiltersBefore()
     {
         $this->joinStoreRelationTable('eadesign_pdf_store', 'template_id');
