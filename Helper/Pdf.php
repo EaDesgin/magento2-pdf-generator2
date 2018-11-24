@@ -199,7 +199,7 @@ class Pdf extends AbstractHelper
      *
      * @return string
      */
-    public function transport()
+    private function transport()
     {
 
         $invoice = $this->invoice;
@@ -229,7 +229,7 @@ class Pdf extends AbstractHelper
      * @param $parts
      * @return string
      */
-    public function eaPDFSettings($parts)
+    private function eaPDFSettings($parts)
     {
 
         $templateModel = $this->template;
@@ -243,7 +243,9 @@ class Pdf extends AbstractHelper
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
 
-        $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
+        $css = $templateModel->getTemplateCss();
+
+        $pdf->WriteHTML($css, 1);
 
         //@codingStandardsIgnoreLine
         $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
@@ -315,7 +317,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return mixed
      */
-    public function getPaymentHtml(Order $order)
+    private function getPaymentHtml(Order $order)
     {
         return $this->paymentHelper->getInfoBlockHtml(
             $order->getPayment(),
@@ -327,7 +329,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null
      */
-    public function getFormattedShippingAddress(Order $order)
+    private function getFormattedShippingAddress(Order $order)
     {
         return $order->getIsVirtual()
             ? null
@@ -338,7 +340,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null|string
      */
-    public function getFormattedBillingAddress(Order $order)
+    private function getFormattedBillingAddress(Order $order)
     {
         /** @var \Magento\Sales\Model\Order\Address $billing */
         $billing = $order->getBillingAddress();
