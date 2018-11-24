@@ -31,7 +31,7 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Mpdf\Mpdf;
+use Eadesigndev\Pdfgenerator\Model\MpdfFactory;
 
 /**
  * Class Pdf
@@ -108,6 +108,8 @@ class Pdf extends AbstractHelper
 
     private $directoryList;
 
+    private $mpdfFactory;
+
     /**
      * Pdf constructor.
      * @param Context $context
@@ -124,7 +126,8 @@ class Pdf extends AbstractHelper
         Processor $templateFactory,
         DirectoryList $directoryList,
         TemplatePaperForm $templatePaperForm,
-        TemplatePaperOrientation $templatePaperOrientation
+        TemplatePaperOrientation $templatePaperOrientation,
+        MpdfFactory $mpdfFactory
     ) {
         $this->processor                = $templateFactory;
         $this->paymentHelper            = $paymentHelper;
@@ -133,6 +136,7 @@ class Pdf extends AbstractHelper
         $this->directoryList            = $directoryList;
         $this->templatePaperForm        = $templatePaperForm;
         $this->templatePaperOrientation = $templatePaperOrientation;
+        $this->mpdfFactory              = $mpdfFactory;
         parent::__construct($context);
     }
 
@@ -231,18 +235,10 @@ class Pdf extends AbstractHelper
         $templateModel = $this->template;
 
         $oldErrorReporting = error_reporting();
-        error_reporting(0);
 
-        if (!$templateModel->getTemplateCustomForm()) {
-            /** @var mPDF $pdf */
-            //@codingStandardsIgnoreLine
-            $pdf = new Mpdf($this->config($templateModel));
-        }
+        $config = $this->config($templateModel);
 
-        if ($templateModel->getTemplateCustomForm()) {
-            //@codingStandardsIgnoreLine
-            $pdf = new Mpdf($this->config($templateModel));
-        }
+        $pdf = $this->mpdfFactory->create($config);
 
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
