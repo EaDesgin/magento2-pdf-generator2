@@ -20,7 +20,7 @@
 namespace Eadesigndev\Pdfgenerator\Helper;
 
 use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\Collection;
-use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as templateCollectionFactory;
+use Eadesigndev\Pdfgenerator\Model\ResourceModel\Pdfgenerator\CollectionFactory as TemplateCollectionFactory;
 use Eadesigndev\Pdfgenerator\Model\Source\AbstractSource;
 use Eadesigndev\Pdfgenerator\Model\Source\TemplateActive;
 use Magento\Framework\App\Config\ScopeConfigInterface;
@@ -55,13 +55,13 @@ class Data extends AbstractHelper
     /**
      * Data constructor.
      * @param Context $context
-     * @param templateCollectionFactory $_templateCollection
+     * @param templateCollectionFactory $templateCollection
      */
     public function __construct(
         Context $context,
-        templateCollectionFactory $_templateCollection
+        TemplateCollectionFactory $templateCollection
     ) {
-        $this->templateCollection = $_templateCollection;
+        $this->templateCollection = $templateCollection;
         $this->config = $context->getScopeConfig();
         parent::__construct($context);
     }
@@ -86,7 +86,6 @@ class Data extends AbstractHelper
      */
     public function isEnable()
     {
-        //@codingStandardsIgnoreLine
         if (!$this->mPDFExists() || !$this->collection()->count()) {
             return false;
         }
@@ -137,7 +136,7 @@ class Data extends AbstractHelper
     /**
      * @return Collection
      */
-    public function collection()
+    private function collection()
     {
         $collection = $this->templateCollection->create();
         return $collection;
