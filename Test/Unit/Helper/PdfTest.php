@@ -24,7 +24,6 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Email\Container\InvoiceIdentity;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Framework\App\Helper\Context;
-use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Mpdf\Mpdf;
@@ -248,7 +247,6 @@ class PdfTest extends TestCase
         $this->mpdfMock->expects($this->once())
             ->method('Output')
             ->will($this->returnValue($result));
-
 
         $pdfOutput = $this->subject->template2Pdf();
 
