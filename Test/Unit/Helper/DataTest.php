@@ -15,7 +15,6 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\Context;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Invoice;
-use Magento\Store\Model\ScopeInterface;
 use Mpdf\Mpdf;
 
 /**
