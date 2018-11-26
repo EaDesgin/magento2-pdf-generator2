@@ -64,12 +64,12 @@ class DataTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($this->scopeConfigInterface));
 
         $this->pdfGeneratorCollectionFactory = $this->getMockBuilder(PdfGeneratorCollectionFactory::class)
-            ->setMethods(['create', 'getLastItem'])
+            ->setMethods(['create'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $this->pdfGeneratorCollection = $this->getMockBuilder(PdfGeneratorCollection::class)
-            ->setMethods(['count', 'addStoreFilter', 'addFieldToFilter', 'getLastItem'])
+            ->setMethods(['getSize', 'addStoreFilter', 'addFieldToFilter', 'getLastItem'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -91,7 +91,7 @@ class DataTest extends \PHPUnit\Framework\TestCase
         }
 
         $this->pdfGeneratorCollection->expects($this->once())
-            ->method('count')
+            ->method('getSize')
             ->will($this->returnValue(0));
 
         $this->assertFalse($this->subject->isEnable());
@@ -104,7 +104,7 @@ class DataTest extends \PHPUnit\Framework\TestCase
         }
 
         $this->pdfGeneratorCollection->expects($this->once())
-            ->method('count')
+            ->method('getSize')
             ->will($this->returnValue(1));
 
         $this->scopeConfigInterface->expects($this->once())
@@ -158,7 +158,7 @@ class DataTest extends \PHPUnit\Framework\TestCase
     public function testIsEmail()
     {
         $this->pdfGeneratorCollection->expects($this->once())
-            ->method('count')
+            ->method('getSize')
             ->will($this->returnValue(1));
 
         $scope = $this->scopeConfigInterface;

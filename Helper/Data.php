@@ -86,7 +86,7 @@ class Data extends AbstractHelper
      */
     public function isEnable()
     {
-        if (!$this->mPDFExists() || !$this->collection()->count()) {
+        if (!$this->mPDFExists() || !$this->collection()->getSize()) {
             return false;
         }
 
