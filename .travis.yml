@@ -1,3 +1,9 @@
+env:
+    global:
+        - secure: "ZNWdGGBw/kKOBDCD6tINTeJFRb7vBl2nCTTYGCkVUZDEws6YgXJQL24lfAfC7EpFaC9aIoExJd3If1JayPO3oYWxl8RAG0dQ6b9MBIPhxSfENk1v18pu2CQarFpuliyKucQ2PmSfQTClTChJkmJJVt2Ky7CuVxmXFb6Ex4bTARI1B21qfHfhJAnVK8TZpuWXkcNMJFkbfdU0Csv8RTIIMsU+n2DU6ewTUrMbP72YCZWtUHcWe1ks7OsIngIEPEGPNrgpUOqtL8rHHplSSs954l8EmniVdQKiEMCCZLUVPOzhcOYitcR/7EDku97AYmrE7nJg0KvJzPNCOYiAU+GF4LHu/xl+WxiUxfO9SSuTR9wEBpoM/7OgpU9F4GS7pDmtaWJrND4lE1e/74IQJ8yxnJQW6l6tXJEC3VU6FNFQHonSzNtw20dtVwV599Z6hJP6ygzC84PWNfdJs+dj14eZCoRBg91fYvpzqfhueS86NL8T9fJktYWfkopXetubZxI2wJ8MUMmGwU+o4OjuBFZ6jwrx692AqE39NimlyGxViHSayMJgAJCz4OD6EozkKWQ1StachK1dBQW7cMv2qWCC9SrGE/8t8/qZfNRZI+MmGbL0uA4TEcKt+dmvJhMuKUMlCcGCG+gceefZemo1KCYD7YOVGCFUxHCun+q16sOt3ZQ="
+        - secure: "ed7jdL3xM8k6Hh34/6C2QFN36Tlbgr5lxife7byTVmG2VBbGP1JEi7fdYqSa9AH8b917zpKPoTkBB4UaAv/YhvBqIAytB0cnuNO1rCtbwd5wPTtNxnI7p0Scsd5vQCG3NG6blttR9sQqhX73xYh4qdypCqJxJqGosLVSGnvNrDkU91H5VQfTk5BjrMdtyzVDQzkThWD4bfkt8p9WBsB5Ewd9CcW1EEmD435w5ZL5WyU04uyyv4aMpoxNOCdHIRmltkyN8C8CxmrCazNUji5vStsEY3tgFz8BVS9JLZ7bYEhS9ZRnUaN44a7okGZcJNFkQnry0CU1pwI+xa3W9ebksVCwFrn4W3ba+0+ZIv8OCv//jLoLlBjrNObRItxFwFjgiGfvE+c6Jeqk8osT0xcfXQMWRd0wQxEFn3RtHSy6VO1mZHQmHm6MQ/hekIdr6fE2FpR/w0XKP9A+Vry3kq3FbF4TkvNYPLP4JkhERsJLy3pdc3AgxFpIybee2L5ymMUWhbYDn9qflwIpc7ndIExdertJAK361BaOMVI7c0n0gNKKvTuOJkVT7zSuU7WGjNLzkLOZhpuKZMz+CxGEsttQ98Eq+5XLTs2CrtLeDSw9MdgY/4SoRzb35R9UCyn69xPQIgRPkiSniA75ekZg8hyCcLUeH1j4U8+VJPcHEpwbV1E="
+        - CC_TEST_REPORTER_ID=7a7d4b47b943a94fcbb158c590b0def1b54ba9b15a94c86769500dc078b251cd
+
 language: php
 
 sudo: false
@@ -13,10 +19,14 @@ install:
     - magento-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../..
     - php vendor/bin/phpunit Test/
 
+before_script:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+    - ./cc-test-reporter before-build
+
 script:
     - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
 
-env:
-    global:
-        - secure: "ZNWdGGBw/kKOBDCD6tINTeJFRb7vBl2nCTTYGCkVUZDEws6YgXJQL24lfAfC7EpFaC9aIoExJd3If1JayPO3oYWxl8RAG0dQ6b9MBIPhxSfENk1v18pu2CQarFpuliyKucQ2PmSfQTClTChJkmJJVt2Ky7CuVxmXFb6Ex4bTARI1B21qfHfhJAnVK8TZpuWXkcNMJFkbfdU0Csv8RTIIMsU+n2DU6ewTUrMbP72YCZWtUHcWe1ks7OsIngIEPEGPNrgpUOqtL8rHHplSSs954l8EmniVdQKiEMCCZLUVPOzhcOYitcR/7EDku97AYmrE7nJg0KvJzPNCOYiAU+GF4LHu/xl+WxiUxfO9SSuTR9wEBpoM/7OgpU9F4GS7pDmtaWJrND4lE1e/74IQJ8yxnJQW6l6tXJEC3VU6FNFQHonSzNtw20dtVwV599Z6hJP6ygzC84PWNfdJs+dj14eZCoRBg91fYvpzqfhueS86NL8T9fJktYWfkopXetubZxI2wJ8MUMmGwU+o4OjuBFZ6jwrx692AqE39NimlyGxViHSayMJgAJCz4OD6EozkKWQ1StachK1dBQW7cMv2qWCC9SrGE/8t8/qZfNRZI+MmGbL0uA4TEcKt+dmvJhMuKUMlCcGCG+gceefZemo1KCYD7YOVGCFUxHCun+q16sOt3ZQ="
-        - secure: "ed7jdL3xM8k6Hh34/6C2QFN36Tlbgr5lxife7byTVmG2VBbGP1JEi7fdYqSa9AH8b917zpKPoTkBB4UaAv/YhvBqIAytB0cnuNO1rCtbwd5wPTtNxnI7p0Scsd5vQCG3NG6blttR9sQqhX73xYh4qdypCqJxJqGosLVSGnvNrDkU91H5VQfTk5BjrMdtyzVDQzkThWD4bfkt8p9WBsB5Ewd9CcW1EEmD435w5ZL5WyU04uyyv4aMpoxNOCdHIRmltkyN8C8CxmrCazNUji5vStsEY3tgFz8BVS9JLZ7bYEhS9ZRnUaN44a7okGZcJNFkQnry0CU1pwI+xa3W9ebksVCwFrn4W3ba+0+ZIv8OCv//jLoLlBjrNObRItxFwFjgiGfvE+c6Jeqk8osT0xcfXQMWRd0wQxEFn3RtHSy6VO1mZHQmHm6MQ/hekIdr6fE2FpR/w0XKP9A+Vry3kq3FbF4TkvNYPLP4JkhERsJLy3pdc3AgxFpIybee2L5ymMUWhbYDn9qflwIpc7ndIExdertJAK361BaOMVI7c0n0gNKKvTuOJkVT7zSuU7WGjNLzkLOZhpuKZMz+CxGEsttQ98Eq+5XLTs2CrtLeDSw9MdgY/4SoRzb35R9UCyn69xPQIgRPkiSniA75ekZg8hyCcLUeH1j4U8+VJPcHEpwbV1E="
+after_script:
+    - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+
