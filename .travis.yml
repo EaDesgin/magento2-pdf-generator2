@@ -22,7 +22,7 @@ before_script:
 
 script:
     - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
-    - php  test_coverage/vendor/bin/phpunit Test/ --coverage-clover=test_coverage/build/logs/clover.xml
+    - php vendor/bin/phpunit Test/ --coverage-clover=test_coverage/build/logs/clover.xml
 
 after_script:
     - cd test_coverage && php composer/bin/test-reporter
