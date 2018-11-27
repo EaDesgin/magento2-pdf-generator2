@@ -16,7 +16,7 @@ install:
     - composer install --prefer-dist
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
     - magento-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../..
-    - mkdir test_coverage && cd test_coverage && composer require codeclimate/php-test-reporter --dev && cd ..
+    - mkdir test_coverage && cd test_coverage && composer require codeclimate/php-test-reporter --no-interaction --dev && cd ..
 
 before_script:
 
