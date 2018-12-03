@@ -13,7 +13,8 @@ php:
 
 install:
     - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > ~/.composer/auth.json
-    - composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.2.7
+    - composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento 2.2.7
+    - cd magento
     - composer require eadesignro/module-pdfgenerator
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
     - composer require codeclimate/php-test-reporter
@@ -23,4 +24,4 @@ script:
     - php vendor/bin/phpunit vendor/eadesignro/module-pdfgenerator/Test/Unit --config dev/tests/unit/phpunit.xml.dist --coverage-clover=build/logs/clover.xml
 
 after_script:
-    - php php vendor/bin/test-reporter
+    - php vendor/bin/test-reporter
