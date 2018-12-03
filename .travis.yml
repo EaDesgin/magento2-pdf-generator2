@@ -13,16 +13,14 @@ php:
 
 install:
     - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > ~/.composer/auth.json
-    - composer install --prefer-dist
+    - composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.2.7
+    - composer require eadesignro/module-pdfgenerator
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
-    - magento-coding-standard/vendor/bin/phpcs --config-set installed_paths ../../..
-    - mkdir test_coverage && cd test_coverage && composer require codeclimate/php-test-reporter --no-interaction --dev && cd ..
-
-before_script:
+    - composer require codeclimate/php-test-reporter
 
 script:
-    - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
-    - php vendor/bin/phpunit Test/Unit --config Test/Php/_files/phpunit/phpunit.xml --coverage-clover=test_coverage/build/logs/clover.xml
+    - php magento-coding-standard/vendor/bin/phpcs --standard=vendor/eadesignro/module-pdfgenerator/Test/Php/_files/phpcs/ruleset.xml vendor/eadesignro/module-pdfgenerator/Api/ vendor/eadesignro/module-pdfgenerator/Block/ vendor/eadesignro/module-pdfgenerator/Controller/ vendor/eadesignro/module-pdfgenerator/Helper/ vendor/eadesignro/module-pdfgenerator/Model/ vendor/eadesignro/module-pdfgenerator/Setup/ vendor/eadesignro/module-pdfgenerator/Test/ vendor/eadesignro/module-pdfgenerator/Ui/ vendor/eadesignro/module-pdfgenerator/view/
+    - php vendor/bin/phpunit vendor/eadesignro/module-pdfgenerator/Test/Unit --config dev/tests/unit/phpunit.xml.dist --coverage-clover=build/logs/clover.xml
 
 after_script:
-    - cd test_coverage && php composer/bin/test-reporter
+    - php php vendor/bin/test-reporter
