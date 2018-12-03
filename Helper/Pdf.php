@@ -31,7 +31,7 @@ use Magento\Framework\App\Helper\Context;
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Sales\Model\Order\Invoice;
 use Magento\Framework\App\Filesystem\DirectoryList;
-use Mpdf\Mpdf;
+use Eadesigndev\Pdfgenerator\Model\MpdfFactory;
 
 /**
  * Class Pdf
@@ -108,6 +108,8 @@ class Pdf extends AbstractHelper
 
     private $directoryList;
 
+    private $mpdfFactory;
+
     /**
      * Pdf constructor.
      * @param Context $context
@@ -124,7 +126,8 @@ class Pdf extends AbstractHelper
         Processor $templateFactory,
         DirectoryList $directoryList,
         TemplatePaperForm $templatePaperForm,
-        TemplatePaperOrientation $templatePaperOrientation
+        TemplatePaperOrientation $templatePaperOrientation,
+        MpdfFactory $mpdfFactory
     ) {
         $this->processor                = $templateFactory;
         $this->paymentHelper            = $paymentHelper;
@@ -133,6 +136,7 @@ class Pdf extends AbstractHelper
         $this->directoryList            = $directoryList;
         $this->templatePaperForm        = $templatePaperForm;
         $this->templatePaperOrientation = $templatePaperOrientation;
+        $this->mpdfFactory              = $mpdfFactory;
         parent::__construct($context);
     }
 
@@ -195,7 +199,7 @@ class Pdf extends AbstractHelper
      *
      * @return string
      */
-    public function transport()
+    private function transport()
     {
 
         $invoice = $this->invoice;
@@ -225,29 +229,23 @@ class Pdf extends AbstractHelper
      * @param $parts
      * @return string
      */
-    public function eaPDFSettings($parts)
+    private function eaPDFSettings($parts)
     {
 
         $templateModel = $this->template;
 
         $oldErrorReporting = error_reporting();
-        error_reporting(0);
 
-        if (!$templateModel->getTemplateCustomForm()) {
-            /** @var mPDF $pdf */
-            //@codingStandardsIgnoreLine
-            $pdf = new Mpdf($this->config($templateModel));
-        }
+        $config = $this->config($templateModel);
 
-        if ($templateModel->getTemplateCustomForm()) {
-            //@codingStandardsIgnoreLine
-            $pdf = new Mpdf($this->config($templateModel));
-        }
+        $pdf = $this->mpdfFactory->create($config);
 
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
 
-        $pdf->WriteHTML($templateModel->getTemplateCss(), 1);
+        $css = $templateModel->getTemplateCss();
+
+        $pdf->WriteHTML($css, 1);
 
         //@codingStandardsIgnoreLine
         $pdf->WriteHTML('<body>' . html_entity_decode($parts['body']) . '</body>');
@@ -319,7 +317,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return mixed
      */
-    public function getPaymentHtml(Order $order)
+    private function getPaymentHtml(Order $order)
     {
         return $this->paymentHelper->getInfoBlockHtml(
             $order->getPayment(),
@@ -331,7 +329,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null
      */
-    public function getFormattedShippingAddress(Order $order)
+    private function getFormattedShippingAddress(Order $order)
     {
         return $order->getIsVirtual()
             ? null
@@ -342,7 +340,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null|string
      */
-    public function getFormattedBillingAddress(Order $order)
+    private function getFormattedBillingAddress(Order $order)
     {
         /** @var \Magento\Sales\Model\Order\Address $billing */
         $billing = $order->getBillingAddress();
