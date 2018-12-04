@@ -29,10 +29,10 @@
     }
   ],
   "require": {
-    "php": "~7.0.13|~7.1.3|~7.2.0",
-    "magento/module-backend": "100.2.*|101.0.*",
-    "magento/module-sales": "101.0.*|102.0.*",
-    "magento/framework": "101.0.*|102.0.*",
+    "php": "~7.1.3|~7.2.0",
+    "magento/module-backend": "101.0.*",
+    "magento/module-sales": "102.0.*",
+    "magento/framework": "102.0.*",
     "eadesignro/module-eacore": "^0.2.10",
     "mpdf/mpdf": "v7.1.*"
   },
