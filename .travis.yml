@@ -8,20 +8,15 @@ language: php
 sudo: false
 
 php:
-    - 7.0
     - 7.1
+    - 7.2
 
 install:
     - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > ~/.composer/auth.json
-    - composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento 2.2.7
-    - cd magento
-    - composer require eadesignro/module-pdfgenerator
+    - composer install --prefer-dist
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
-    - composer require codeclimate/php-test-reporter
 
 script:
-    - php magento-coding-standard/vendor/bin/phpcs --standard=vendor/eadesignro/module-pdfgenerator/Test/Php/_files/phpcs/ruleset.xml vendor/eadesignro/module-pdfgenerator/Api/ vendor/eadesignro/module-pdfgenerator/Block/ vendor/eadesignro/module-pdfgenerator/Controller/ vendor/eadesignro/module-pdfgenerator/Helper/ vendor/eadesignro/module-pdfgenerator/Model/ vendor/eadesignro/module-pdfgenerator/Setup/ vendor/eadesignro/module-pdfgenerator/Test/ vendor/eadesignro/module-pdfgenerator/Ui/ vendor/eadesignro/module-pdfgenerator/view/
-    - php vendor/bin/phpunit vendor/eadesignro/module-pdfgenerator/Test/Unit --config dev/tests/unit/phpunit.xml.dist --coverage-clover=build/logs/clover.xml
-
-after_script:
-    - php vendor/bin/test-reporter
+    - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
+    - php php vendor/bin/phpmd Api/,Block/,Controller/,Helper/,Model/,Setup/,Ui/,view/ text Test/Php/_files/phpmd/ruleset.xml
+    - php vendor/bin/phpunit Test/
