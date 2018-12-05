@@ -8,7 +8,8 @@ php:
     - 7.2
 
 install:
-    - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > ~/.composer/auth.json
+    - touch auth.json
+    - echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > auth.json
     - composer install --prefer-dist
     - composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
 
@@ -16,7 +17,6 @@ script:
     - php magento-coding-standard/vendor/bin/phpcs --standard=Test/Php/_files/phpcs/ruleset.xml Api/ Block/ Controller/ Helper/ Model/ Setup/ Test/ Ui/ view/
     - php vendor/bin/phpmd Api/,Block/,Controller/,Helper/,Model/,Setup/,Ui/,view/ text Test/Php/_files/phpmd/ruleset.xml
     - php vendor/bin/phpunit Test/
-
 
 env:
     global:
