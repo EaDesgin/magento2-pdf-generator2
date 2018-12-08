@@ -1,9 +1,7 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: lmiculescu
- * Date: 11/23/18
- * Time: 6:50 PM
+ * Copyright © EAdesign by Eco Active S.R.L.,All rights reserved.
+ * See LICENSE for license details.
  */
 
 namespace Eadesigndev\Pdfgenerator\Test\Unit\Helper;
