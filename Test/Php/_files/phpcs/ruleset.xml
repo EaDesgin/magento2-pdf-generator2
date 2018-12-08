@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * Copyright © EAdesign by Eco Active S.R.L.,All rights reserved.
+ * See LICENSE for license details.
+ */
+-->
 <ruleset name="MEQP2">
     <description>Magento 2 EQP Coding Standard</description>
     <!-- Include PSR2 standard. -->
