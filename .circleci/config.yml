@@ -2,6 +2,8 @@ version: 2
 
 jobs:
   build:
+    environment:
+      CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
     docker:
       - image: circleci/php:7.1-node-browsers
     working_directory: ~/magento
@@ -38,6 +40,8 @@ jobs:
       - run: mkdir ~/.composer && touch ~/.composer/auth.json
       - run: echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_KEY}\",\"password\":\"${MAGENTO_SECRET}\"}}}" > ~/.composer/auth.json
       - run: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.3.0
+      - run: composer require mpdf/mpdf
+      - run: composer require eadesignro/module-eacore
       - run: mkdir -p app/code/Eadesigndev/Pdfgenerator
       - checkout:
           path: app/code/Eadesigndev/Pdfgenerator
@@ -47,3 +51,25 @@ jobs:
       - run:
           name: Install marketplace qulity tools
           command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
+
+      - run:
+          name: Qulity verifications code sniffer
+          command: php magento-coding-standard/vendor/bin/phpcs --standard=app/code/Eadesigndev/Pdfgenerator/Test/Php/_files/phpcs/ruleset.xml app/code/Eadesigndev/Pdfgenerator/Api/ app/code/Eadesigndev/Pdfgenerator/Block/ app/code/Eadesigndev/Pdfgenerator/Controller/ app/code/Eadesigndev/Pdfgenerator/Helper/ app/code/Eadesigndev/Pdfgenerator/Model/ app/code/Eadesigndev/Pdfgenerator/Setup/ app/code/Eadesigndev/Pdfgenerator/Test/ app/code/Eadesigndev/Pdfgenerator/Ui/ app/code/Eadesigndev/Pdfgenerator/view/
+      - run:
+          name: Qulity verifications mess dedector
+          command: php vendor/bin/phpmd app/code/Eadesigndev/Pdfgenerator/Api/,app/code/Eadesigndev/Pdfgenerator/Block/,app/code/Eadesigndev/Pdfgenerator/Controller/,app/code/Eadesigndev/Pdfgenerator/Helper/,app/code/Eadesigndev/Pdfgenerator/Model/,app/code/Eadesigndev/Pdfgenerator/Setup/,app/code/Eadesigndev/Pdfgenerator/Ui/,app/code/Eadesigndev/Pdfgenerator/view/ text  app/code/Eadesigndev/Pdfgenerator/Test/Php/_files/phpmd/ruleset.xml
+      - run:
+          name: Run unit tests
+          command: php vendor/bin/phpunit app/code/Eadesigndev/Pdfgenerator/Test/ --config dev/tests/unit/phpunit.xml.dist --coverage-clover= app/code/Eadesigndev/Pdfgenerator/build/logs/clover.xml
+      - run:
+          name: Get the reporter script
+          command: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+      - run:
+          name: Make the executable
+          commnad: chmod +x ./cc-test-reporter
+      - run:
+          name: Run the before script
+          command: ./cc-test-reporter before-build
+      - run:
+          name: Rune the reporter
+          command: ./cc-test-reporter after-build -r CC_TEST_REPORTER_ID --coverage-input-type clover --exit-code $?
