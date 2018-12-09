@@ -60,7 +60,7 @@ jobs:
           command: php vendor/bin/phpmd app/code/Eadesigndev/Pdfgenerator/Api/,app/code/Eadesigndev/Pdfgenerator/Block/,app/code/Eadesigndev/Pdfgenerator/Controller/,app/code/Eadesigndev/Pdfgenerator/Helper/,app/code/Eadesigndev/Pdfgenerator/Model/,app/code/Eadesigndev/Pdfgenerator/Setup/,app/code/Eadesigndev/Pdfgenerator/Ui/,app/code/Eadesigndev/Pdfgenerator/view/ text  app/code/Eadesigndev/Pdfgenerator/Test/Php/_files/phpmd/ruleset.xml
       - run:
           name: Run unit tests
-          command: php vendor/bin/phpunit app/code/Eadesigndev/Pdfgenerator/Test/ --config dev/tests/unit/phpunit.xml.dist --coverage-clover= app/code/Eadesigndev/Pdfgenerator/build/logs/clover.xml
+          command: php vendor/bin/phpunit app/code/Eadesigndev/Pdfgenerator/Test/ --config dev/tests/unit/phpunit.xml.dist --coverage-clover=app/code/Eadesigndev/Pdfgenerator/build/logs/clover.xml
       - run: cd app/code/Eadesigndev/Pdfgenerator
       - run:
           name: Get the reporter script
