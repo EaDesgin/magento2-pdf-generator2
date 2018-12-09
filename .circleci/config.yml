@@ -61,15 +61,15 @@ jobs:
       - run:
           name: Run unit tests
           command: php vendor/bin/phpunit app/code/Eadesigndev/Pdfgenerator/Test/ --config dev/tests/unit/phpunit.xml.dist --coverage-clover= app/code/Eadesigndev/Pdfgenerator/build/logs/clover.xml
-      - run:
-          name: Get the reporter script
-          command: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - run:
-          name: Make the executable
-          commnad: chmod +x ./cc-test-reporter
-      - run:
-          name: Run the before script
-          command: ./cc-test-reporter before-build
-      - run:
-          name: Rune the reporter
-          command: ./cc-test-reporter after-build -r CC_TEST_REPORTER_ID --coverage-input-type clover --exit-code $?
+#      - run:
+#          name: Get the reporter script
+#          command: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+#      - run:
+#          name: Make the executable
+#          commnad: chmod +x ./cc-test-reporter
+#      - run:
+#          name: Run the before script
+#          command: ./cc-test-reporter before-build
+#      - run:
+#          name: Rune the reporter
+#          command: ./cc-test-reporter after-build -r CC_TEST_REPORTER_ID --coverage-input-type clover --exit-code $?
