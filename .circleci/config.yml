@@ -2,10 +2,10 @@ version: 2
 
 jobs:
   build:
-    environment:
-      CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
     docker:
       - image: circleci/php:7.1-node-browsers
+    environment:
+      CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
     working_directory: ~/magento
     steps:
       - run:
