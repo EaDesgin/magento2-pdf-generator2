@@ -6,8 +6,42 @@ jobs:
       - image: circleci/php:7.1-node-browsers
     working_directory: ~/magento
     steps:
+      - run:
+          name: Install libpng-dev for gd
+          command: sudo apt-get install -y libpng-dev
+      - run:
+          name: Install PHP gd extension
+          command: sudo docker-php-ext-install gd
+      - run:
+          name: Install PHP bcmath extension
+          command: sudo docker-php-ext-install bcmath
+      - run:
+          name: Install libmcrypt-dev for mycript
+          command: sudo apt-get install -y libmcrypt-dev
+      - run:
+          name: Install PHP mcrypt extension
+          command: sudo docker-php-ext-install mcrypt
+      - run:
+          name: Install libxslt-dev for xsl
+          command: sudo apt-get install -y libxslt-dev
+      - run:
+          name: Install PHP xsl extension
+          command: sudo docker-php-ext-install xsl
+      - run:
+          name: Install PHP pdo_mysql extension
+          command: sudo docker-php-ext-install pdo_mysql
+      - run:
+          name: Install PHP soap extension
+          command: sudo docker-php-ext-install soap
+
       - run: sudo composer self-update
-      - run: echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_KEY}\",\"password\":\"${MAGENTO_SECRET}\"}}}" > auth.json
-      - run: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento 2.2.7
+      - run: echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_KEY}\",\"password\":\"${MAGENTO_SECRET}\"}}}" > ~/.composer/auth.json
+      - run: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.3.0
       - checkout:
           path: /magento/app/code/Eadesigndev/Pdfgenerator
+      - run:
+          name: Install code climate
+          command: composer create-project codeclimate/php-test-reporter codeclimate
+      - run:
+          name: Install marketplace qulity tools
+          command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
