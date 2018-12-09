@@ -38,8 +38,9 @@ jobs:
       - run: mkdir ~/.composer && touch ~/.composer/auth.json
       - run: echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_KEY}\",\"password\":\"${MAGENTO_SECRET}\"}}}" > ~/.composer/auth.json
       - run: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.3.0
+      - run: mkdir -p app/code/Eadesigndev/Pdfgenerator
       - checkout:
-          path: /magento/app/code/Eadesigndev/Pdfgenerator
+          path: app/code/Eadesigndev/Pdfgenerator
       - run:
           name: Install code climate
           command: composer create-project codeclimate/php-test-reporter codeclimate
