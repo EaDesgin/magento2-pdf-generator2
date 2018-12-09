@@ -6,6 +6,8 @@ jobs:
       - image: circleci/php:7.1-node-browsers
     working_directory: ~/magento
     steps:
-      - checkout
       - run: sudo composer self-update
-      - run: composer install -n --prefer-dist
+      - run: echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_KEY}\",\"password\":\"${MAGENTO_SECRET}\"}}}" > auth.json
+      - run: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition magento 2.2.7
+      - checkout:
+          path: /magento/app/code/Eadesigndev/Pdfgenerator
