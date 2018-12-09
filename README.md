@@ -1,9 +1,10 @@
-# Magento Invoice PDF Generator
+# Magento Invoice PDF Generator [![CircleCI](https://circleci.com/gh/EaDesgin/magento2-pdf-generator2.svg?style=svg)](https://circleci.com/gh/EaDesgin/magento2-pdf-generator2)
 
-[![Build Status](https://travis-ci.org/EaDesgin/magento2-pdf-generator2.svg?branch=master)](https://travis-ci.org/EaDesgin/magento2-pdf-generator2)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/a0e292336dc421b6c903/maintainability)](https://codeclimate.com/github/EaDesgin/magento2-pdf-generator2/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a0e292336dc421b6c903/test_coverage)](https://codeclimate.com/github/EaDesgin/magento2-pdf-generator2/test_coverage)
 
+[![](https://img.shields.io/packagist/v/eadesignro/module-pdfgenerator.svg)](https://packagist.org/packages/eadesignro/module-pdfgenerator) [![](https://img.shields.io/packagist/dt/eadesignro/module-pdfgenerator.svg)](https://packagist.org/packages/eadesignro/module-pdfgenerator)
 
 **Magento 2 Invoice PDF Generator** -  helps you to customize the pdf templates for Magento 2. 
 If you have an enabled template and a default template for the store you need your template the system will print the pdf template. 
@@ -49,6 +50,7 @@ We use the exact same system to generate the variables.
 
 * Magento 2.1.*
 * Magento 2.2.*
+* Magento 2.3.*
 
 # Installation
 
@@ -70,7 +72,7 @@ php bin/magento setup:upgrade;
 
 # Requirements
 
-* ~5.6.0|7.0.2|7.0.4|~7.0.6|~7.1.0
+* ~7.1.3|~7.2.0
 * https://github.com/mpdf/mpdf - the library for pdf generation.
 
 # Video install and use
