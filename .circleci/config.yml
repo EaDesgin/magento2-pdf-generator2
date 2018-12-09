@@ -4,9 +4,9 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.1-node-browsers
-#    environment:
-#      CC_TEST_REPORTER_ID: $CC_TEST_REPORTER_ID
+
     working_directory: ~/magento
+
     steps:
       - run:
           name: Install libpng-dev for gd
@@ -42,9 +42,11 @@ jobs:
       - run: composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.3.0
       - run: composer require mpdf/mpdf
       - run: composer require eadesignro/module-eacore
+
       - run: mkdir -p app/code/Eadesigndev/Pdfgenerator
       - checkout:
           path: app/code/Eadesigndev/Pdfgenerator
+
       - run:
           name: Install code climate
           command: composer create-project codeclimate/php-test-reporter codeclimate
