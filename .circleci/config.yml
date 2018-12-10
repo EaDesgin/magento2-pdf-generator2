@@ -72,4 +72,4 @@ jobs:
           command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter before-build
       - run:
           name: Rune the reporter
-          command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter after-build -r $CC_TEST_REPORTER_ID --prefix ~/magento/app/code/ --coverage-input-type clover --exit-code $?
+          command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter after-build -r $CC_TEST_REPORTER_ID --prefix ~/magento/app/code --coverage-input-type clover --exit-code $?
