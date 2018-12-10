@@ -16,7 +16,7 @@ use Magento\Framework\Message\ManagerInterface;
 /**
  * Test for \Pdfgenerator\Model\PdfgeneratorRepository
  * Class PdfgeneratorRepositoryTest
- * @package Eadesigndev\Pdfgenerator\Test\Integration 
+ * @package Eadesigndev\Pdfgenerator\Test\Integration
  */
 class PdfgeneratorRepositoryTest extends \PHPUnit\Framework\TestCase
 {
