@@ -51,18 +51,7 @@ class DataProvider extends AbstractDataProvider
         $this->collection = $templateCollectionFactory->create();
         $this->dataPersistor = $dataPersistor;
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
-        $this->meta = $this->prepareMeta($this->meta);
-    }
-
-    /**
-     * Prepares Meta
-     *
-     * @param array $meta
-     * @return array
-     */
-    public function prepareMeta(array $meta)
-    {
-        return $meta;
+        $this->meta = $meta;
     }
 
     /**

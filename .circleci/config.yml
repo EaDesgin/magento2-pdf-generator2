@@ -48,8 +48,11 @@ jobs:
           path: app/code/Eadesigndev/Pdfgenerator
 
       - run:
-          name: Install code climate
-          command: composer create-project codeclimate/php-test-reporter codeclimate
+          name: Enable all module
+          command: php bin/magento module:enable --all
+      - run:
+          name: Run compilation
+          command: php -d memory_limit=6G bin/magento setup:di:compile
       - run:
           name: Install marketplace qulity tools
           command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
@@ -63,16 +66,3 @@ jobs:
       - run:
           name: Run unit tests
           command: php vendor/bin/phpunit app/code/Eadesigndev/Pdfgenerator/Test/ --config dev/tests/unit/phpunit.xml.dist --coverage-clover=app/code/Eadesigndev/Pdfgenerator/build/logs/clover.xml
-
-      - run:
-          name: Get the reporter script
-          command: cd app/code/Eadesigndev/Pdfgenerator && curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      - run:
-          name: Make the executable
-          command: cd app/code/Eadesigndev/Pdfgenerator && chmod +x ./cc-test-reporter
-      - run:
-          name: Run the before script
-          command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter before-build
-      - run:
-          name: Rune the reporter
-          command: cd app/code/Eadesigndev/Pdfgenerator && ./cc-test-reporter after-build -r $CC_TEST_REPORTER_ID --coverage-input-type clover --exit-code $?

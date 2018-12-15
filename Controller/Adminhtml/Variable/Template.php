@@ -17,6 +17,7 @@ use Magento\Framework\Registry;
 use Magento\Framework\Json\Helper\Data as JsonHelperData;
 use Magento\Variable\Model\Variable as VariableModel;
 use Magento\Email\Model\Source\Variables as EmailVariables;
+use Eadesigndev\Pdfgenerator\Model\Email\VariablesFacrory;
 use Magento\Email\Model\BackendTemplate as EmailBackendTemplate;
 use Zend_Json;
 
@@ -64,7 +65,7 @@ class Template extends Action
     /**
      * @var EmailVariables
      */
-    private $emailVariables;
+    private $variablesFacrory;
 
     /**
      * @var EmailBackendTemplate
@@ -79,7 +80,7 @@ class Template extends Action
      * @param JsonFactory $resultJsonFactory
      * @param JsonHelperData $jsonHelperData
      * @param VariableModel $variableModel
-     * @param EmailVariables $emailVariables
+     * @param VariablesFacrory $variablesFacrory
      * @param EmailBackendTemplate $emailBackendTemplate
      */
     public function __construct(
@@ -89,7 +90,7 @@ class Template extends Action
         JsonFactory $resultJsonFactory,
         JsonHelperData $jsonHelperData,
         VariableModel $variableModel,
-        EmailVariables $emailVariables,
+        VariablesFacrory $variablesFacrory,
         EmailBackendTemplate $emailBackendTemplate
     ) {
 
@@ -99,7 +100,7 @@ class Template extends Action
         $this->resultJsonFactory = $resultJsonFactory;
         $this->jsonHelperData = $jsonHelperData;
         $this->variableModel = $variableModel;
-        $this->emailVariables = $emailVariables;
+        $this->variablesFacrory = $variablesFacrory;
         $this->emailBackendTemplate = $emailBackendTemplate;
     }
 
@@ -149,7 +150,7 @@ class Template extends Action
 
         $customVariables = $this->variableModel
             ->getVariablesOptionArray(true);
-        $storeContactVariables = $this->emailVariables->toOptionArray(true);
+        $storeContactVariables = $this->variablesFacrory->create()->toOptionArray(true);
         /** @var Json $resultJson */
         $resultJson = $this->resultJsonFactory->create();
         return $resultJson->setData([

@@ -2,7 +2,6 @@
 
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/a0e292336dc421b6c903/maintainability)](https://codeclimate.com/github/EaDesgin/magento2-pdf-generator2/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a0e292336dc421b6c903/test_coverage)](https://codeclimate.com/github/EaDesgin/magento2-pdf-generator2/test_coverage)
 
 [![](https://img.shields.io/packagist/v/eadesignro/module-pdfgenerator.svg)](https://packagist.org/packages/eadesignro/module-pdfgenerator) [![](https://img.shields.io/packagist/dt/eadesignro/module-pdfgenerator.svg)](https://packagist.org/packages/eadesignro/module-pdfgenerator)
 
