@@ -52,7 +52,7 @@ jobs:
           command: php bin/magento module:enable --all
       - run:
           name: Run compilation
-          command: php bin/magento setup:di:compile
+          command: php -d memory_limit=6G bin/magento setup:di:compile
       - run:
           name: Install marketplace qulity tools
           command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
