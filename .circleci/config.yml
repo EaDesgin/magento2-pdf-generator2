@@ -48,6 +48,9 @@ jobs:
           path: app/code/Eadesigndev/Pdfgenerator
 
       - run:
+          name: Run compilation
+          command: php bin/magento setup:di:compile
+      - run:
           name: Install marketplace qulity tools
           command: composer create-project --repository=https://repo.magento.com magento/marketplace-eqp magento-coding-standard
 
