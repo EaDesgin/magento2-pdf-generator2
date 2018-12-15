@@ -48,6 +48,9 @@ jobs:
           path: app/code/Eadesigndev/Pdfgenerator
 
       - run:
+          name: Enable all module
+          command: php bin/magento module:enable --all
+      - run:
           name: Run compilation
           command: php bin/magento setup:di:compile
       - run:
