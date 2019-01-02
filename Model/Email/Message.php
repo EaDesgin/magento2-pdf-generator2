@@ -12,7 +12,6 @@ use Zend\Mime\MessageFactory as MimeFactory;
  * Class Message
  * @package Eadesigndev\Pdfgenerator\Model\Email
  * @deprecated
- * @todo Move all this to plugin
  */
 class Message extends \Magento\Framework\Mail\Message implements MailMessageInterface
 {
