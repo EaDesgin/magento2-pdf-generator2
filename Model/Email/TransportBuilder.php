@@ -6,34 +6,14 @@
 
 namespace Eadesigndev\Pdfgenerator\Model\Email;
 
-class TransportBuilder extends \Magento\Framework\Mail\Template\TransportBuilder
-{
-    /**
-     *
-     * Add attachments to the email
-     *
-     * @param $body
-     * @param $mimeType
-     * @param $disposition
-     * @param $encoding
-     * @param null $filename
-     * @return $this
-     */
-    public function addAttachment(
-        $body,
-        $mimeType = \Zend_Mime::TYPE_OCTETSTREAM,
-        $disposition = \Zend_Mime::DISPOSITION_ATTACHMENT,
-        $encoding = \Zend_Mime::ENCODING_BASE64,
-        $filename = null
-    ) {
-        $this->message->createAttachment(
-            $body,
-            $mimeType,
-            $disposition,
-            $encoding,
-            $filename
-        );
+use Magento\Framework\Mail\Template\TransportBuilder as TransportBuilderParent;
 
+class TransportBuilder extends TransportBuilderParent
+{
+
+    public function addAttachment($content, $fileName)
+    {
+        $this->message->setBodyAttachment($content, $fileName);
         return $this;
     }
 }

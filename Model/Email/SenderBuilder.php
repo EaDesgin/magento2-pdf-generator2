@@ -114,9 +114,6 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
 
             $this->transportBuilder->addAttachment(
                 $pdfFileData['filestream'],
-                \Zend_Mime::TYPE_OCTETSTREAM,
-                \Zend_Mime::DISPOSITION_ATTACHMENT,
-                \Zend_Mime::ENCODING_BASE64,
                 $pdfFileData['filename'] . $date . '.pdf'
             );
         }
