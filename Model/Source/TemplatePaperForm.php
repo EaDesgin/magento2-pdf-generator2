@@ -14,21 +14,6 @@ use Magento\Framework\View\Model\PageLayout\Config\BuilderInterface;
 class TemplatePaperForm extends AbstractSource
 {
     /**
-     * @var \Magento\Framework\View\Model\PageLayout\Config\BuilderInterface
-     */
-    private $pageLayoutBuilder;
-
-    /**
-     * Constructor
-     *
-     * @param BuilderInterface $pageLayoutBuilder
-     */
-    public function __construct(BuilderInterface $pageLayoutBuilder)
-    {
-        $this->pageLayoutBuilder = $pageLayoutBuilder;
-    }
-
-    /**
      * Paper types
      */
     const TEMAPLATE_PAPER_FORM_A4 = 1;
