@@ -16,7 +16,6 @@ use Magento\Framework\Controller\Result\JsonFactory;
 use Magento\Framework\Registry;
 use Magento\Framework\Json\Helper\Data as JsonHelperData;
 use Magento\Variable\Model\Variable as VariableModel;
-use Magento\Email\Model\Source\Variables as EmailVariables;
 use Eadesigndev\Pdfgenerator\Model\Email\VariablesFacrory;
 use Magento\Email\Model\BackendTemplate as EmailBackendTemplate;
 use Zend_Json;
@@ -63,7 +62,7 @@ class Template extends Action
     private $variableModel;
 
     /**
-     * @var EmailVariables
+     * @var VariablesFacrory
      */
     private $variablesFacrory;
 
