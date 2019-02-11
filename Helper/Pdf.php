@@ -225,7 +225,7 @@ class Pdf extends AbstractHelper
 
         $config = $this->config($templateModel);
 
-        $pdf = $this->mpdfFactory->create(['config' => $config]);
+        $pdf = $this->mpdfFactory->create($config);
 
         $pdf->SetHTMLHeader($parts['header']);
         $pdf->SetHTMLFooter($parts['footer']);
