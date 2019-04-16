@@ -101,9 +101,9 @@ class Message extends \Magento\Framework\Mail\Message implements MailMessageInte
     /**
      * {@inheritdoc}
      */
-    public function setFrom($fromAddress)
+    public function setFromAddress($fromAddress, $fromName = null)
     {
-        $this->zendMessage->setFrom($fromAddress);
+        $this->zendMessage->setFrom($fromAddress, $fromName);
         return $this;
     }
 
@@ -153,7 +153,6 @@ class Message extends \Magento\Framework\Mail\Message implements MailMessageInte
 
     private function createHtmlMimeFromString($htmlBody)
     {
-        // $htmlPart = $this->partFactory->create([$htmlBody]);
         $htmlPart = new Part($htmlBody);
         $htmlPart->setCharset($this->zendMessage->getEncoding());
         $htmlPart->setType(Mime::TYPE_HTML);
