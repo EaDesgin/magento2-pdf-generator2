@@ -176,7 +176,7 @@
                 <item name="config" xsi:type="array">
                     <item name="dataType" xsi:type="string">int</item>
                     <item name="label" xsi:type="string" translate="true">Store View</item>
-                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
                     <item name="source" xsi:type="string">template</item>
                     <item name="dataScope" xsi:type="string">store_id</item>
                     <item name="default" xsi:type="string">0</item>
