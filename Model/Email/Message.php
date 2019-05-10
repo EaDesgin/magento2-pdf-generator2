@@ -7,6 +7,7 @@ use Zend\Mime\Mime;
 use Zend\Mime\PartFactory;
 use Zend\Mail\MessageFactory as MailFactory;
 use Zend\Mime\MessageFactory as MimeFactory;
+use Zend\Mime\Part;
 
 /**
  * Class Message
@@ -100,9 +101,9 @@ class Message extends \Magento\Framework\Mail\Message implements MailMessageInte
     /**
      * {@inheritdoc}
      */
-    public function setFrom($fromAddress)
+    public function setFromAddress($fromAddress, $fromName = null)
     {
-        $this->zendMessage->setFrom($fromAddress);
+        $this->zendMessage->setFrom($fromAddress, $fromName);
         return $this;
     }
 
@@ -152,7 +153,7 @@ class Message extends \Magento\Framework\Mail\Message implements MailMessageInte
 
     private function createHtmlMimeFromString($htmlBody)
     {
-        $htmlPart = $this->partFactory->create([$htmlBody]);
+        $htmlPart = $this->partFactory->create(['content' => $htmlBody]);
         $htmlPart->setCharset($this->zendMessage->getEncoding());
         $htmlPart->setType(Mime::TYPE_HTML);
         $mimeMessage = $this->mimeMessageFactory->create();
