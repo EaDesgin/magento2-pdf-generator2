@@ -37,20 +37,22 @@ class PdfTest extends TestCase
     ];
 
     const CONFIG = [
-        'mode' => '',
-        'format' => [
-            0 => null,
-            1 => null
-        ],
-        'default_font_size' => '',
-        'default_font' => '',
-        'margin_left' => null,
-        'margin_right' => null,
-        'margin_top' => null,
-        'margin_bottom' => null,
-        'margin_header' => 0,
-        'margin_footer' => 0,
-        'tempDir' => null,
+        'config' => [
+            'mode' => '',
+            'format' => [
+                0 => null,
+                1 => null
+            ],
+            'default_font_size' => '',
+            'default_font' => '',
+            'margin_left' => null,
+            'margin_right' => null,
+            'margin_top' => null,
+            'margin_bottom' => null,
+            'margin_header' => 0,
+            'margin_footer' => 0,
+            'tempDir' => null,
+        ]
     ];
 
     /**
