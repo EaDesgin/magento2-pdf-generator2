@@ -38,33 +38,33 @@ class Printpdf extends Abstractpdf
     /**
      * @var DateTime
      */
-    public $dateTime;
+    protected $dateTime;
 
     /**
      * @var FileFactory
      */
 
-    public $fileFactory;
+    protected $fileFactory;
     /**
      * @var ForwardFactory
      */
 
-    public $resultForwardFactory;
+    protected $resultForwardFactory;
 
     /**
      * @var Pdf
      */
-    public $helper;
+    protected $helper;
 
     /**
      * @var PdfgeneratorRepository
      */
-    public $pdfGeneratorRepository;
+    protected $pdfGeneratorRepository;
 
     /**
      * @var InvoiceRepository
      */
-    public $invoiceRepository;
+    protected $invoiceRepository;
 
     /**
      * Printpdf constructor.

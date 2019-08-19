@@ -20,17 +20,17 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     /**
      * @var Pdf
      */
-    public $helper;
+    protected $helper;
 
     /**
      * @var Data
      */
-    public $dataHelper;
+    protected $dataHelper;
 
     /**
      * @var DateTime
      */
-    public $dateTime;
+    protected $dateTime;
 
     /**
      * SenderBuilder constructor.
