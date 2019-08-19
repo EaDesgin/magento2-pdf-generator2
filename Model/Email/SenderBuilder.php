@@ -20,17 +20,17 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
     /**
      * @var Pdf
      */
-    private $helper;
+    public $helper;
 
     /**
      * @var Data
      */
-    private $dataHelper;
+    public $dataHelper;
 
     /**
      * @var DateTime
      */
-    private $dateTime;
+    public $dateTime;
 
     /**
      * SenderBuilder constructor.
@@ -83,7 +83,7 @@ class SenderBuilder extends \Magento\Sales\Model\Order\Email\SenderBuilder
      * @param $vars
      * @return $this
      */
-    private function checkInvoice($vars)
+    public function checkInvoice($vars)
     {
         if (!$this->dataHelper->isEmail()) {
             return $this;

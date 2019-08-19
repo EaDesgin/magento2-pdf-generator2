@@ -38,33 +38,33 @@ class Printpdf extends Abstractpdf
     /**
      * @var DateTime
      */
-    private $dateTime;
+    public $dateTime;
 
     /**
      * @var FileFactory
      */
 
-    private $fileFactory;
+    public $fileFactory;
     /**
      * @var ForwardFactory
      */
 
-    private $resultForwardFactory;
+    public $resultForwardFactory;
 
     /**
      * @var Pdf
      */
-    private $helper;
+    public $helper;
 
     /**
      * @var PdfgeneratorRepository
      */
-    private $pdfGeneratorRepository;
+    public $pdfGeneratorRepository;
 
     /**
      * @var InvoiceRepository
      */
-    private $invoiceRepository;
+    public $invoiceRepository;
 
     /**
      * Printpdf constructor.
@@ -152,7 +152,7 @@ class Printpdf extends Abstractpdf
     /**
      * @return $this
      */
-    private function returnNoRoute()
+    public function returnNoRoute()
     {
         return $this->resultForwardFactory->create()->forward('noroute');
     }

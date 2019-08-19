@@ -87,15 +87,15 @@ class Pdf extends AbstractHelper
     /**
      * @var TemplatePaperForm
      */
-    private $templatePaperForm;
+    public $templatePaperForm;
     /**
      * @var TemplatePaperOrientation
      */
-    private $templatePaperOrientation;
+    public $templatePaperOrientation;
 
-    private $directoryList;
+    public $directoryList;
 
-    private $mpdfFactory;
+    public $mpdfFactory;
 
     /**
      * Pdf constructor.
@@ -186,7 +186,7 @@ class Pdf extends AbstractHelper
      *
      * @return string
      */
-    private function transport()
+    public function transport()
     {
 
         $invoice = $this->invoice;
@@ -216,7 +216,7 @@ class Pdf extends AbstractHelper
      * @param $parts
      * @return string
      */
-    private function eaPDFSettings($parts)
+    public function eaPDFSettings($parts)
     {
 
         $templateModel = $this->template;
@@ -247,7 +247,7 @@ class Pdf extends AbstractHelper
      * @param Pdfgenerator $templateModel
      * @return array
      */
-    private function config($templateModel)
+    public function config($templateModel)
     {
         $ori = $templateModel->getTemplatePaperOri();
         $orientation = $this->templatePaperOrientation->getAvailable();
@@ -304,7 +304,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return mixed
      */
-    private function getPaymentHtml(Order $order)
+    public function getPaymentHtml(Order $order)
     {
         return $this->paymentHelper->getInfoBlockHtml(
             $order->getPayment(),
@@ -316,7 +316,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null
      */
-    private function getFormattedShippingAddress(Order $order)
+    public function getFormattedShippingAddress(Order $order)
     {
         return $order->getIsVirtual()
             ? null
@@ -327,7 +327,7 @@ class Pdf extends AbstractHelper
      * @param Order $order
      * @return null|string
      */
-    private function getFormattedBillingAddress(Order $order)
+    public function getFormattedBillingAddress(Order $order)
     {
         /** @var \Magento\Sales\Model\Order\Address $billing */
         $billing = $order->getBillingAddress();
