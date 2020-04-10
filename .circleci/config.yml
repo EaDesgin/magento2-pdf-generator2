@@ -13,14 +13,14 @@ jobs:
             name: Setup test environment
             command: |
                   sudo apt-get install -y libpng-dev
-                  sudo docker-php-ext-install gd
-                  sudo docker-php-ext-install bcmath
+                  sudo -E docker-php-ext-install gd
+                  sudo -E docker-php-ext-install bcmath
                   sudo apt-get install -y libmcrypt-dev
-                  sudo docker-php-ext-install mcrypt
+                  sudo -E docker-php-ext-install mcrypt
                   sudo apt-get install -y libxslt-dev
-                  sudo docker-php-ext-install xsl
-                  sudo docker-php-ext-install pdo_mysql
-                  sudo docker-php-ext-install soap
+                  sudo -E docker-php-ext-install xsl
+                  sudo -E docker-php-ext-install pdo_mysql
+                  sudo -E docker-php-ext-install soap
     - run:
             name: Setup composer details
             command: |
