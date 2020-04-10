@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:7.1-node-browsers
+      - image: circleci/php:7.3-node-browsers
 
     working_directory: ~/magento
 
@@ -28,7 +28,7 @@ jobs:
                   mkdir ~/.composer
                   touch ~/.composer/auth.json
                   echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_KEY}\",\"password\":\"${MAGENTO_SECRET}\"}}}" > ~/.composer/auth.json
-                  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.3.0
+                  composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition . 2.3.4
                   composer require mpdf/mpdf
                   composer require eadesignro/module-eacore
                   mkdir -p app/code/Eadesigndev/Pdfgenerator
