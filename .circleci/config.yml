@@ -23,6 +23,7 @@ jobs:
     - run:
             name: Setup composer details
             command: |
+                  export COMPOSER_MEMORY_LIMIT=-1
                   sudo composer self-update
                   mkdir ~/.composer
                   touch ~/.composer/auth.json
