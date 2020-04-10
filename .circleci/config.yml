@@ -16,7 +16,6 @@ jobs:
                   sudo -E docker-php-ext-install gd
                   sudo -E docker-php-ext-install bcmath
                   sudo apt-get install -y libmcrypt-dev
-                  sudo -E docker-php-ext-install mcrypt
                   sudo apt-get install -y libxslt-dev
                   sudo -E docker-php-ext-install xsl
                   sudo -E docker-php-ext-install pdo_mysql
