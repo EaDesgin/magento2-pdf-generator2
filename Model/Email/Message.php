@@ -21,7 +21,7 @@ class Message extends \Magento\Framework\Mail\Message implements MailMessageInte
 
     private $mimeMessageFactory;
 
-    private $zendMessage;
+    protected $zendMessage;
 
     private $attachment;
 
