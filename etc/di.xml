@@ -10,13 +10,10 @@
                 type="Eadesigndev\Pdfgenerator\Model\Pdfgenerator" />
     <preference for="Eadesigndev\Pdfgenerator\Api\TemplatesRepositoryInterface"
                 type="Eadesigndev\Pdfgenerator\Model\PdfgeneratorRepository" />
-    <preference for="\Magento\Framework\Mail\Template\TransportBuilder"
-                type="Eadesigndev\Pdfgenerator\Model\Email\TransportBuilder"/>
     <preference for="\Magento\Sales\Model\Order\Email\SenderBuilder"
                 type="Eadesigndev\Pdfgenerator\Model\Email\SenderBuilder"/>
-    <preference for="Magento\Framework\Mail\Message"
-                type="Eadesigndev\Pdfgenerator\Model\Email\Message"/>
-
+    <preference for="\Magento\Framework\Mail\Template\TransportBuilder"
+                type="Eadesigndev\Pdfgenerator\Model\Email\TransportBuilder"/>
 
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
